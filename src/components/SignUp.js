@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/signUp.css";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -79,7 +82,12 @@ const SignUp = () => {
               </button>
             </div>
             <div>
-              <button className="Login-btn">
+              <button
+                className="Login-btn"
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
                 Already have an account? Login Here
               </button>
             </div>

@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import "../styles/LogIn.css";
+import { useNavigate } from "react-router-dom";
+import "../styles/logIn.css";
 
 const LogIn = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <h1> Sign In</h1>
@@ -22,8 +25,16 @@ const LogIn = () => {
         ></input>
         <button type="submit">Sign In</button>
       </form>
-
-      <button>Don't have an account? Sign up Here</button>
+      <div>
+        <p> Don't have an account?</p>
+        <button
+          onClick={() => {
+            navigate("/signUp");
+          }}
+        >
+          Sign up Here
+        </button>
+      </div>
     </>
   );
 };
