@@ -1,15 +1,13 @@
-
-
 .titleSignin {
-    display: flex;
+  display: flex;
   font-size: 40px;
   justify-content: center;
 }
 
-.form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 40px;
-    
+.form  {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 40px;
+  width: 200px;
 }

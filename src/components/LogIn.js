@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/logIn.css";
+import { AuthProvider } from "react-auth-kit";
 
 const LogIn = () => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const LogIn = () => {
           Sign up Here
         </button>
       </div>
-      </div>
+    </div>
   );
 };
 

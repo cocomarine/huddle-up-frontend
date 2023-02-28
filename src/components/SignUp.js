@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/signUp.css";
 
 const SignUp = () => {
+  // const userRef =useRef();
+// to focus on the user input when the component load
+
+const [user, setUser ] = useState('')
+
+const [pswd, setPswd] = useState('')
+
+
+
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {

@@ -4,6 +4,7 @@ import "../styles/home.css";
 
 const Home = () => {
   const navigate = useNavigate();
+
   return (
     <>
       <body>
@@ -21,8 +22,8 @@ const Home = () => {
       <button
         className="loginBtn"
         onClick={() => {
-          navigate("/login");
-        }}
+          navigate("/login") ;
+        }} 
         >
         Login
       </button>
