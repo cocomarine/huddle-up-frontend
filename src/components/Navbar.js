@@ -1,16 +1,15 @@
-import React from "react";
-// import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { useState } from "react";
+import { MdReorder } from "react-icons/md";
 import "../styles/navbar.css";
-import SignUp from "./SignUp";
-import LogIn from "./LogIn";
-import Home from "./Home";
-import MyProfile from "./MyProfile";
+
 
 const Navbar = () => {
+  const [showLinks, setShowLinks] = useState(false);
+
   return (
     <div className="navbar">
       <div className="left-side">
-      <div className="links">
+        <div className="links" id={showLinks ? "hidden" : ""}>
           <a href="/">Home</a>
           <a href="/login">Login</a>
           <a href="/myevents"> My Events</a>
@@ -18,13 +17,14 @@ const Navbar = () => {
           <a href="/signup">Sign up</a>
           {/* <a href="/"> Sign Out</a> */}
         </div>
-        <button>Open</button>
+        <div className="nav-button" onClick={() => setShowLinks(!showLinks)} >
+          < MdReorder size="2.5rem" color="white"/>
+        </div>
       </div>
-      <div className="right-side">
+      {/* <div className="right-side">
         <input type="text" placeholder="Search..."></input>
         <button>Search</button>
-        
-      </div>
+      </div> */}
     </div>
   );
 };

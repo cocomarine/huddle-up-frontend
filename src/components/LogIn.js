@@ -6,9 +6,9 @@ const LogIn = () => {
   const navigate = useNavigate();
 
   return (
-    <>
-      <h1> Sign In</h1>
-      <form>
+    <div className="page">
+      <h1 className="titleSignin"> Login</h1>
+      <form className="form">
         <label htmlFor="email">Email </label>
         <input
           type="email"
@@ -35,7 +35,7 @@ const LogIn = () => {
           Sign up Here
         </button>
       </div>
-    </>
+      </div>
   );
 };
 
