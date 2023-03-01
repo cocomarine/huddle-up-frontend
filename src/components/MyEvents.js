@@ -1,18 +1,14 @@
 import React from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import EventCard from "./EventCard";
+import VotedEventCard from "./VotedEventCard";
 import "../styles/myevents.css";
 
 const MyEvents = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   return (
     <div>
-      <div>
-        <h1>Welcome Back ${location.state.id}</h1>
-      </div>
-
       <h4> My Current Events</h4>
-
       <div>
         <button onClick={navigate("/myevents")} type="submit">
           Join an event
@@ -36,6 +32,14 @@ const MyEvents = () => {
           <button onClick={navigate("/myevents")} type="submit">
             Create a new event
           </button>
+        </div>
+      </div>
+      <div className="events-cards">
+        <div className="events-cards-voted">
+          <VotedEventCard />
+        </div>
+        <div className="events-cards-voting">
+          <EventCard />
         </div>
       </div>
     </div>

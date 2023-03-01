@@ -24,13 +24,6 @@ function App() {
           </Routes>
         </BrowserRouter>
       </div>
-      <div>
-      {/* <BrowserRouter>
-          <Routes>
-      <Route path="/" element={<Home />}></Route>
-      </Routes>
-        </BrowserRouter> */}
-      </div>
     </div>
   );
 }
