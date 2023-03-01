@@ -10,9 +10,21 @@ const LogIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //api request
+
     try {
-      await axios.post("http://localhost:4000/login", { email, password });
+      await axios
+        .post("http://localhost:4000/login", { email, password })
+        .then((res) => {
+          if (res.data === "exist") {
+            navigate("/myevents", { state: { id: email } });
+          } else if (res.data === "!exist") {
+            alert("User have not sign up");
+          }
+        })
+        .catch((e) => {
+          alert("Please check your email and password are correct");
+          console.log(e);
+        });
     } catch (err) {
       console.log(err);
     }
