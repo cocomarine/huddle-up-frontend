@@ -15,6 +15,7 @@ function App() {
         <BrowserRouter>
         <Navbar />
           <Routes>
+            <Route path="/" element={<Home />}></Route>
             <Route path="/signup" element={<SignUp />}></Route>
             <Route path="/login" element={<LogIn />}></Route>
             <Route path="/myProfile" element={<MyProfile />}></Route>
@@ -24,11 +25,11 @@ function App() {
         </BrowserRouter>
       </div>
       <div>
-      <BrowserRouter>
+      {/* <BrowserRouter>
           <Routes>
       <Route path="/" element={<Home />}></Route>
       </Routes>
-        </BrowserRouter>
+        </BrowserRouter> */}
       </div>
     </div>
   );
