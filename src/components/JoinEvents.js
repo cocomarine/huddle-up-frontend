@@ -12,7 +12,7 @@ const JoinEvents = () => {
       <h4> Enter Your invitation code to join and vote on an event</h4>
 
       <div>
-        <input type="number" placeholder="Enter your code"></input>
+        <input type="text" placeholder="Enter your code"></input>
         <button onClick={navigate("/myevents")} type="submit">
           Join
         </button>

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { MdReorder } from "react-icons/md";
-import { Link, Router,  } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../styles/navbar.css";
+// import logo from "../../public/Huddles_Logo.png";
 
 const Navbar = () => {
   const [showLinks, setShowLinks] = useState(false);
 
   return (
     <div className="navbar">
-      <div className="left-side">
+      <div className="rightSide">
         <div className="links" id={showLinks ? "hidden" : ""}>
-
           <Link to="/">Home</Link>
           <Link to="/login">Login</Link>
           <Link to="/myprofile"> My Profile</Link>
@@ -22,10 +22,11 @@ const Navbar = () => {
           <MdReorder size="2.5rem" color="white" />
         </div>
       </div>
-      {/* <div className="right-side">
-        <input type="text" placeholder="Search..."></input>
-        <button>Search</button>
-      </div> */}
+      <div className="leftSide">
+        {/* <input type="text" placeholder="Search..."></input>
+        <button>Search</button> */}
+        {/* <h1 className="title">HuddleUp</h1> */}
+      </div>
     </div>
   );
 };

@@ -18,7 +18,7 @@ const Home = () => {
         At nostrum atque. Id suscipit assumenda sit asperiores incidunt sit
         nulla nisi et odit repudiandae.
       </p>
-      <div>
+      <div className="buttons">
       <button
         className="loginBtn"
         onClick={() => {

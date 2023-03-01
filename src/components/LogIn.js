@@ -1,20 +1,33 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../styles/logIn.css";
-import { AuthProvider } from "react-auth-kit";
-
 const LogIn = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    //api request
+    try {
+      await axios.post("http://localhost:4000/login", { email, password });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="page">
       <h1 className="titleSignin"> Login</h1>
-      <form className="form">
+      <form className="form" action="POST">
         <label htmlFor="email">Email </label>
         <input
           type="email"
           id="email"
           placeholder="youremail@email.com"
+          onChange={(e) => setEmail(e.target.value)}
           required
         ></input>
         <label htmlFor="password">Password </label>
@@ -22,9 +35,12 @@ const LogIn = () => {
           type="password"
           id="password"
           placeholder="*******"
+          onChange={(e) => setPassword(e.target.value)}
           required
         ></input>
-        <button type="submit">Sign In</button>
+        <button type="submit" onSubmit={handleSubmit}>
+          Login
+        </button>
       </form>
       <div>
         <p> Don't have an account?</p>

@@ -6,14 +6,13 @@
   display: flex;
 }
 
-.navbar .right-side {
+.navbar .leftide {
   flex: 30%;
   align-items: center;
   display: flex;
-  justify-content: flex-end;
   padding-right: 15px;
 }
-.right-side input {
+/* .right-side input {
   width: 200px;
   height: 30px;
   border-style: solid;
@@ -25,29 +24,29 @@
   height: 30px;
   width: 70px;
   font-size: 17px;
-}
-.navbar .left-side .links {
+} */
+.navbar .rightSide .links {
   max-height: 150px;
 }
-.navbar .left-side .links a {
+.navbar .rightSide .links a {
   text-decoration: none;
   color: white;
   font-size: 18px;
   margin-left: 10px;
 }
 
-.navbar .left-side #hidden {
+.navbar .rightSide #hidden {
   display: flex;
 }
 
-.navbar .left-side {
+.navbar .rightSide {
   display: flex;
   flex: 70%;
-  justify-content: left;
+  justify-content: right;
   align-items: center;
 }
 
-.navbar .left-side .nav-button {
+.navbar .right-side .nav-button {
   display: none;
   margin-left: 14px;
 }
@@ -57,22 +56,22 @@ button:hover {
 }
 
 @media only screen and (max-width: 850px) {
-  .navbar .left-side .links a {
+  .navbar .rightSide .links a {
     font-size: 16px;
   }
 }
 
 @media only screen and (max-width: 750px) {
-  .navbar .left-side .links a {
+  .navbar .rightSide .links a {
     font-size: 14px;
   }
 }
 
 @media only screen and (max-width: 650px) {
-  .navbar .left-side .links {
+  .navbar .rightSide .links {
     display: none;
   }
-  .navbar .left-side .nav-button {
+  .navbar .rightSide .nav-button {
     display: flex;
   }
   .navbar .left-side #hidden {
