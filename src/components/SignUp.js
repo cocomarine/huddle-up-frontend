@@ -1,14 +1,14 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/signUp.css";
 
 const SignUp = () => {
-  // const userRef =useRef();
-// to focus on the user input when the component load
+  const [firstName, setFirstName]= useState("")
+  const [lastName, setlastName]= useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  
 
-const [user, setUser ] = useState('')
-
-const [pswd, setPswd] = useState('')
 
 
 
@@ -20,41 +20,28 @@ const [pswd, setPswd] = useState('')
   return (
     <>
       <div className="container">
-        <h1 className="title">Registraion</h1>
+        <h1 className="title">Sign Up</h1>
         <form className="signup-form" onSubmit={handleSubmit}>
-          <div className="user-details">
+          < div className="user-details">
             <div className="input-box-name">
-              <label htmlFor="Fullname">Full Name</label>
+              <label htmlFor="firstName">First Name</label>
               <span className="star"> * </span>
               <input
                 type="name"
-                id="Fullname"
-                placeholder="Enter your full name"
+                id="firstName"
+                placeholder="Enter your first name"
                 required
               ></input>
-            </div>
-            <div className="input-box">
-              <label htmlFor="Username">User Name</label>
+              <label htmlFor="lastName">Last Name</label>
               <span className="star"> * </span>
               <input
                 type="name"
-                id="Username"
-                placeholder="Your UserName"
+                id="lastname"
+                placeholder="Enter your last name"
                 required
               ></input>
             </div>
-            <div className="input-box-gender">
-              <div className="gender-details">
-                <label>Gender</label>
-                <span className="star"> * </span>
-                <input name="gender" type="radio" value="Male"></input>
-                <label>Male</label>
-                <input type="radio" name="gender" value="Female"></input>
-                <label>Female</label>
-                <input type="radio" name="gender" value="Female"></input>
-                <label>Perfer not to say </label>
-              </div>
-            </div>
+
             <div className="input-box">
               <label htmlFor="email">Email </label>
               <span className="star"> * </span>

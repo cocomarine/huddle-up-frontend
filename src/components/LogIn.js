@@ -15,17 +15,15 @@ const LogIn = () => {
       await axios
         .post("http://localhost:4000/login", { email, password })
         .then((res) => {
+          console.log("hello");
           if (res.data === "exist") {
             navigate("/myevents", { state: { id: email } });
           } else if (res.data === "!exist") {
             alert("User have not sign up");
           }
-        })
-        .catch((e) => {
-          alert("Please check your email and password are correct");
-          console.log(e);
         });
     } catch (err) {
+      alert("Please check your email and password are correct");
       console.log(err);
     }
   };
@@ -33,7 +31,7 @@ const LogIn = () => {
   return (
     <div className="page">
       <h1 className="titleSignin"> Login</h1>
-      <form className="form" action="POST">
+      <form className="form" onSubmit={handleSubmit}>
         <label htmlFor="email">Email </label>
         <input
           type="email"
@@ -50,9 +48,7 @@ const LogIn = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         ></input>
-        <button type="submit" onSubmit={handleSubmit}>
-          Login
-        </button>
+        <button type="submit">Login</button>
       </form>
       <div>
         <p> Don't have an account?</p>
