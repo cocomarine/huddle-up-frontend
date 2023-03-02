@@ -15,7 +15,6 @@ const LogIn = () => {
       await axios
         .post("http://localhost:4000/login", { email, password })
         .then((res) => {
-          console.log("hello");
           if (res.data === "exist") {
             navigate("/myevents", { state: { id: email } });
           } else if (res.data === "!exist") {
