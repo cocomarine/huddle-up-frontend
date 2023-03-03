@@ -1,0 +1,11 @@
+.error {
+  color: rgb(251, 64, 64);
+}
+
+.success {
+  color: rgb(210, 210, 213);
+}
+
+.alert {
+  color: rgb(246, 246, 133);
+}
