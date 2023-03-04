@@ -10,7 +10,6 @@ const EventCard = ({
   description,
   voting_finished,
   AdminId,
-  Suggestions
 }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [adminFirstName, setAdminFirstName] = useState("");
@@ -43,7 +42,6 @@ const EventCard = ({
         <div className="event-card__title">{title}</div>
         <div className="event-card__description">{description}</div>
         <div className="event-card__admin">Creater: {adminFirstName}</div>
-        {/* <div className="event-card__suggestions">{suggestions[0]?.suggestion}</div> */}
         <div className="event-card__suggestions">
           {suggestions && suggestions.map((item) => {
             return <div className="suggestion__item" key={item.id}>
