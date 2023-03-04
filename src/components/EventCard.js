@@ -10,15 +10,18 @@ const EventCard = ({
   description,
   voting_finished,
   AdminId,
+  Suggestions
 }) => {
-
+  // const [suggestions, setSuggestions] = useState([]);
   const [adminFirstName, setAdminFirstName] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
     axios
       .get(`http://localhost:4000/events/${id}`)
       .then((res) => {
+        // console.log(res.data)
+        // console.log(res.data.Suggestions);
+
         const adminID = res.data.AdminId;
         const eventUsers = res.data.Users;
         const adminData = eventUsers.filter(
@@ -26,7 +29,6 @@ const EventCard = ({
         );
 
         setAdminFirstName(adminData[0].first_name);
-        setSuggestions(res.data.Suggestions);
       })
   }, []);
 
@@ -41,14 +43,8 @@ const EventCard = ({
         </button>
         <div className="event-card__title">{title}</div>
         <div className="event-card__description">{description}</div>
-        <div className="event-card__suggestions">
-          {/* {suggestions && suggestions.map((suggestion) => {
-            <div className="voted-cards__item" key={suggestion.id}>
-              {suggestion}
-            </div>
-          })} */}
-        </div>
         <div className="event-card__admin">Creater: {adminFirstName}</div>
+        {/* <div className="event-card__suggestions">{Suggestions}</div> */}
       </div>
     </div>
   );

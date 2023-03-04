@@ -14,9 +14,8 @@ const MyEvents = () => {
   const [votedEvents, setVotedEvents] = useState(initialState.votedEvents);
   const [pendingEvents, setPendingEvents] = useState(initialState.pendingEvents);
   const [alert, setAlert] = useState({ message: "" });
-  // const [cardRemoved, setCardRemoved] = useState(false);
 
-  const getVotedEvents = (event) => {
+  const compareUsersAndVotes = (event) => {
     const totalUsers = event.Users.length;
     const suggestionsList = event.Suggestions;
     const totalVotes = suggestionsList.reduce(
@@ -29,8 +28,8 @@ const MyEvents = () => {
     axios
       .get("http://localhost:4000/events")
       .then((res) => {
-        setVotedEvents(res.data.filter((event) => getVotedEvents(event) === 0));
-        setPendingEvents(res.data.filter((event) => getVotedEvents(event) > 0));
+        setVotedEvents(res.data.filter((event) => compareUsersAndVotes(event) === 0));
+        setPendingEvents(res.data.filter((event) => compareUsersAndVotes(event) > 0));
       })
       .catch(() => {
         setAlert({

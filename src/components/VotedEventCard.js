@@ -30,8 +30,8 @@ const VotedEventCard = ({
         const mostVoted = sugs.reduce((prev, current) => {
           return prev.votes > current.votes ? prev: current;
         })
-        console.log(mostVoted)
-        setVotedSuggestion(mostVoted)
+
+        setVotedSuggestion(mostVoted);
       })
   }, []);
 
