@@ -1,5 +1,6 @@
-import "../styles/app.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useAuthContext } from "../hooks/useAuthContext";
+
 import SignUp from "./SignUp";
 import LogIn from "./LogIn";
 import Home from "./Home";
@@ -8,7 +9,11 @@ import MyProfile from "./MyProfile";
 import JoinEvents from "./JoinEvents";
 import MyEvents from "./MyEvents";
 
+import "../styles/app.css";
+
 function App() {
+  const { user } = useAuthContext();
+
   return (
     <div className="App">
       <div>

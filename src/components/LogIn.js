@@ -53,7 +53,7 @@ const LogIn = () => {
         <p> Don't have an account?</p>
         <button
           onClick={() => {
-            navigate("/signUp");
+            navigate("/signup");
           }}
         >
           Sign up Here
