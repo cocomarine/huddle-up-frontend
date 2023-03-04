@@ -1,13 +1,31 @@
+.loginPage {
+  margin-top: 20%;
+  position: flex;
+}
+
 .titleSignin {
+  font-size: 50px;
+  font-family: "Gloock";
+  text-align: center;
+}
+
+.labels {
   display: flex;
-  font-size: 40px;
+  flex-direction: column;
+  font-size: 20px;
+  padding: 10%;
+}
+
+.loginButton {
   justify-content: center;
 }
 
-.form  {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: 40px;
-  width: 200px;
+.createNewAccount {
+  font-size: 15px;
+}
+
+.signUpHere {
+  cursor: pointer;
+  text-decoration: underline;
+  color: blue;
 }

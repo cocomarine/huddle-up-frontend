@@ -1,8 +1,9 @@
 import React from "react";
-import "../styles/myprofile.css";
+import "../styles/my-profile.css";
 
 const MyProfile = () => {
   return <div>
+    
     My Profile
   </div>;
 };

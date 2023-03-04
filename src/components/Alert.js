@@ -1,21 +1,23 @@
 import React from "react";
-import alertType from "../styles/alert.css";
-import PropTypes from "react";
+import alertTypes from "../styles/alert.css";
+import PropTypes from "prop-types";
 
 const Alert = ({ message, success }) => {
-  if (!message) return null;
-  return (
-    <div
-      className={`${alertType.alert} ${
-        success ? alertType.success : alertType.error
-      }`}
-    >
-      {message}
-    </div>
-  );
+  if (message) {
+    return (
+      <div
+        className={`${alertTypes.alert} ${
+          success ? alertTypes.success : alertTypes.error
+        }`}
+      >
+        {message}
+      </div>
+    );
+  }
+  return;
 };
 Alert.propTypes = {
-  message: PropTypes.string.isRequired,
+  message: PropTypes.string,
   success: PropTypes.bool,
 };
 

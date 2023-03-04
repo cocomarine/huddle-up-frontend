@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../styles/logIn.css";
-const LogIn = () => {
+import "../styles/login.css";
+
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -13,7 +14,7 @@ const LogIn = () => {
 
     try {
       await axios
-        .post("http://localhost:4000/login", { email, password })
+        .post("http://localhost:4000/auth/signin", { email, password })
         .then((res) => {
           if (res.data === "exist") {
             navigate("/myevents", { state: { id: email } });
@@ -28,39 +29,47 @@ const LogIn = () => {
   };
 
   return (
-    <div className="page">
+    <div className="loginPage">
       <h1 className="titleSignin"> Login</h1>
-      <form className="form" onSubmit={handleSubmit}>
-        <label htmlFor="email">Email </label>
-        <input
-          type="email"
-          id="email"
-          placeholder="youremail@email.com"
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        ></input>
-        <label htmlFor="password">Password </label>
-        <input
-          type="password"
-          id="password"
-          placeholder="*******"
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        ></input>
-        <button type="submit">Login</button>
-      </form>
-      <div>
-        <p> Don't have an account?</p>
-        <button
+      <div className="loginForm">
+        <form onSubmit={handleSubmit}>
+          <div className="labels">
+          <label className="email" htmlFor="email">Email </label>
+          <input
+            type="email"
+            id="email"
+            placeholder="youremail@email.com"
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          ></input>
+          <label htmlFor="password">Password </label>
+          <input
+            type="password"
+            id="password"
+            placeholder="*******"
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          ></input>
+          </div>
+          {/* <div className="loginButton"> */}
+          <button  type="submit">Login</button>
+          {/* </div> */}
+        </form>
+      </div>
+      <div className="createNewAccount">
+      <p>
+        Don't have an account?{" "}
+        <span className="signUpHere"
           onClick={() => {
-            navigate("/signup");
+            navigate("/signUp");
           }}
         >
-          Sign up Here
-        </button>
+          Sign Up Here
+        </span>
+      </p>
       </div>
     </div>
   );
 };
 
-export default LogIn;
+export default Login;

@@ -1,38 +1,40 @@
 @import url("https://fonts.googleapis.com/css2?family=Gloock&display=swap");
-
+.homeBody {
+  position: absolute;
+  margin: 10%;
+  
+}
 .title {
   font-size: 70px;
   font-family: "Gloock";
-  justify-items: center;
-}
-
-.buttons .loginBtn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.loginBtn {
-  margin-top: 80px;
-  width: 180px;
-  color: #050505;
-  cursor: pointer;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-size: 23px;
-  font-weight: 500;
-  height: 4rem;
-  padding: 0 1.6rem;
   text-align: center;
 }
 
-.signUpBtn {
-  margin-top: 40px;
-  width: 180px;
-  box-sizing: border-box;
-  color: #050505;
+.homeText {
+  text-align: center;
+  position: relative;
+  margin: 5% 10%;
+}
+
+.btns {
+  display: flex;
+  flex-direction: column;
+}
+
+.btns .loginBtn {
+  margin: 5% 30%;
+  color: #060606;
   cursor: pointer;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: 23px;
   font-weight: 500;
   height: 4rem;
-  padding: 0 1.6rem;
+}
+
+.btns .signUpBtn {
+  margin: 5% 30%;
+  color: #060606;
+  cursor: pointer;
+  font-size: 23px;
+  font-weight: 500;
+  height: 4rem;
 }

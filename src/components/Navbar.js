@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { MdReorder } from "react-icons/md";
 import { Link } from "react-router-dom";
 import "../styles/navbar.css";
-// import logo from "../../public/Huddles_Logo.png";
 
 const Navbar = () => {
   const [showLinks, setShowLinks] = useState(false);

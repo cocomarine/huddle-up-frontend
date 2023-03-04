@@ -1,13 +1,11 @@
 .container {
   width: 100%;
   height: 100%;
-  background-color: rgb(231, 217, 203);
   padding: 15px;
   border-radius: 5px;
   font-size: 15px;
   font-weight: 300;
-  display: flex;
-  flex-wrap: wrap;
+  position: flex;
 }
 
 .title {
