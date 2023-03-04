@@ -1,0 +1,45 @@
+.event-card {
+  background-color: white;
+  margin: 1rem;
+  width: 15rem;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+}
+
+.event-card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0.5rem;
+}
+
+.event-card__close-button {
+  cursor: pointer;
+  font-weight: 500;
+  padding: 4px;
+  border: none;
+  font-size: 18px;
+  background: white;
+  color: darkgray;
+  transition: all 0.25s ease;
+  align-self: flex-end;
+  margin-top: -7px;
+  margin-right: -5px;
+}
+
+.event-card__title {
+  margin-top: -5px;
+  padding-bottom: 5px;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.suggestion__item {
+  padding: 10px 0px;
+}
+
+.event-card__admin {
+  padding: 10px 0px;
+  font-size: 0.7rem;
+}
