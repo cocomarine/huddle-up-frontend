@@ -1,37 +1,49 @@
 import React, { useState } from "react";
-import { useLogin } from "../hooks/useLogin";
 import { useNavigate } from "react-router-dom";
-// import axios from "axios";
+import axios from "axios";
+import { useAuthContext } from "../hooks/useAuthContext";
+import Alert from "./Alert";
 import "../styles/login.css";
 
 const Login = () => {
+  const [alert, setAlert] = useState({ message: "", isSuccess: false });
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const {login, error, isLoading} = useLogin();
+  const { dispatch } = useAuthContext();
 
   const navigate = useNavigate();
 
+  const changeLocation = (redirect) => {
+    navigate(redirect, { replace: true });
+    window.location.reload();
+  };
+
   const handleSignin = async (e) => {
     e.preventDefault();
-
-    await login(email, password)
-    console.log(email, password)
-
-    // try {
-    //   await axios
-    //     .post("http://localhost:4000/auth/signin", { email, password })
-    //     .then((res) => {
-    //       if (res.data === "exist") {
-    //         navigate("/myevents", { state: { id: email } });
-    //       } else if (res.data === "!exist") {
-    //         alert("User have not sign up");
-    //       }
-    //     });
-    // } catch (err) {
-    //   alert("Please check your email and password are correct");
-    //   console.log(err);
-    // }
+  
+    setAlert({ message: "", isSuccess: false });
+  
+    axios
+    .post('http://localhost:4000/auth/signin', { email, password })
+    .then((res) => {
+      setAlert({
+        message: `${res.data.message}`,
+        isSuccess: true,
+      });
+      localStorage.setItem("user", JSON.stringify(res.data));
+      dispatch({type: "LOGIN", payload: res.data});
+  
+      changeLocation("/myevents");
+      return res.data;
+    })
+    .catch((err) => {
+      setAlert({
+        message: `${err.response.data.message}`,
+        isSuccess: false,
+      });
+    });
   };
 
   return (
@@ -59,8 +71,7 @@ const Login = () => {
             required
           ></input>
           </div>
-          <button disabled={isLoading} type="submit">Log in</button>
-          {error && <div className="error">{error}</div>}
+          <button type="submit">Log in</button>
         </form>
       </div>
       <div className="createNewAccount">

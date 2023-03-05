@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// import { useSignUp } from "../hooks/useSignUp";
 import { useAuthContext } from "../hooks/useAuthContext";
 import Alert from "./Alert";
 import "../styles/sign-up.css";
@@ -15,10 +14,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("")
 
-  // const [isLoading, setIsLoading] = useState(null);
   const { dispatch } = useAuthContext();
-
-  // const {signup, error, isLoading} = useSignUp();
 
   const navigate = useNavigate();
   const changeLocation = (redirect) => {
@@ -28,12 +24,8 @@ const SignUp = () => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-
-    // await signup(firstName, lastName, email, password, passwordCheck);
-    // changeLocation("/");
     
     setAlert({ message: "", isSuccess: false });
-    // setIsLoading(true);
 
     if (password === passwordCheck) {
       axios
@@ -45,7 +37,6 @@ const SignUp = () => {
           });
           localStorage.setItem("user", JSON.stringify(res.data));
           dispatch({type: "LOGIN", payload: res.data});
-          // setIsLoading(false);
 
           changeLocation("/");
         })
@@ -62,12 +53,6 @@ const SignUp = () => {
       });
     }
   };
-  // const handleSignUpChange = (e) => {
-  //   setSignUp({
-  //     ...signUp,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
 
   return (
     <>
