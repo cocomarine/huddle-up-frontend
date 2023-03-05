@@ -7,6 +7,7 @@ import "../styles/login.css";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const {login, error, isLoading} = useLogin();
 
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const Login = () => {
     e.preventDefault();
 
     await login(email, password)
-    // console.log(email, password)
+    console.log(email, password)
 
     // try {
     //   await axios

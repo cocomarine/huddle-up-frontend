@@ -12,14 +12,14 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("")
 
-  // const {signup, error, isLoading} = useSignUp();
+  const {signup, error, isLoading} = useSignUp();
 
   const navigate = useNavigate();
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
 
-    // await signup(firstName, lastName, email, password)
+    await signup(firstName, lastName, email, password)
     console.log(firstName, lastName, email, password)
     
     // setAlert({ message: "", isSuccess: false });
@@ -126,8 +126,8 @@ const SignUp = () => {
               >
                 Submit
               </button> */}
-              <button>Sign up</button>
-              {/* {error && <div className="error">{error}</div>} */}
+              <button disabled={isLoading} type="submit">Sign up</button>
+              {error && <div className="error">{error}</div>}
             </div>
             {/* <Alert message={alert.message} success={alert.isSuccess} /> */}
             <div>
