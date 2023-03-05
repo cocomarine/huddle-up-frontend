@@ -20,13 +20,8 @@ export const useLogin = () => {
     }
 
     if (response.ok) {
-      // saving user to local storage
       localStorage.setItem("user", JSON.stringify(json));
-
-      // update auth context
       dispatch({type: "login", payload: json});
-
-      // update loading status
       setIsLoading(false);
     }
   };

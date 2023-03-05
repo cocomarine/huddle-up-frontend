@@ -1,60 +1,57 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSignUp } from "../hooks/useSignUp";
 import "../styles/sign-up.css";
-import Alert from "./Alert";
+// import Alert from "./Alert";
 
 const SignUp = () => {
-  const initialState = {
-    signUp: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      cofirmPassword: "",
-    },
-    alert: {
-      msg: "",
-      isSuccess: true,
-    },
-  };
+  // const [alert, setAlert] = useState(initialState.alert);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("")
 
-  const [signUp, setSignUp] = useState(initialState.signUp);
-  const [alert, setAlert] = useState(initialState.alert);
+  // const {signup, error, isLoading} = useSignUp();
 
   const navigate = useNavigate();
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    setAlert({ message: "", isSuccess: false });
-    if (signUp.password === signUp.cofirmPassword) {
-      axios
-        .post(`http://localhost:4000/auth/signup`, signUp)
-        .then(() => {
-          setAlert({
-            message: `Welcome ${signUp.firstName} ${signUp.lastName}`,
-            isSuccess: true,
-          });
-          navigate("/myevents");
-        })
-        .catch((err) => {
-          setAlert({
-            message: `${err.response.data.message}`,
-            isSuccess: false,
-          });
-        });
-    }
-    setAlert({
-      message: "Passwords do not match",
-      isSuccess: false,
-    });
+
+    // await signup(firstName, lastName, email, password)
+    console.log(firstName, lastName, email, password)
+    
+    // setAlert({ message: "", isSuccess: false });
+    // if (signUp.password === signUp.cofirmPassword) {
+    //   axios
+    //     .post(`http://localhost:4000/auth/signup`, signUp)
+    //     .then(() => {
+    //       setAlert({
+    //         message: `Welcome ${signUp.firstName} ${signUp.lastName}`,
+    //         isSuccess: true,
+    //       });
+    //       navigate("/myevents");
+    //     })
+    //     .catch((err) => {
+    //       setAlert({
+    //         message: `${err.response.data.message}`,
+    //         isSuccess: false,
+    //       });
+    //     });
+    // }
+    // setAlert({
+    //   message: "Passwords do not match",
+    //   isSuccess: false,
+    // });
   };
-  const handleSignUpChange = (event) => {
-    setSignUp({
-      ...signUp,
-      [event.target.name]: event.target.value,
-    });
-  };
+  // const handleSignUpChange = (e) => {
+  //   setSignUp({
+  //     ...signUp,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+
   return (
     <>
       <div className="container">
@@ -65,25 +62,24 @@ const SignUp = () => {
               <label htmlFor="firstName">First Name</label>
               <span className="star"> * </span>
               <input
-                type="name"
+                type="text"
                 id="firstName"
-                value={signUp.firstName}
                 placeholder="Enter your first name"
                 required
-                onChange={handleSignUpChange}
+                onChange={(e) => setFirstName(e.target.value)}
+                value={firstName}
               ></input>
               <label htmlFor="lastName">Last Name</label>
               <span className="star"> * </span>
               <input
-                type="name"
+                type="text"
                 id="lastname"
-                value={signUp.lastName}
                 placeholder="Enter your last name"
                 required
-                onChange={handleSignUpChange}
+                onChange={(e) => setLastName(e.target.value)}
+                value={lastName}
               ></input>
             </div>
-
             <div className="input-box">
               <label htmlFor="email">Email </label>
               <span className="star"> * </span>
@@ -92,8 +88,8 @@ const SignUp = () => {
                 id="email"
                 placeholder="youremail@email.com"
                 required
-                value={signUp.email}
-                onChange={handleSignUpChange}
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
               ></input>
             </div>
             <div className="input-box">
@@ -102,10 +98,10 @@ const SignUp = () => {
               <input
                 type="password"
                 id="password"
-                value={signUp.password}
-                placeholder="*******"
+                placeholder="********"
                 required
-                onChange={handleSignUpChange}
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
               ></input>
             </div>
             <div className="input-box">
@@ -114,14 +110,14 @@ const SignUp = () => {
               <input
                 type="password"
                 id="cornfirmPassword"
-                value={signUp.confirmPassword}
                 placeholder="confirm Password"
                 required
-                onChange={handleSignUpChange}
+                onChange={(e) => setPasswordCheck(e.target.value)}
+                value={passwordCheck}
               ></input>
             </div>
             <div>
-              <button
+              {/* <button
                 onClick={() => {
                   navigate("/myevents");
                 }}
@@ -129,9 +125,11 @@ const SignUp = () => {
                 className="sumbit-btn"
               >
                 Submit
-              </button>
+              </button> */}
+              <button>Sign up</button>
+              {/* {error && <div className="error">{error}</div>} */}
             </div>
-            <Alert message={alert.message} success={alert.isSuccess} />
+            {/* <Alert message={alert.message} success={alert.isSuccess} /> */}
             <div>
               <button
                 className="Login-btn"
