@@ -1,49 +1,66 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSignUp } from "../hooks/useSignUp";
+import axios from "axios";
+// import { useSignUp } from "../hooks/useSignUp";
+import { useAuthContext } from "../hooks/useAuthContext";
+import Alert from "./Alert";
 import "../styles/sign-up.css";
-// import Alert from "./Alert";
 
 const SignUp = () => {
-  // const [alert, setAlert] = useState(initialState.alert);
+  const [alert, setAlert] = useState({ message: "", isSuccess: false });
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("")
 
-  const {signup, error, isLoading} = useSignUp();
+  // const [isLoading, setIsLoading] = useState(null);
+  const { dispatch } = useAuthContext();
+
+  // const {signup, error, isLoading} = useSignUp();
 
   const navigate = useNavigate();
+  const changeLocation = (redirect) => {
+    navigate(redirect, { replace: true });
+    window.location.reload();
+  };
 
   const handleSignUp = async (e) => {
     e.preventDefault();
 
-    await signup(firstName, lastName, email, password)
-    console.log(firstName, lastName, email, password)
+    // await signup(firstName, lastName, email, password, passwordCheck);
+    // changeLocation("/");
     
-    // setAlert({ message: "", isSuccess: false });
-    // if (signUp.password === signUp.cofirmPassword) {
-    //   axios
-    //     .post(`http://localhost:4000/auth/signup`, signUp)
-    //     .then(() => {
-    //       setAlert({
-    //         message: `Welcome ${signUp.firstName} ${signUp.lastName}`,
-    //         isSuccess: true,
-    //       });
-    //       navigate("/myevents");
-    //     })
-    //     .catch((err) => {
-    //       setAlert({
-    //         message: `${err.response.data.message}`,
-    //         isSuccess: false,
-    //       });
-    //     });
-    // }
-    // setAlert({
-    //   message: "Passwords do not match",
-    //   isSuccess: false,
-    // });
+    setAlert({ message: "", isSuccess: false });
+    // setIsLoading(true);
+
+    if (password === passwordCheck) {
+      axios
+      .post('http://localhost:4000/auth/signup', { firstName, lastName, email, password })
+        .then((res) => {
+          setAlert({
+            message: `Welcome to HuddleUp, ${firstName}!`,
+            isSuccess: true,
+          });
+          localStorage.setItem("user", JSON.stringify(res.data));
+          dispatch({type: "LOGIN", payload: res.data});
+          // setIsLoading(false);
+
+          changeLocation("/");
+        })
+        .catch((err) => {
+          setAlert({
+            message: `${err.response.data.message}`,
+            isSuccess: false,
+          });
+        });
+    } else {
+      setAlert({
+        message: "Passwords do not match",
+        isSuccess: false,
+      });
+    }
   };
   // const handleSignUpChange = (e) => {
   //   setSignUp({
@@ -117,19 +134,9 @@ const SignUp = () => {
               ></input>
             </div>
             <div>
-              {/* <button
-                onClick={() => {
-                  navigate("/myevents");
-                }}
-                type="submit"
-                className="sumbit-btn"
-              >
-                Submit
-              </button> */}
-              <button disabled={isLoading} type="submit">Sign up</button>
-              {error && <div className="error">{error}</div>}
+              <button type="submit">Sign up</button>
             </div>
-            {/* <Alert message={alert.message} success={alert.isSuccess} /> */}
+            <Alert message={alert.message} success={alert.isSuccess} />
             <div>
               <button
                 className="Login-btn"
