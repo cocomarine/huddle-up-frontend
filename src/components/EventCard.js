@@ -44,9 +44,15 @@ const EventCard = ({
         <div className="event-card__admin">Creater: {adminFirstName}</div>
         <div className="event-card__suggestions">
           {suggestions && suggestions.map((item) => {
-            return <div className="suggestion__item" key={item.id}>
-              {item.suggestion}
-            </div>
+            return <p>
+                <button 
+                  className="suggestion__item" 
+                  key={item.id}
+                  onClick={() => {}}
+                >
+                {item.suggestion}
+                </button>
+              </p>
           })}
         </div>
       </div>

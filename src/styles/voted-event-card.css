@@ -38,7 +38,13 @@
 }
 
 .voted-card__voted-suggestion {
-  padding: 10px 0px;
+  padding: 5px;
+  margin: 5px;
+  height: 40px;
+  /* width: 200px; */
+  border-radius:10px;
+  border: solid 1px darkgray;
+  background: rgb(131, 248, 131);
 }
 
 .voted-card__admin {
