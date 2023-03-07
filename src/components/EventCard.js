@@ -18,21 +18,24 @@ const EventCard = ({
   let [voteCount, setVoteCount] = useState(null);
   let [totalEventVotes, setTotalEventVotes] = useState(null);
 
-  const { state } = useAuthContext();
+  const { user } = useAuthContext();
+
+  const getAdminName = (event) => {
+    const adminID = event.AdminId;
+    const eventUsers = event.Users;
+    const adminData = eventUsers.filter(
+      (eventUser) => eventUser.id === adminID
+    );
+
+    return adminData[0].first_name;
+  };
 
   useEffect(() => {
     axios
       .get(`http://localhost:4000/events/${id}`)
       .then((res) => {
         setSuggestions(res.data.Suggestions);
-
-        const adminID = res.data.AdminId;
-        const eventUsers = res.data.Users;
-        const adminData = eventUsers.filter(
-          (eventUser) => eventUser.id === adminID
-        );
-
-        setAdminFirstName(adminData[0].first_name);
+        setAdminFirstName(getAdminName(res.data));
       })
   }, []);
 
@@ -63,9 +66,7 @@ const EventCard = ({
         console.log(res.data.votes)
         console.log(voteCount)
         const eventId = res.data.EventId;
-        // const votedUserId = state.user[0].id;
-        // below: userid hardcorded for the time being until authcontext is sorted
-        const votedUserId = 3;
+        const votedUserId = user.id;
 
         axios
           .get(`http://localhost:4000/userevents`)
@@ -111,26 +112,12 @@ const EventCard = ({
         <div className="event-card__title">{title}</div>
         <div className="event-card__description">{description}</div>
         <div className="event-card__admin">Creater: {adminFirstName}</div>
-        {/* <div className="event-card__suggestions">
-          {suggestions.map((item) => {
-            return <p>
-                <button 
-                  className="suggestion__item" 
-                  key={item.id}
-                  onClick={() => {}}
-                >
-                {item.suggestion}
-                </button>
-              </p>
-          })}
-        </div> */}
         <div className="event-card__suggestions__container">
           {suggestions[0] ? <div className="event-card__suggestions">
             {suggestions.map((item) => {
-              return <p>
+              return <p key={item.id}>
                   <button 
                     className="suggestion__item" 
-                    key={item.id}
                     value={item.id}
                     onClick={(e) => {
                       handleVote(e)}}
