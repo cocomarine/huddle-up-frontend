@@ -3,6 +3,7 @@ import AnchorLink from "react-anchor-link-smooth-scroll-v2";
 import axios from "axios";
 import EventCard from "./EventCard";
 import VotedEventCard from "./VotedEventCard";
+import { useAuthContext } from "../hooks/useAuthContext";
 import "../styles/my-events.css";
 
 const MyEvents = () => {
@@ -15,6 +16,8 @@ const MyEvents = () => {
   const [pendingEvents, setPendingEvents] = useState(initialState.pendingEvents);
   const [alert, setAlert] = useState({ message: "" });
 
+  const { user } = useAuthContext();
+
   const compareUsersAndVotes = (event) => {
     const totalUsers = event.Users.length;
     const suggestionsList = event.Suggestions;
@@ -25,18 +28,20 @@ const MyEvents = () => {
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:4000/events")
-      .then((res) => {
-        setVotedEvents(res.data.filter((event) => compareUsersAndVotes(event) === 0));
-        setPendingEvents(res.data.filter((event) => compareUsersAndVotes(event) > 0));
-      })
-      .catch(() => {
-        setAlert({
-          message: "Server error. Please try again later.",
+    if (user) {
+      axios
+        .get("http://localhost:4000/events")
+        .then((res) => {
+          setVotedEvents(res.data.filter((event) => compareUsersAndVotes(event) === 0));
+          setPendingEvents(res.data.filter((event) => compareUsersAndVotes(event) > 0));
+        })
+        .catch(() => {
+          setAlert({
+            message: "Server error. Please try again later.",
+          });
         });
-      });
-  }, []);
+    };
+  }, [user]);
 
   return (
     <div className="events">
