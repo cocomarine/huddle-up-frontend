@@ -1,18 +1,18 @@
 .navbar {
-  background-color: rgb(144, 144, 245);
+  background-color: rgb(249, 200, 233);
   width: 100%;
   height: 80px;
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
 }
 
-.navbar .leftide {
+/* .navbar .leftSide {
   flex: 30%;
   align-items: center;
   display: flex;
   padding-right: 15px;
-}
-/* .right-side input {
+} */
+.leftSide input {
   width: 200px;
   height: 30px;
   border-style: solid;
@@ -20,11 +20,11 @@
   font-size: 17px;
 }
 
-.right-side button {
+.leftSide button {
   height: 30px;
   width: 70px;
   font-size: 17px;
-} */
+}
 .navbar .rightSide .links {
   max-height: 150px;
 }
@@ -32,6 +32,7 @@
   text-decoration: none;
   color: white;
   font-size: 18px;
+  font-weight: 500;
   margin-left: 10px;
 }
 
@@ -74,18 +75,16 @@ button:hover {
   .navbar .rightSide .nav-button {
     display: flex;
   }
-  .navbar .left-side #hidden {
+  .navbar .rightSide #hidden {
     position: absolute;
     left: 0;
     top: 60px;
     height: auto;
     width: 100%;
-    background-color: rgb(144, 144, 245);
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  .navbar .left-side #hidden a {
+    background-color: rgb(249, 200, 233);
     margin: 3px;
     font-size: 15px;
   }

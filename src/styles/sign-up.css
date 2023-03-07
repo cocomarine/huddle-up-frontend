@@ -6,6 +6,7 @@
   font-size: 15px;
   font-weight: 300;
   position: flex;
+  margin-top: 70px;
 }
 
 .title {
@@ -14,14 +15,49 @@
   font-weight: 600;
 }
 
-.input-box-name {
-  margin-top: 30px;
-}
-.input-box input {
+.userDetails input {
+  background-color: white;
   height: 30px;
-  width: 150px;
+  margin: 10px;
+  width: 180px;
+}
+
+.userDetails label {
+  margin-right: 60px;
+}
+
+.input-box input {
+  margin: 10px;
+  height: 30px;
+  width: 180px;
+  background-color: white;
+}
+
+.input-box .emailInput {
+  margin-left: 43px;
+}
+
+.input-box .confirmPass {
+  margin-left: -50px;
 }
 
 .star {
   color: red;
+}
+
+.submitBtn button {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: white;
+  color: #090909;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  height: 30px;
+  width: 70px;
+}
+.loginHere {
+  cursor: pointer;
+  text-decoration: underline;
+  color: blue;
 }
