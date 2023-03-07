@@ -9,12 +9,14 @@ const EventCard = ({
   id,
   title,
   description,
-  voting_finished,
+  total_votes,
   AdminId,
 }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [adminFirstName, setAdminFirstName] = useState("");
   const [votedToggle, setVotedToggle] = useState(false);
+  let [voteCount, setVoteCount] = useState(null);
+  let [totalEventVotes, setTotalEventVotes] = useState(null);
 
   const { state } = useAuthContext();
 
@@ -34,7 +36,21 @@ const EventCard = ({
       })
   }, []);
 
-  
+  const updateTotalEventVotes = async (id) => {
+    await axios
+      .get(`http://localhost:4000/events/${id}`)
+      .then((res) => {
+        const sugs = res.data.Suggestions;
+        const totalEventVotes = sugs.reduce((prev, current) => 
+          prev + current.votes, 0,
+        );
+        console.log(totalEventVotes)
+      axios
+        .patch(`http://localhost:4000/events/${id}`, { total_votes: totalEventVotes });
+      
+      setTotalEventVotes(totalEventVotes);
+    });
+  };
 
   const handleVote = (e) => {
     setVotedToggle((prev) => !prev);
@@ -43,26 +59,39 @@ const EventCard = ({
     axios
       .get(`http://localhost:4000/suggestions/${votedSugId}`)
       .then((res) => {
+        setVoteCount(res.data.votes); 
+        console.log(res.data.votes)
+        console.log(voteCount)
         const eventId = res.data.EventId;
         // const votedUserId = state.user[0].id;
+        // below: userid hardcorded for the time being until authcontext is sorted
         const votedUserId = 3;
 
         axios
           .get(`http://localhost:4000/userevents`)
           .then((res) => {
-            console.log(res.data)
             const filteredUserEvent = res.data.filter((userevent) => (userevent.EventId === eventId && userevent.UserId === votedUserId));
             console.log(filteredUserEvent)
 
             if (filteredUserEvent) {
               axios
-                .patch(`http://localhost:4000/userevents/${filteredUserEvent[0].id}`, { votes_cast: votedToggle })
+                .patch(`http://localhost:4000/userevents/${filteredUserEvent[0].id}`, { votes_cast: votedToggle });
+
+              console.log(votedToggle)
+              if (votedToggle) {
+                setVoteCount(voteCount ++);
+              } else {
+                setVoteCount(voteCount > 0 ? voteCount -- : voteCount);
+              }
+
+              axios
+                .patch(`http://localhost:4000/suggestions/${votedSugId}`, { votes: voteCount });
+
+              console.log(voteCount)
+              updateTotalEventVotes(id);
             }
-
-          })
-
-      })
-
+          });
+      });
   };
 
   const handleSubmitSuggestion = (e) => {
@@ -104,10 +133,9 @@ const EventCard = ({
                     key={item.id}
                     value={item.id}
                     onClick={(e) => {
-                      console.log(e);
                       handleVote(e)}}
                   >
-                  {item.suggestion}
+                  {item.suggestion} &nbsp;&nbsp; {totalEventVotes}
                   </button>
                 </p>
             })}
