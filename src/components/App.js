@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 import SignUp from "./SignUp";
@@ -8,6 +8,7 @@ import Navbar from "./Navbar";
 import MyProfile from "./MyProfile";
 import JoinEvents from "./JoinEvents";
 import MyEvents from "./MyEvents";
+import LogOut from "./Logout";
 
 import "../styles/app.css";
 
@@ -18,14 +19,24 @@ function App() {
     <div className="App">
       <div>
         <BrowserRouter>
-            <Navbar />
+          <Navbar />
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/signup" element={<SignUp />}></Route>
             <Route path="/login" element={<Login />}></Route>
-            <Route path="/myProfile" element={<MyProfile />}></Route>
-            <Route path="/joinevents" element={<JoinEvents />}></Route>
-            <Route path="/myevents" element={<MyEvents />}></Route>
+            <Route path="/myprofile" element={<MyProfile />}></Route>
+            {/* <Route
+              path="/myProfile"
+              element={user ? <MyProfile /> : <Navigate to="/login" />}
+            /> */}
+            <Route
+              path="/joinevents"
+              element={user ? <JoinEvents /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/myevents"
+              element={user ? <MyEvents /> : <Navigate to="/login" />}
+            />
           </Routes>
         </BrowserRouter>
       </div>

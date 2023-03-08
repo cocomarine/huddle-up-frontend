@@ -22,6 +22,7 @@ const Navbar = () => {
         </div>
       </div>
       <div className="leftSide">
+        {/* <h2>HuddleUp</h2> */}
         {/* <input type="text" placeholder="Search..."></input>
         <button>Search</button> */}
         {/* <h1 className="title">HuddleUp</h1> */}
