@@ -3,6 +3,7 @@ import AnchorLink from "react-anchor-link-smooth-scroll-v2";
 import axios from "axios";
 import EventCard from "./EventCard";
 import VotedEventCard from "./VotedEventCard";
+import { useAuthContext } from "../hooks/useAuthContext";
 import "../styles/my-events.css";
 
 const MyEvents = () => {
@@ -11,32 +12,48 @@ const MyEvents = () => {
     pendingEvents: [],
   };
 
+  const [usersEvents, setUsersEvents] = useState([]);
   const [votedEvents, setVotedEvents] = useState(initialState.votedEvents);
   const [pendingEvents, setPendingEvents] = useState(initialState.pendingEvents);
   const [alert, setAlert] = useState({ message: "" });
 
-  const compareUsersAndVotes = (event) => {
+  const { user } = useAuthContext();
+
+  const isVotedEvent = (event) => {
     const totalUsers = event.Users.length;
     const suggestionsList = event.Suggestions;
     const totalVotes = suggestionsList.reduce(
       (prev, current) => prev + current.votes, 0
     );
-    return totalUsers - totalVotes;
+    return totalUsers === totalVotes;
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:4000/events")
-      .then((res) => {
-        setVotedEvents(res.data.filter((event) => compareUsersAndVotes(event) === 0));
-        setPendingEvents(res.data.filter((event) => compareUsersAndVotes(event) > 0));
-      })
-      .catch(() => {
-        setAlert({
-          message: "Server error. Please try again later.",
+    let active = true;
+    if (user) {
+      axios
+        .get(`http://localhost:4000/users/${user.id}`)
+        .then((res) => {
+          if (active) {
+            setUsersEvents(res.data.Events);
+          }
         });
+    };
+    return () => {active = false};
+  }, [user]);
+
+  useEffect(() => {
+    if (usersEvents.length > 0) {
+      usersEvents.forEach((event) => {
+        axios
+          .get(`http://localhost:4000/events/${event.id}`)
+          .then((res) => {
+            if (isVotedEvent(res.data)) setVotedEvents((prev) => [...prev, res.data]);
+            if (!isVotedEvent(res.data)) setPendingEvents((prev) => [...prev, res.data]);
+          })
       });
-  }, []);
+    }
+  }, [usersEvents]);
 
   return (
     <div className="events">
@@ -57,7 +74,7 @@ const MyEvents = () => {
         <div className="event-cards-voted" id="event-cards-voted">
           <h4>Voting Finished</h4>
           {votedEvents && votedEvents.map((votedEvent) => (
-            <div className="voted-cards__item" key={votedEvent.id}>
+            <div className="voted-cards__item" key={`votedEvent_${votedEvent.id}`}>
               <VotedEventCard {...votedEvent} />
             </div>
           ))}
@@ -65,7 +82,7 @@ const MyEvents = () => {
         <div className="event-cards-pending" id="event-cards-pending">
           <h4>Voting In Progress</h4>
           {pendingEvents && pendingEvents.map((pendingEvent) => (
-            <div className="event-cards__item" key={pendingEvent.id}>
+            <div className="event-cards__item" key={`pendingEvent_${pendingEvent.id}`}>
               <EventCard {...pendingEvent} />
             </div>
           ))}

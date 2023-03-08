@@ -1,32 +1,31 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
-import "../styles/logout.css";
+// import "../styles/logout.css";
 
-const LogOut = () => {
-  const user = useAuthContext();
+const Logout = () => {
+  const { dispatch } = useAuthContext();
 
   const navigate = useNavigate();
 
-  const changePage = (redirect) => {
+  const changeLocation = (redirect) => {
     navigate(redirect, { replace: true });
     window.location.reload();
-
-    const handleLogout = () => {
-      localStorage.clear();
-      sessionStorage.clear();
-      user("");
-      changePage("/");
-    };
-
-    return (
-      <div className="logOut">
-        <button type="submit" onClick={handleLogout}>
-          Logout
-        </button>
-      </div>
-    );
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    dispatch({ type: "LOGOUT "});
+    changeLocation("/");
+  };
+
+  return (
+    <div className="logoutt">
+      <button type="submit" onClick={handleLogout}>
+        Logout
+      </button>
+    </div>
+  );
 };
 
-export default LogOut;
+export default Logout;

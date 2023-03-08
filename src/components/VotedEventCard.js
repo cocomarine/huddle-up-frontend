@@ -46,7 +46,7 @@ const VotedEventCard = ({
         </button>
         <div className="voted-card__title">{title}</div>
         <div className="voted-card__description">{description}</div>
-        <div className="voted-card__voted-suggestion">Most voted: {votedSuggestion.suggestion}</div>
+        <div className="voted-card__voted-suggestion">{votedSuggestion.suggestion}</div>
         <div className="voted-card__admin">Creator: {adminFirstName}</div>
       </div>
     </div>

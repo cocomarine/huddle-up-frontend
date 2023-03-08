@@ -36,10 +36,32 @@
 }
 
 .suggestion__item {
-  padding: 10px 0px;
+  /* padding: 10px 0px; */
+  margin: 5px;
+  height: 40px;
+  width: 200px;
+  border-radius:10px;
+  border: solid 1px darkgray;
+  background: white;
+  cursor: pointer;
+}
+
+.suggestion__item:hover {
+  box-shadow: 2px 2px 2px rgb(86, 86, 86);
+}
+
+.suggestion__item:active {
+  background-color: #F7F7F7;
+  border-color: #000000;
+  transform: scale(.96);
+}
+
+.suggestion__item-voted {
+  background: gold;
 }
 
 .event-card__admin {
   padding: 10px 0px;
   font-size: 0.7rem;
 }
+
