@@ -56,6 +56,10 @@
   transform: scale(.96);
 }
 
+.suggestion__item-voted {
+  background: gold;
+}
+
 .event-card__admin {
   padding: 10px 0px;
   font-size: 0.7rem;

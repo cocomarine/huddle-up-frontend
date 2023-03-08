@@ -28,7 +28,6 @@ function App() {
             <Route path="/myProfile" element={<MyProfile />}></Route>
             <Route path="/joinevents" element={<JoinEvents />}></Route>
             <Route path="/myevents" element={<MyEvents />}></Route>
-            {/* <Route path="/myevents" element={user ? <MyEvents /> : <Navigate to="/" />}></Route> */}
           </Routes>
         </BrowserRouter>
       </div>

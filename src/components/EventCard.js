@@ -15,8 +15,8 @@ const EventCard = ({
   const [suggestions, setSuggestions] = useState([]);
   const [adminFirstName, setAdminFirstName] = useState("");
   const [votedToggle, setVotedToggle] = useState(false);
-  let [voteCount, setVoteCount] = useState(null);
-  let [totalEventVotes, setTotalEventVotes] = useState(null);
+  let [voteCount, setVoteCount] = useState(0);
+  let [totalEventVotes, setTotalEventVotes] = useState(total_votes);
 
   const { user } = useAuthContext();
 
@@ -37,26 +37,37 @@ const EventCard = ({
         setSuggestions(res.data.Suggestions);
         setAdminFirstName(getAdminName(res.data));
       })
-  }, []);
+  }, [id]);
 
-  const updateTotalEventVotes = async (id) => {
-    await axios
+  const getEventVotes = (id) => {
+    axios
       .get(`http://localhost:4000/events/${id}`)
       .then((res) => {
         const sugs = res.data.Suggestions;
         const totalEventVotes = sugs.reduce((prev, current) => 
           prev + current.votes, 0,
         );
-        console.log(totalEventVotes)
-      axios
-        .patch(`http://localhost:4000/events/${id}`, { total_votes: totalEventVotes });
-      
-      setTotalEventVotes(totalEventVotes);
+
+        return totalEventVotes;
     });
   };
 
+  const updateEventVotes = (votes) => {
+    axios
+      .patch(`http://localhost:4000/events/${id}`, { total_votes: votes })
+      .then((res) => {
+        console.log(res.data)
+        axios
+          .get(`http://localhost:4000/events/${id}`)
+          .then((res) => {
+            setTotalEventVotes(res.data.total_votes);
+          })
+      })
+  };
+
   const handleVote = (e) => {
-    setVotedToggle((prev) => !prev);
+    e.preventDefault();
+    setVotedToggle(!votedToggle);
     const votedSugId = e.target.value;
     
     axios
@@ -79,17 +90,21 @@ const EventCard = ({
                 .patch(`http://localhost:4000/userevents/${filteredUserEvent[0].id}`, { votes_cast: votedToggle });
 
               console.log(votedToggle)
+
               if (votedToggle) {
-                setVoteCount(voteCount ++);
+                setVoteCount((prev) => prev ++);
               } else {
-                setVoteCount(voteCount > 0 ? voteCount -- : voteCount);
+                setVoteCount((prev) => prev > 0 ? prev -- : prev);
               }
 
               axios
                 .patch(`http://localhost:4000/suggestions/${votedSugId}`, { votes: voteCount });
 
               console.log(voteCount)
-              updateTotalEventVotes(id);
+              
+              const totalEventVotes = getEventVotes(id);
+              updateEventVotes(totalEventVotes + voteCount);
+
             }
           });
       });
@@ -116,11 +131,12 @@ const EventCard = ({
           {suggestions[0] ? <div className="event-card__suggestions">
             {suggestions.map((item) => {
               return <p key={item.id}>
-                  <button 
-                    className="suggestion__item" 
-                    value={item.id}
+                  <button
                     onClick={(e) => {
-                      handleVote(e)}}
+                      handleVote(e)}} 
+                    className={votedToggle ? "suggestion__item-voted" : "suggestion__item"} 
+                    // className="suggestion__item"
+                    value={item.id}
                   >
                   {item.suggestion} &nbsp;&nbsp; {totalEventVotes}
                   </button>
