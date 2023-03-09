@@ -37,8 +37,14 @@ const EventCard = ({
         const filteredUserEvent = res.data.filter((userevent) => (userevent.EventId === eventId && userevent.UserId === userId));
         console.log(filteredUserEvent[0])
 
-        setFilteredEvent(filteredUserEvent[0]);
-      });
+        // return filteredUserEvent[0];
+        return setFilteredEvent(filteredUserEvent[0]);
+        // console.log("after setFE:", filteredUserEvent[0])
+        // console.log("filteredEvent:", filteredEvent)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   };
 
   // in every render, get suggestions list and setSuggestions and 
@@ -62,11 +68,12 @@ const EventCard = ({
   // in every render, filter and get useevent that matches user id and event id,
   // store boolean votes_cast using setIsVoted
   useEffect(()=> {
+    console.log(id, user.id)
     getUserEvent(id, user.id);
-    console.log(filteredEvent)
+    console.log(setFilteredEvent)
     setIsVoted(filteredEvent.votes_cast);
-    console.log(isVoted)
-  }, [id, user.id]);
+    console.log("isVoted", isVoted)
+  }, [id, user.id, filteredEvent, isVoted]);
 
   const getVoteCount = (suggestionId) => {
     axios
@@ -152,8 +159,8 @@ const EventCard = ({
                 </p>
             })}
           </div> : <p>No suggestions yet</p> }
-          {/* {wrap suggestions form in a conditional: only if use hasn't made any suggestion, 
-        the show the form or activate the submit button}  */}
+          {/* {wrap suggestions form in a conditional: only if user hasn't made any suggestion, 
+        show the form or activate the submit button}  */}
           <form className="even-card__suggestions__form" onSubmit={() => {}} >
             <input 
               type="text" 
