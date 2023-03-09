@@ -7,93 +7,96 @@ import { useAuthContext } from "../hooks/useAuthContext";
 const MyProfile = () => {
   const initialState = {
     fields: {
-      firstName: "",
-      lastName: "",
+      first_name: "",
+      last_name: "",
       email: "",
-      events: "",
-      password: "",
+      Events: [],
+      // password: "",
     },
-    events: {
-      currentEvents: "",
-    },
-    password: {
-      oldPassword: "",
-      newPassword: "",
-      confirmNewPassword: "",
-    },
+    // events: {
+    //   currentEvents: "",
+    // },
+    // password: {
+    //   oldPassword: "",
+    //   newPassword: "",
+    //   confirmNewPassword: "",
+    // },
     alert: {
       message: "",
-      success: "",
+      success: false,
     },
   };
 
   const [fields, setFields] = useState(initialState.fields);
-  const [events, setEvents] = useState(initialState.events);
-  const [password, setPassword] = useState(initialState.password);
+  // const [events, setEvents] = useState(initialState.events);
+  // const [password, setPassword] = useState(initialState.password);
   const [alert, setAlert] = useState(initialState.alert);
-  const [readableOnly, setReadableOnly] = useState(true);
+  // const [readableOnly, setReadableOnly] = useState(true);
 
-  const user = useAuthContext();
+  const { user } = useAuthContext();
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/${user}`)
-      .then(({ data }) => setFields(data[0]))
+      .get(`http://localhost:4000/users/${user.id}`)
+      .then(({ data }) => {
+        setFields(data[0]);
+        console.log(fields)
+      })
       .catch(() => {
         setAlert({
           message: "Server error, please try again",
           isSuccess: false,
         });
       });
-  }, [user]);
+  }, []);
 
-  const handleEvent = (e) => {
-    setFields({ ...fields, [e.target.name]: e.target.value });
-  };
+  // const handleEvent = (e) => {
+  //   setFields({ ...fields, [e.target.name]: e.target.value });
+  // };
 
-  const handlePassword = () => {
-    if (password.newPassword === password.confirmNewPassword) {
-      axios
-        .post(`http://localhost:4000/auth/login`, {
-          email: fields.email,
-          password: password.oldPassword,
-        })
-        .then((res) => {
-          if (res.data.accessToken) {
-            localStorage.setItem("user", JSON.stringify(res.data));
-          }
-          console.log(res.data.accessToken);
-          setAlert({
-            message: `${res.data.message}`,
-            success: true,
-          });
-          return res.data;
-        })
-        .catch((err) => {
-          setAlert({
-            message: `${err.response.data.message}`,
-            success: false,
-          });
-        });
-    }
-  };
-  const handleUserProfile = () => {
-    axios
-      .patch(`http://localhost:4000/auth/signup/:id`, {
-        firstName: fields.firstName,
-        lastName: fields.lastName,
-        email: fields.email,
-      })
-      .then(() => {
-        setReadableOnly(true);
-      })
-      .catch(() => {
-        setAlert({
-          message: "Server error, please try again",
-          success: false,
-        });
-      });
-  };
+  // const handlePassword = () => {
+  //   if (password.newPassword === password.confirmNewPassword) {
+  //     axios
+  //       .post(`http://localhost:4000/auth/login`, {
+  //         email: fields.email,
+  //         password: password.oldPassword,
+  //       })
+  //       .then((res) => {
+  //         if (res.data.accessToken) {
+  //           localStorage.setItem("user", JSON.stringify(res.data));
+  //         }
+  //         console.log(res.data.accessToken);
+  //         setAlert({
+  //           message: `${res.data.message}`,
+  //           success: true,
+  //         });
+  //         return res.data;
+  //       })
+  //       .catch((err) => {
+  //         setAlert({
+  //           message: `${err.response.data.message}`,
+  //           success: false,
+  //         });
+  //       });
+  //   }
+  // };
+  // const handleUserProfile = () => {
+  //   axios
+  //     .patch(`http://localhost:4000/auth/signup/:id`, {
+  //       firstName: fields.firstName,
+  //       lastName: fields.lastName,
+  //       email: fields.email,
+  //     })
+  //     .then(() => {
+  //       setReadableOnly(true);
+  //     })
+  //     .catch(() => {
+  //       setAlert({
+  //         message: "Server error, please try again",
+  //         success: false,
+  //       });
+  //     });
+  // };
   return (
     <div className="container">
       <div className="pageTitle">
@@ -106,9 +109,9 @@ const MyProfile = () => {
         <input
           type="text"
           id="firstName"
-          value={fields.firstName}
-          onChange={handleEvent}
-          readOnly={readableOnly}
+          value={fields.first_name}
+          // onChange={handleEvent}
+          // readOnly={readableOnly}
         ></input>
       </div>
       <div className="inputBox">
@@ -116,9 +119,9 @@ const MyProfile = () => {
         <input
           type="text"
           id="lastname"
-          value={fields.lastName}
-          onChange={handleEvent}
-          readOnly={readableOnly}
+          value={fields.last_name}
+          // onChange={handleEvent}
+          // readOnly={readableOnly}
         ></input>
       </div>
       <div className="inputBox">
@@ -128,12 +131,12 @@ const MyProfile = () => {
             type="email"
             id="email"
             value={fields.email}
-            onChange={handleEvent}
-            readOnly={readableOnly}
+            // onChange={handleEvent}
+            // readOnly={readableOnly}
           ></input>
         </div>
       </div>
-      <div className="inputBox">
+      {/* <div className="inputBox">
         <div className="event">
           <label className="currentEvent" htmlFor="currentEvent">
             Current Events :
@@ -145,8 +148,8 @@ const MyProfile = () => {
             readOnly={readableOnly}
           ></input>
         </div>
-      </div>
-      <div className="inputBox">
+      </div> */}
+      {/* <div className="inputBox">
         <div className="password">
           <label htmlFor="oldPassword">Old Password:</label>
           <input
@@ -154,16 +157,16 @@ const MyProfile = () => {
             id="oldPassword"
             placeholder="********"
             required
-            readOnly={setReadableOnly}
+            // readOnly={setReadableOnly}
             onChange={(e) =>
               setPassword({ ...password, [e.target.name]: e.target.value })
             }
             value={password.oldPassword}
           ></input>
         </div>
-      </div>
+      </div> */}
 
-      <div className="inputBox">
+      {/* <div className="inputBox">
         <div className="password">
           <label htmlFor="newPassword">New Password:</label>
           <input
@@ -171,16 +174,16 @@ const MyProfile = () => {
             id="newPassword"
             placeholder="********"
             required
-            readOnly={setReadableOnly}
+            // readOnly={setReadableOnly}
             onChange={(e) =>
               setPassword({ ...password, [e.target.name]: e.target.value })
             }
             value={password.newPassword}
           ></input>
         </div>
-      </div>
+      </div> */}
 
-      <div className="inputBox">
+      {/* <div className="inputBox">
         <div className="confirmPass">
         <label htmlFor="confirmNewPassword">Confirm New Password:</label>
         <input
@@ -188,7 +191,7 @@ const MyProfile = () => {
           id="confirmNewPassword"
           placeholder="********"
           required
-          readOnly={setReadableOnly}
+          // readOnly={setReadableOnly}
           onChange={(e) =>
             setPassword({ ...password, [e.target.name]: e.target.value })
           }
@@ -202,7 +205,7 @@ const MyProfile = () => {
         <button type="submit" onClick={handlePassword}>
           Change Password
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };
