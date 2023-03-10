@@ -9,7 +9,6 @@ import Navbar from "./Navbar";
 import MyProfile from "./MyProfile";
 import JoinEvents from "./JoinEvents";
 import MyEvents from "./MyEvents";
-import LogOut from "./Logout";
 
 import "../styles/app.css";
 

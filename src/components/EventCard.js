@@ -13,10 +13,12 @@ const EventCard = ({
   const [adminFirstName, setAdminFirstName] = useState(""); // admin for the event
   const [suggestions, setSuggestions] = useState([]); //all the sugs of the event
   const [totalEventVotes, setTotalEventVotes] = useState(); //total votes for the event
-  const [isVoted, setIsVoted] = useState(false) //userevent votes_cast true or false
-  const [filteredEvent, setFilteredEvent] = useState()
+  const [votedSugId, setVotedSugId] = useState(); //VotedSugId in userevent table
+  // const [isVoted, setIsVoted] = useState(false) //userevent votes_cast true or false
+  const [filteredEvent, setFilteredEvent] = useState({})
   // const [userSuggestions, setUserSuggestions] = useState([]); //sugs that the user put forward
   const [voteCount, setVoteCount] = useState(0); //number of votes for a suggestion
+  const [sugSelected, setSugSelected] = useState(false); // boolean for selected or not
 
   const { user } = useAuthContext();
 
@@ -35,19 +37,30 @@ const EventCard = ({
       .get(`http://localhost:4000/userevents`)
       .then((res) => {
         const filteredUserEvent = res.data.filter((userevent) => (userevent.EventId === eventId && userevent.UserId === userId));
-        console.log(filteredUserEvent[0])
 
-        // return filteredUserEvent[0];
-        return setFilteredEvent(filteredUserEvent[0]);
-        // console.log("after setFE:", filteredUserEvent[0])
-        // console.log("filteredEvent:", filteredEvent)
+        return filteredUserEvent[0];
       })
       .catch((err) => {
         console.log(err);
       })
   };
 
-  // in every render, get suggestions list and setSuggestions and 
+  const updateEventVotes = (eventId) => {
+    axios
+      .get(`http://localhost:4000/events/${eventId}`)
+      .then((res) => {
+        const sugs = res.data.Suggestions;
+        const totalVotes = sugs.reduce((prev, current) => 
+          prev + current.votes, 0,
+        );
+        setTotalEventVotes(totalVotes);
+
+        axios
+          .patch(`http://localhost:4000/events/${eventId}`, { total_votes: totalVotes })
+      });
+  };
+
+  // get suggestions list and setSuggestions and 
   // get admin name and setAdminFirstName.
   // also add up votes of suggestions and setTotalEventVotes
   useEffect(() => {
@@ -61,19 +74,38 @@ const EventCard = ({
         const totalVotes = sugs.reduce((prev, current) => 
           prev + current.votes, 0,
         );
+        console.log(totalVotes)
         setTotalEventVotes(totalVotes);
+        console.log(totalEventVotes)
+
+        axios
+        .patch(`http://localhost:4000/events/${id}`, { total_votes: totalVotes })
+
+        axios
+        .get(`http://localhost:4000/userevents`)
+        .then((res) => {
+          const filteredUserEvent = res.data.filter((userevent) => (userevent.EventId === id && userevent.UserId === user.id));
+          console.log(filteredUserEvent[0])
+          // setFilteredEvent(filteredUserEvent[0])
+          setVotedSugId(filteredUserEvent[0].VotedSuggestionId);
+          console.log("votedSugId", votedSugId);
+          setSugSelected(
+            filteredUserEvent[0].VotedSuggestionId ? true : false
+          );
+          console.log("sugSelected:", sugSelected)
+        })
       });
-  }, [id]);
+  }, [id, user.id, votedSugId]);
 
   // in every render, filter and get useevent that matches user id and event id,
   // store boolean votes_cast using setIsVoted
-  useEffect(()=> {
-    console.log(id, user.id)
-    getUserEvent(id, user.id);
-    console.log(setFilteredEvent)
-    setIsVoted(filteredEvent.votes_cast);
-    console.log("isVoted", isVoted)
-  }, [id, user.id, filteredEvent, isVoted]);
+  // useEffect(()=> {
+  //   console.log(id, user.id)
+  //   getUserEvent(id, user.id);
+  //   console.log(filteredEvent)
+  //   setIsVoted(filteredEvent.votes_cast);
+  //   console.log("isVoted", isVoted)
+  // }, [id, user.id, filteredEvent, isVoted]);
 
   const getVoteCount = (suggestionId) => {
     axios
@@ -97,31 +129,18 @@ const EventCard = ({
   const updateVotesCast = (eventId, userId) => {
     const userEvent = getUserEvent(eventId, userId);
     axios
-      .patch(`http://localhost:4000/userevents/${userEvent.id}`, { votes_cast: isVoted })
-  };
-
-  const updateEventVotes = (eventId) => {
-    axios
-      .get(`http://localhost:4000/events/${eventId}`)
-      .then((res) => {
-        const sugs = res.data.Suggestions;
-        const totalVotes = sugs.reduce((prev, current) => 
-          prev + current.votes, 0,
-        );
-        setTotalEventVotes(totalVotes);
-
-        axios
-          .patch(`http://localhost:4000/events/${eventId}`, { total_votes: totalVotes })
-      });
+      .patch(`http://localhost:4000/userevents/${userEvent.id}`, { votes_cast: sugSelected })
   };
 
   const handleVote = (e) => {
     e.preventDefault();
     const votedSugId = e.target.value;
     
-    setIsVoted((prev) => !prev); // change isVoted boolean
+    // setIsVoted((prev) => !prev); // change isVoted boolean
+    setSugSelected((prev) => !prev); // change sugSelected boolean
+    setVotedSugId(); // xxxxxx 
     setVoteCount(getVoteCount(votedSugId)); // get prev vote count for sug and set as voteCount
-    updateSugVotes(votedSugId, isVoted, voteCount); //update voteCount and sug votes
+    updateSugVotes(votedSugId, sugSelected, voteCount); //update voteCount and sug votes
     updateVotesCast(id, user.id); // update userevent votes_cast
     updateEventVotes(id)// update total_votes in event and totalEventVotes
   };
@@ -150,8 +169,8 @@ const EventCard = ({
                   <button
                     onClick={(e) => {
                       handleVote(e)}} 
-                    className={isVoted ? "suggestion__item-voted" : "suggestion__item"} 
-                    // className="suggestion__item"
+                    // className={isVoted ? "suggestion__item-voted" : "suggestion__item"} 
+                    className="suggestion__item"
                     value={item.id}
                   >
                   {item.suggestion} &nbsp;&nbsp; {item.votes} &#47; {totalEventVotes}
