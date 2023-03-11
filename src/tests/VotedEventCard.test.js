@@ -2,9 +2,9 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import renderer from "react-test-renderer";
 import { AuthContextProvider } from "../contexts/AuthContext";
-import EventCard from "../components/EventCard";
+import VotedEventCard from "../components/VotedEventCard";
 
-describe("EventCard", () => {
+describe("VotedEventCard", () => {
   const validProps = {
     id: 1,
     title: "test title",
@@ -14,7 +14,7 @@ describe("EventCard", () => {
   const setup = () => {
     render(
       <AuthContextProvider>
-        <EventCard {...validProps} />
+        <VotedEventCard {...validProps} />
       </AuthContextProvider>
     ); 
   };
@@ -22,7 +22,7 @@ describe("EventCard", () => {
   it("renders correctly", () => {
     const rendered = renderer.create(
       <AuthContextProvider>
-        <EventCard {...validProps} />
+        <VotedEventCard  {...validProps} />
       </AuthContextProvider>
     );
     expect(rendered).toMatchSnapshot();
@@ -31,7 +31,7 @@ describe("EventCard", () => {
   it("renders correct values for props", () => {
     setup();
 
-    expect(screen.getByText("test title")).toHaveClass("event-card__title");
-    expect(screen.getByText("test description")).toHaveClass("event-card__description");
+    expect(screen.getByText("test title")).toHaveClass("voted-card__title");
+    expect(screen.getByText("test description")).toHaveClass("voted-card__description");
   });
 });

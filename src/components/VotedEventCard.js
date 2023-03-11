@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
+// import { useAuthContext } from "../hooks/useAuthContext";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 
 import "../styles/voted-event-card.css";
@@ -9,10 +10,12 @@ const VotedEventCard = ({
   id,
   title,
   description,
-  AdminId,
+  // AdminId,
 }) => {
   const [adminFirstName, setAdminFirstName] = useState("");
   const [votedSuggestion, setVotedSuggestion] = useState("");
+
+  // const { user } = useAuthContext();
 
   useEffect(() => {
     axios
