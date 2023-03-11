@@ -31,19 +31,6 @@ const EventCard = ({
     return adminData[0].first_name;
   };
 
-  const getUserEvent = (eventId, userId) => {
-    axios
-      .get(`http://localhost:4000/userevents`)
-      .then((res) => {
-        const filteredUserEvent = res.data.filter((userevent) => (userevent.EventId === eventId && userevent.UserId === userId));
-
-        return filteredUserEvent[0];
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  };
-
   // 1. get admin name and do setAdminFirstName
   // 2. get suggestions list and do setSuggestions
   // 3. add up votes of suggestions and do setTotalEventVotes
@@ -79,7 +66,8 @@ const EventCard = ({
         .get(`http://localhost:4000/userevents`)
         .then((res) => {
           const filteredUserEvent = res.data.filter((userevent) => (userevent.EventId === id && userevent.UserId === user.id));
-          
+          console.log(filteredUserEvent)
+
           // 6. do setVotedSugId
           setVotedSugId(filteredUserEvent[0].VotedSuggestionId);
           
@@ -89,26 +77,28 @@ const EventCard = ({
             .get(`http://localhost:4000/suggestions/${filteredUserEvent[0].VotedSuggestionId}`)
             .then((res) => {
               setVoteCount(res.data.votes);
-          });
+              console.log("voteCount:", res.data.votes)
+            });
           }
           
           // 8. do setSugSelected
           setSugSelected(
             filteredUserEvent[0].VotedSuggestionId ? true : false
-          );
-        })
-
+            );
+          })
+          
+        // console.log(votedSugId)
         // console.log(suggestions)
         // console.log(totalEventVotes)
-        // console.log(votedSugId)
         // console.log(voteCount)
         // console.log(sugSelected)
       });
-  }, [id, user.id, voteCount, totalEventVotes]);
+  }, [voteCount]);
 
   const updateSugVotes = (suggestionId, selected, voteCount) => {
     let sugVotes = voteCount;
-
+    console.log("updateSugVotes, selected and voteCount:", selected, voteCount)
+    // need to refractor this
     if (selected) {
       sugVotes ++;
     } else {
@@ -119,13 +109,15 @@ const EventCard = ({
       }
     }
 
-    setVoteCount(sugVotes);
-
+    console.log("updateSugVotes sugVotes after update:", sugVotes)
+    
     axios
-      .patch(`http://localhost:4000/suggestions/${suggestionId}`, { votes: sugVotes});
+    .patch(`http://localhost:4000/suggestions/${suggestionId}`, { votes: sugVotes});
+
+    setVoteCount(sugVotes);
   };
 
-  const updateVotesCast = (eventId, userId, suggestionId) => {
+  const updateVotedSug = (eventId, userId, suggestionId) => {
     axios
       .get(`http://localhost:4000/userevents`)
       .then((res) => {
@@ -144,10 +136,11 @@ const EventCard = ({
         const totalVotes = sugs.reduce((prev, current) => 
           prev + current.votes, 0,
         );
-        setTotalEventVotes(totalVotes);
-
+        
         axios
-          .patch(`http://localhost:4000/events/${eventId}`, { total_votes: totalVotes })
+        .patch(`http://localhost:4000/events/${eventId}`, { total_votes: totalVotes })
+        
+        setTotalEventVotes(totalVotes);
       });
   };
 
@@ -165,17 +158,17 @@ const EventCard = ({
     if (sugSelected) {
       setVotedSugId(clickedSugId);
       updateSugVotes(clickedSugId, sugSelected, voteCount);
-      updateVotesCast(id, user.id, votedSugId);
+      updateVotedSug(id, user.id, votedSugId);
       updateEventVotes(id);
     } else {
       updateSugVotes(clickedSugId, sugSelected, voteCount);
-      updateVotesCast(id, user.id, null);
+      updateVotedSug(id, user.id, null);
       updateEventVotes(id);
     }
 
-    console.log(clickedSugId)
-    console.log(voteCount)
-    console.log(totalEventVotes)
+    // console.log(clickedSugId)
+    // console.log(voteCount)
+    // console.log(totalEventVotes)
   };
 
   const handleSubmitSuggestion = (e) => {
@@ -198,19 +191,18 @@ const EventCard = ({
         <div className="event-card__suggestions__container">
           {suggestions[0] ? <div className="event-card__suggestions">
             {suggestions.map((item) => {
-              return <p key={item.id}>
-                  <button
-                    onClick={(e) => {
-                      setSugSelected((prev) => !prev);
-                      handleVote(e);
-                    }} 
-                    // className={isVoted ? "suggestion__item-voted" : "suggestion__item"} 
-                    className="suggestion__item"
-                    value={item.id}
-                  >
-                  {item.suggestion} &nbsp;&nbsp; {item.votes} &#47; {totalEventVotes}
+              return <button
+                      key={item.id}
+                      onClick={(e) => {
+                        setSugSelected((prev) => !prev);
+                        handleVote(e);
+                      }} 
+                      // className={sugSelected ? "suggestion__item-voted" : "suggestion__item"} 
+                      className="suggestion__item"
+                      value={item.id}
+                      >
+                        {item.suggestion} &nbsp;&nbsp; {item.votes} &#47; {totalEventVotes}
                   </button>
-                </p>
             })}
           </div> : <p>No suggestions yet</p> }
           {/* {wrap suggestions form in a conditional: only if user hasn't made any suggestion, 
