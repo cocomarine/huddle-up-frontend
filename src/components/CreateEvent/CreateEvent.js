@@ -8,13 +8,15 @@ import "../../styles/create-event.css";
 
 const CreateEvent = () => {
   const { user } = useAuthContext();
+
   const navigate = useNavigate();
   const initialState = {
     fields: {
       title: "",
       description: "",
-      categories: "",
+      category: "",
       voting_finished: false,
+      AdminId:"",
     },
     alert: {
       message: "",
@@ -61,7 +63,7 @@ const CreateEvent = () => {
             ></input>
           </div>
         </div>
-        <div>
+        <div className="description">
           <label htmlFor="description"> Event Description:</label>
           <div>
             <input
@@ -74,11 +76,11 @@ const CreateEvent = () => {
           </div>
         </div>
         <br></br>
-        <label id="categories" htmlFor="categories">
+        <label className="category" id="category" htmlFor="categories">
           Event Category
         </label>
 
-        <select onChange={handleFieldChange} name="categories">
+        <select onChange={handleFieldChange} name="category">
           <option value="resturant"> Resturant </option>
           <option value="coffe">Coffe </option>
           <option value="park">Park </option>
@@ -86,7 +88,7 @@ const CreateEvent = () => {
           <option value="softPlay">Soft Play</option>
         </select>
 
-        <div>
+        <div className="createEvent">
           <button type="submit">Create Event</button>
         </div>
       </form>

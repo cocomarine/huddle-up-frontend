@@ -15,20 +15,53 @@
 
 .eventForm {
   font-weight: 500;
+  font-size: 17px;
 }
 .eventForm input {
   background-color: white;
   height: 30px;
   margin: 10px;
   width: 180px;
+} 
+
+.description input {
+  background-color: white;
+  height: 80px;
+  margin: 10px;
+  width: 290px;
 }
 
-.list {
+.description {
+  font-weight: 500;
+  font-size: 17px;
+}
+
+.categories {
   font-size: 17px;
   list-style: none;
-  cursor: pointer;
+  margin-right: 15px;
+  
+  
 }
-.list :hover {
+.categories  :hover {
   background-color: rgb(52, 68, 250);
   color: white;
+  cursor: pointer;
+}
+
+.createEvent button {
+  margin: 30px;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  background-color: white;
+  color: #090909;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  height: 30px;
+  width: 170px;
+}
+
+.createEvent :hover {
+  background-color: rgb(52, 68, 250);
 }
