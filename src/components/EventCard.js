@@ -39,6 +39,63 @@ const EventCard = ({
   // 6. do setVotedSugId
   // 7. get votes from a suggestion and do setVoteCount
   // 8. do setSugSelected
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://localhost:4000/events/${id}`)
+  //     .then((res) => {
+  //       // 1. setAdminFirstName
+  //       setAdminFirstName(getAdminName(res.data));
+        
+  //       const sugs = res.data.Suggestions;
+
+  //       // 2. get suggestions list and do setSuggestions
+  //       setSuggestions(sugs);
+  //     }
+  //   )}, [suggestions]);
+
+  // useEffect(() => {
+  //   // 3. add up votes of suggestions and do setTotalEventVotes
+  //   const totalVotes = suggestions.reduce((prev, current) => 
+  //     prev + current.votes, 0,
+  //   );
+  //   setTotalEventVotes(totalVotes);
+
+  //   // 4. update total_votes of event
+  //   axios
+  //   .patch(`http://localhost:4000/events/${id}`, { total_votes: totalVotes })
+
+  // }, [totalEventVotes]);
+
+  // useEffect(() => {
+  // // 5. get userevent and filter them down to a userevent that matches eventid and userid
+  //   axios
+  //     .get(`http://localhost:4000/userevents`)
+  //     .then((res) => {
+  //       const filteredUserEvent = res.data.filter((userevent) => (userevent.EventId === id && userevent.UserId === user.id));
+  //       console.log(filteredUserEvent)
+
+  //       // 6. do setVotedSugId
+  //       setVotedSugId(filteredUserEvent[0].voted_suggestionId);
+        
+  //       // 7. get votes from suggestion and do setVoteCount
+  //       if (filteredUserEvent[0].voted_suggestionId) {
+  //         axios
+  //         .get(`http://localhost:4000/suggestions/${filteredUserEvent[0].voted_suggestionId}`)
+  //         .then((res) => {
+  //           setVoteCount(res.data.votes);
+  //           console.log("voteCount:", res.data.votes)
+  //         });
+  //       }
+
+  //       // 8. do setSugSelected
+  //       setSugSelected(
+  //         filteredUserEvent[0].voted_suggestionId ? true : false
+  //         );
+  //     })
+  // }, [votedSugId, voteCount]);
+
+    
   useEffect(() => {
     axios
       .get(`http://localhost:4000/events/${id}`)
@@ -69,12 +126,12 @@ const EventCard = ({
           console.log(filteredUserEvent)
 
           // 6. do setVotedSugId
-          setVotedSugId(filteredUserEvent[0].VotedSuggestionId);
+          setVotedSugId(filteredUserEvent[0].voted_suggestionId);
           
           // 7. get votes from suggestion and do setVoteCount
-          if (filteredUserEvent[0].VotedSuggestionId) {
+          if (filteredUserEvent[0].voted_suggestionId) {
             axios
-            .get(`http://localhost:4000/suggestions/${filteredUserEvent[0].VotedSuggestionId}`)
+            .get(`http://localhost:4000/suggestions/${filteredUserEvent[0].voted_suggestionId}`)
             .then((res) => {
               setVoteCount(res.data.votes);
               console.log("voteCount:", res.data.votes)
@@ -83,15 +140,15 @@ const EventCard = ({
           
           // 8. do setSugSelected
           setSugSelected(
-            filteredUserEvent[0].VotedSuggestionId ? true : false
+            filteredUserEvent[0].voted_suggestionId ? true : false
             );
           })
           
-        // console.log(votedSugId)
-        // console.log(suggestions)
-        // console.log(totalEventVotes)
-        // console.log(voteCount)
-        // console.log(sugSelected)
+          // console.log(suggestions)
+          // console.log("votedSugId:", votedSugId)
+          // console.log("totalEventVotes:", totalEventVotes)
+          // console.log("voteCount:", voteCount)
+          // console.log("sugSelected:", sugSelected)
       });
   }, [voteCount]);
 
@@ -122,9 +179,10 @@ const EventCard = ({
       .get(`http://localhost:4000/userevents`)
       .then((res) => {
         const filteredUserEvent = res.data.filter((userevent) => (userevent.EventId === eventId && userevent.UserId === userId));
+        console.log("updateVotedSug params:", filteredUserEvent[0].id, suggestionId)
       
         axios
-          .patch(`http://localhost:4000/userevents/${filteredUserEvent[0].id}`, { VotedSuggestionId: suggestionId })
+          .patch(`http://localhost:4000/userevents/${filteredUserEvent[0].id}`, { voted_suggestionId: suggestionId })
     })
   };
 
@@ -148,20 +206,24 @@ const EventCard = ({
   // 2. do setSugSelected to change sugSelected boolean
   // 3. do setVotedSugId: if previously null, put sug id. if not null, put null 
   // 4. update votecount and update votes of suggestion table
-  // 5. update VotedSuggestionId of userevent table
+  // 5. update voted_suggestionId of userevent table
   // 6. update totalEventVotes and total_votes in event table
+
   const handleVote = (e) => {
     e.preventDefault();
-    console.log(sugSelected)
+    console.log("sugSelected:", sugSelected)
+    let voteToggle = !sugSelected;
+    console.log("voteToggle:", voteToggle)
+    setSugSelected(voteToggle)
     const clickedSugId = e.target.value;
 
-    if (sugSelected) {
+    if (voteToggle) {
       setVotedSugId(clickedSugId);
-      updateSugVotes(clickedSugId, sugSelected, voteCount);
-      updateVotedSug(id, user.id, votedSugId);
+      updateSugVotes(clickedSugId, voteToggle, voteCount);
+      updateVotedSug(id, user.id, clickedSugId);
       updateEventVotes(id);
     } else {
-      updateSugVotes(clickedSugId, sugSelected, voteCount);
+      updateSugVotes(clickedSugId, voteToggle, voteCount);
       updateVotedSug(id, user.id, null);
       updateEventVotes(id);
     }
@@ -194,7 +256,7 @@ const EventCard = ({
               return <button
                       key={item.id}
                       onClick={(e) => {
-                        setSugSelected((prev) => !prev);
+                        // setSugSelected((prev) => !prev);
                         handleVote(e);
                       }} 
                       // className={sugSelected ? "suggestion__item-voted" : "suggestion__item"} 
