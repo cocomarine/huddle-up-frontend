@@ -93,9 +93,10 @@ const MyProfile = () => {
           success: false,
         });
       });
-  };
-  return (
-    <div className="container">
+    };
+    return (
+      <div className="container">
+      <Alert message={alert.message} success={alert.success} />
       <div className="pageTitle">
         <h1>My Profile</h1>
       </div>
@@ -197,10 +198,9 @@ const MyProfile = () => {
         </div>
         
       </div>
-      <Alert message={alert.message} success={alert.success} />
       <div className="submitButton">
-        <button type="submit" onClick={handlePassword}>
-          Change Password
+        <button type="submit" onClick={handleUserProfile}>
+          Update Password
         </button>
       </div>
     </div>
