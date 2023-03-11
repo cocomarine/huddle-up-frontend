@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MyEvents renders correctly 1`] = `
+<div
+  className="events"
+>
+  <h3>
+     My Events
+  </h3>
+  <div
+    className="navigate-events"
+  >
+    <a
+      href="#event-cards-voted"
+      onClick={[Function]}
+    >
+      <button>
+        Voting finished
+      </button>
+    </a>
+    <a
+      href="#event-cards-pending"
+      onClick={[Function]}
+    >
+      <button>
+        Voting in progress
+      </button>
+    </a>
+    <div
+      className="join-create-buttons"
+    >
+      <button>
+        Join an event
+      </button>
+      <button>
+        Create an event
+      </button>
+    </div>
+  </div>
+  <div
+    className="event-cards"
+  >
+    <div
+      className="event-cards-voted"
+      id="event-cards-voted"
+    >
+      <h4>
+        Voting Finished
+      </h4>
+    </div>
+    <div
+      className="event-cards-pending"
+      id="event-cards-pending"
+    >
+      <h4>
+        Voting In Progress
+      </h4>
+    </div>
+  </div>
+</div>
+`;

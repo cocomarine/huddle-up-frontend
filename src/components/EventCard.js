@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 import { useAuthContext } from "../hooks/useAuthContext";
 import Alert from "./Alert";
 import { IoIosCloseCircleOutline } from "react-icons/io";
@@ -238,15 +239,14 @@ const EventCard = ({
                         handleVote(e);
                       }} 
                       className={`suggestion__item ${votedSugId === item.id ? "voted" : ""}`} 
-                      // className="suggestion__item"
                       value={item.id}
                       >
                         {item.suggestion} &nbsp;&nbsp; {item.votes} &#47; {totalEventVotes}
                   </button>
             })}
           </div> : <div className="no-sug-msg">No suggestions yet</div> }
-          {/* {wrap suggestions form in a conditional: only if user hasn't made any suggestion, 
-        show the form or activate the submit button}  */}
+          {/* {only if user hasn't made any suggestion, 
+        show suggestion input form}  */}
           {!userSuggestion && <div className="suggestion-input-container">
             <form className="even-card__suggestions__form" onSubmit={handleSubmitSuggestion} >
               <Alert message={alert.message} success={alert.isSuccess} />
@@ -268,6 +268,12 @@ const EventCard = ({
       </div>
     </div>
   );
+};
+
+EventCard.propTypes = {
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
 };
 
 export default EventCard;

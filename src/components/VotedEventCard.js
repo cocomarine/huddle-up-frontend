@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 
 import "../styles/voted-event-card.css";
@@ -8,7 +9,6 @@ const VotedEventCard = ({
   id,
   title,
   description,
-  voting_finished,
   AdminId,
 }) => {
   const [adminFirstName, setAdminFirstName] = useState("");
@@ -51,6 +51,13 @@ const VotedEventCard = ({
       </div>
     </div>
   );
+};
+
+VotedEventCard.propTypes = {
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  AdminId: PropTypes.number,
 };
 
 export default VotedEventCard;

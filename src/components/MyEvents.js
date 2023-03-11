@@ -15,7 +15,6 @@ const MyEvents = () => {
   const [usersEvents, setUsersEvents] = useState([]);
   const [votedEvents, setVotedEvents] = useState(initialState.votedEvents);
   const [pendingEvents, setPendingEvents] = useState(initialState.pendingEvents);
-  const [alert, setAlert] = useState({ message: "" });
 
   const { user } = useAuthContext();
 
