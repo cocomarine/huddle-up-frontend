@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import AnchorLink from "react-anchor-link-smooth-scroll-v2";
 import axios from "axios";
+import ScrollToTop from "react-scroll-to-top";
+import { IoIosArrowUp } from "react-icons/io";
+
 import EventCard from "./EventCard";
 import VotedEventCard from "./VotedEventCard";
 import { useAuthContext } from "../hooks/useAuthContext";
@@ -15,7 +18,6 @@ const MyEvents = () => {
   const [usersEvents, setUsersEvents] = useState([]);
   const [votedEvents, setVotedEvents] = useState(initialState.votedEvents);
   const [pendingEvents, setPendingEvents] = useState(initialState.pendingEvents);
-  const [alert, setAlert] = useState({ message: "" });
 
   const { user } = useAuthContext();
 
@@ -88,6 +90,7 @@ const MyEvents = () => {
           ))}
         </div>
       </div>
+      <ScrollToTop smooth component={<IoIosArrowUp />} />
     </div>
   );
 };
