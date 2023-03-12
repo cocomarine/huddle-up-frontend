@@ -31,6 +31,8 @@ const MyProfile = () => {
       });
   },[user.id]);
 
+  return (
+    <div className="profile-container">
       <div className="pageTitle">
         <h1>My Profile</h1>
         <div className="inputBox">
