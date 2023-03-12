@@ -9,9 +9,9 @@ import Navbar from "./Navbar";
 import MyProfile from "./MyProfile";
 import JoinEvents from "./JoinEvents";
 import MyEvents from "./MyEvents";
-import LogOut from "./Logout";
 import CreateEvent from "./CreateEvent/CreateEvent";
 import InviteFriends from "./InviteFriends";
+
 import "../styles/app.css";
 
 function App() {

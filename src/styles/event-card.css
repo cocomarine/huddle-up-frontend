@@ -46,6 +46,10 @@
   cursor: pointer;
 }
 
+.event-card__admin {
+  padding: 10px 0px;
+  font-size: 0.7rem;
+}
 .suggestion__item:hover {
   box-shadow: 2px 2px 2px rgb(86, 86, 86);
 }
@@ -56,12 +60,10 @@
   transform: scale(.96);
 }
 
-.suggestion__item-voted {
+.voted {
   background: gold;
 }
 
-.event-card__admin {
-  padding: 10px 0px;
-  font-size: 0.7rem;
+.no-sug-msg {
+  margin: 10px;
 }
-

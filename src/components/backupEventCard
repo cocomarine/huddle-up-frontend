@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import PropTypes from "prop-types";
 import { useAuthContext } from "../hooks/useAuthContext";
-import Alert from "./Alert";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 
 import "../styles/event-card.css";
@@ -17,14 +15,9 @@ const EventCard = ({
   const [totalEventVotes, setTotalEventVotes] = useState(); //total votes for the event
   const [votedSugId, setVotedSugId] = useState(); //VotedSugId in userevent table
   // const [filteredEvent, setFilteredEvent] = useState({})
-  const [userSuggestion, setUserSuggestion] = useState({}); //sug that the user put forward for this event
+  // const [userSuggestions, setUserSuggestions] = useState([]); //sugs that the user put forward
   const [voteCount, setVoteCount] = useState(0); //number of votes for a suggestion
   const [sugSelected, setSugSelected] = useState(false); // boolean for selected or not
-  const [newSuggestion, setNewSuggestion] = useState("");
-  const [alert, setAlert] = useState({
-    message: "",
-    isSuccess: false,
-  }); 
 
   const { user } = useAuthContext();
 
@@ -45,8 +38,7 @@ const EventCard = ({
   // 5. get userevent and filter them down to a userevent that matches eventid and userid
   // 6. do setVotedSugId
   // 7. get votes from a suggestion and do setVoteCount
-  // 8. do setSugSelected 
-  // 9. find if user already has put forward suggestion for this event and do setUserSuggestion
+  // 8. do setSugSelected
   useEffect(() => {
     axios
       .get(`http://localhost:4000/events/${id}`)
@@ -74,41 +66,32 @@ const EventCard = ({
         .get(`http://localhost:4000/userevents`)
         .then((res) => {
           const filteredUserEvent = res.data.filter((userevent) => (userevent.EventId === id && userevent.UserId === user.id));
-
+          
           // 6. do setVotedSugId
-          setVotedSugId(filteredUserEvent[0].voted_suggestionId);
+          setVotedSugId(filteredUserEvent[0].VotedSuggestionId);
           
           // 7. get votes from suggestion and do setVoteCount
-          if (filteredUserEvent[0].voted_suggestionId) {
+          if (filteredUserEvent[0].VotedSuggestionId) {
             axios
-              .get(`http://localhost:4000/suggestions/${filteredUserEvent[0].voted_suggestionId}`)
-              .then((res) => {
-                setVoteCount(res.data.votes);
-                console.log("voteCount:", res.data.votes)
-            });
+            .get(`http://localhost:4000/suggestions/${filteredUserEvent[0].VotedSuggestionId}`)
+            .then((res) => {
+              setVoteCount(res.data.votes);
+          });
           }
           
           // 8. do setSugSelected
           setSugSelected(
-            filteredUserEvent[0].voted_suggestionId ? true : false
-            );
-          })
+            filteredUserEvent[0].VotedSuggestionId ? true : false
+          );
+        })
 
-          // 9. find if user already has put forward suggestion for this event and do setUserSuggestion
-          axios
-            .get(`http://localhost:4000/suggestions`)
-            .then((res) => {
-              const filteredUserSuggestion = res.data.filter((sug) => (sug.EventId === id && sug.UserId === user.id));
-              setUserSuggestion(filteredUserSuggestion[0]);
-          });
-      })
-      .catch(() => {
-        setAlert({
-          message: "Server error, please try again",
-          isSuccess: false,
-        });
+        console.log(suggestions)
+        console.log(totalEventVotes)
+        console.log(votedSugId)
+        console.log(voteCount)
+        console.log(sugSelected)
       });
-  }, [voteCount, newSuggestion]);
+  }, [id, user.id, voteCount]);
 
   const updateSugVotes = (suggestionId, selected, voteCount) => {
     let sugVotes = voteCount;
@@ -137,10 +120,9 @@ const EventCard = ({
       .get(`http://localhost:4000/userevents`)
       .then((res) => {
         const filteredUserEvent = res.data.filter((userevent) => (userevent.EventId === eventId && userevent.UserId === userId));
-        console.log("updateVotedSug params:", filteredUserEvent[0].id, suggestionId)
       
         axios
-          .patch(`http://localhost:4000/userevents/${filteredUserEvent[0].id}`, { voted_suggestionId: suggestionId })
+          .patch(`http://localhost:4000/userevents/${filteredUserEvent[0].id}`, { VotedSuggestionId: suggestionId })
     })
   };
 
@@ -164,58 +146,32 @@ const EventCard = ({
   // 2. do setSugSelected to change sugSelected boolean
   // 3. do setVotedSugId: if previously null, put sug id. if not null, put null 
   // 4. update votecount and update votes of suggestion table
-  // 5. update voted_suggestionId of userevent table
+  // 5. update VotedSuggestionId of userevent table
   // 6. update totalEventVotes and total_votes in event table
-
   const handleVote = (e) => {
     e.preventDefault();
-    console.log("sugSelected:", sugSelected)
-    let voteToggle = !sugSelected;
-    console.log("voteToggle:", voteToggle)
-    setSugSelected(voteToggle)
+    console.log(sugSelected)
     const clickedSugId = e.target.value;
 
-    if (voteToggle) {
+    if (sugSelected) {
       setVotedSugId(clickedSugId);
-      updateSugVotes(clickedSugId, voteToggle, voteCount);
-      updateVotedSug(id, user.id, clickedSugId);
+      updateSugVotes(clickedSugId, sugSelected, voteCount);
+      updateVotedSug(id, user.id, votedSugId);
       updateEventVotes(id);
     } else {
-      updateSugVotes(clickedSugId, voteToggle, voteCount);
+      updateSugVotes(clickedSugId, sugSelected, voteCount);
       updateVotedSug(id, user.id, null);
       updateEventVotes(id);
     }
+
+    // console.log(clickedSugId)
+    // console.log(voteCount)
+    // console.log(totalEventVotes)
   };
 
   const handleSubmitSuggestion = (e) => {
     e.preventDefault();
 
-    if (!newSuggestion) {
-      setAlert({
-        message: "Please enter new suggestion",
-        isSuccess: false,
-      });
-      setNewSuggestion("");
-      return;
-    }
-
-    axios
-      .post(`http://localhost:4000/suggestions`, {
-         suggestion: newSuggestion,
-         votes: 0,
-         UserId: user.id,
-         EventId: id,
-      })
-      .then((res) => {
-        console.log(res.config.data)
-        setSuggestions([...suggestions, res.config.data]);
-        setNewSuggestion("");
-        setAlert({
-          message: "Suggestion successfully added",
-          isSuccess: true,
-        });
-      })
-    setAlert({ message: "", isSuccess: false });
   };
 
   return (
@@ -236,44 +192,38 @@ const EventCard = ({
               return <button
                       key={item.id}
                       onClick={(e) => {
+                        setSugSelected((prev) => !prev);
                         handleVote(e);
                       }} 
-                      className={`suggestion__item ${votedSugId === item.id ? "voted" : ""}`} 
+                      // className={sugSelected ? "suggestion__item-voted" : "suggestion__item"} 
+                      className="suggestion__item"
                       value={item.id}
                       >
                         {item.suggestion} &nbsp;&nbsp; {item.votes} &#47; {totalEventVotes}
                   </button>
             })}
-          </div> : <div className="no-sug-msg">No suggestions yet</div> }
-          {/* {only if user hasn't made any suggestion, 
-        show suggestion input form}  */}
-          {!userSuggestion && <div className="suggestion-input-container">
-            <form className="even-card__suggestions__form" onSubmit={handleSubmitSuggestion} >
-              <Alert message={alert.message} success={alert.isSuccess} />
-              <input 
-                type="text" 
-                className="suggestion__input"
-                value={newSuggestion}
-                onChange={(e) => setNewSuggestion(e.target.value)}
-              />
-              <button 
-                type="submit" 
-                className="suggestion__button" 
-              >
-                Submit
-              </button>
-            </form>
-          </div>}
+          </div> : <p>No suggestions yet</p> }
+          {/* {wrap suggestions form in a conditional: only if user hasn't made any suggestion, 
+        show the form or activate the submit button}  */}
+          <form className="even-card__suggestions__form" onSubmit={() => {}} >
+            <input 
+              type="text" 
+              className="suggestion__input"
+              // value={test}
+              onChange={() => {}}
+            />
+            <button 
+              type="submit" 
+              className="suggestion__button" 
+              onSubmit={(e) => {handleSubmitSuggestion(e)}}
+            >
+              Submit
+            </button>
+          </form>
         </div>
       </div>
     </div>
   );
-};
-
-EventCard.propTypes = {
-  id: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
 };
 
 export default EventCard;
