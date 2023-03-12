@@ -7,65 +7,65 @@ import AddEvent from "./AddEvent";
 import "../../styles/create-event.css";
 
 const CreateEvent = () => {
-  const { user } = useAuthContext();
-
-  const navigate = useNavigate();
-
   const initialState = {
     fields: {
       title: "",
       description: "",
       total_votes: 0,
       category: "",
-      AdminId:"",
+      AdminId: "",
     },
     alert: {
       message: "",
       success: false,
     },
   };
+
+  const [fields, setFields] = useState(initialState.fields);
   const [alert, setAlert] = useState(initialState.alert);
 
-  const changeLocation = (redirect) => {
-    navigate(redirect, { replace: true });
-    // window.location.reload();
-  };
+  const { user } = useAuthContext();
 
-  const handleAddEvent = (event) => {
-    event.preventDefault();
-    AddEvent(initialState.fields, setAlert);
-    changeLocation("/invitefriends");
+  const navigate = useNavigate();
+
+  const handleAddEvent = (e) => {
+    e.preventDefault();
+    AddEvent(fields, setAlert);
     console.log(alert);
     setAlert({ message: "", success: false });
 
+    navigate("/invitefriends");
   };
   const handleFieldChange = (e) => {
-    e.preventDefault();
-    if (initialState.fields.hasOwnProperty(e.target.id)) {
-      initialState.fields[e.target.id] = e.target.value;
-    }
-    if (e.target.name === "category") {
-      initialState.fields[e.target.name] = e.target.value;
-    }
-    initialState.fields.AdminId = user.id;
-    console.log(initialState.fields);
+    // if (initialState.fields.hasOwnProperty(e.target.id)) {
+    //   initialState.fields[e.target.id] = e.target.value;
+    // }
+    fields.AdminId = user.id;
+
+    // if (e.target.name === "category") {
+    //   initialState.fields[e.target.name] = e.target.value;
+    // }
+    setFields({ ...fields, [e.target.name]: e.target.value });
+    console.log(fields);
   };
 
+  // add backbutton to go back to my events page?
   return (
     <div className="eventPgcontainer">
       <h1>Create Event</h1>
       <Alert message={alert.message} success={alert.success} />
       <form onSubmit={handleAddEvent}>
         <div className="eventForm">
-          <label htmlFor="title"> Event Title:</label>
+          {/* <label htmlFor="title"> Event Title:</label> */}
           <div>
             <input
               type="text"
               placeholder="Enter your event title"
               id="title"
+              value={fields.title}
               onChange={handleFieldChange}
               required
-            ></input>
+            />
           </div>
         </div>
         <div className="description">
@@ -73,19 +73,24 @@ const CreateEvent = () => {
           <div>
             <input
               type="text"
-              placeholder="Enter the details of the event"
+              placeholder="Enter details and questions."
               id="description"
+              value={fields.description}
               onChange={handleFieldChange}
               required
-            ></input>
+            />
           </div>
         </div>
         <br></br>
-        <label className="category" id="category" htmlFor="categories">
+        <label className="categories" id="category" htmlFor="category">
           Event Category
         </label>
 
-        <select onChange={handleFieldChange} name="category">
+        <select
+          value={fields.category}
+          onChange={handleFieldChange} 
+          name="category"
+        >
           <option value="resturant"> Resturant </option>
           <option value="coffee">Coffee </option>
           <option value="park">Park </option>

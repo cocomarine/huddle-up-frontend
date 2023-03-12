@@ -10,6 +10,8 @@ const JoinEvents = () => {
     navigate(redirect, { replace: true });
     window.location.reload();
   };
+
+  // add backbutton to go back to my events page?
   return (
     <div className="join-event">
       <div className="join-event__title">

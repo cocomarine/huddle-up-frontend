@@ -33,11 +33,11 @@ function App() {
               path="/logout"
               element={user ? <Logout /> : <Navigate to="/" />}
             ></Route>
-            <Route path="/myProfile" element={<MyProfile />}></Route>
+            <Route path="/myprofile" element={<MyProfile />}></Route>
             <Route path="/joinevents" element={<JoinEvents />}></Route>
             <Route path="/myevents" element={<MyEvents />}></Route>
             <Route path="/createevent" element={<CreateEvent />}></Route>
-            <Route path="/InviteFriends" element={<InviteFriends />}></Route>
+            <Route path="/invitefriends" element={<InviteFriends />}></Route>
           </Routes>
         </BrowserRouter>
       </div>
