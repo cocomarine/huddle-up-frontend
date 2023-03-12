@@ -46,6 +46,7 @@ const CreateEvent = () => {
     console.log(initialState.fields);
   };
 
+  // add backbutton to go back to my events page?
   return (
     <div className="eventPgcontainer">
       <h1>Create Event</h1>

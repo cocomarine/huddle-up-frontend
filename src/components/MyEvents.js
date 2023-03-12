@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import AnchorLink from "react-anchor-link-smooth-scroll-v2";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+import AnchorLink from "react-anchor-link-smooth-scroll-v2";
 import ScrollToTop from "react-scroll-to-top";
 import { IoIosArrowUp } from "react-icons/io";
 
@@ -20,6 +22,13 @@ const MyEvents = () => {
   const [pendingEvents, setPendingEvents] = useState(initialState.pendingEvents);
 
   const { user } = useAuthContext();
+
+  const navigate = useNavigate();
+
+  const changeLocation = (redirect) => {
+    navigate(redirect, { replace: true });
+    window.location.reload();
+  };
 
   const isVotedEvent = (event) => {
     const totalUsers = event.Users.length;
@@ -68,8 +77,22 @@ const MyEvents = () => {
           <button>Voting in progress</button>
         </AnchorLink>
         <div className="join-create-buttons">
-          <button>Join an event</button>
-          <button>Create an event</button>
+          <button
+            className="join-event-button"
+            onClick={() => {
+              changeLocation("/joinevents");
+            }}
+          >
+            Join Event
+          </button>
+          <button
+            className="create-event-button"
+            onClick={() => {
+              changeLocation("/createevent");
+            }}
+          >
+            Create Event
+          </button>
         </div>
       </div>
       <div className="event-cards">

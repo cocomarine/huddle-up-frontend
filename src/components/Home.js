@@ -41,6 +41,14 @@ const Home = () => {
           >
             Create Event
           </button>
+          <button
+            className="joinEeventBtn"
+            onClick={() => {
+              changeLocation("/joinevents");
+            }}
+          >
+            Join Event
+          </button>
         </div> :
         <div className="btns logged-out">
         <button
