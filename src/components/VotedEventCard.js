@@ -3,6 +3,16 @@ import axios from "axios";
 import PropTypes from "prop-types";
 // import { useAuthContext } from "../hooks/useAuthContext";
 import { IoIosCloseCircleOutline } from "react-icons/io";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUtensils,
+  faMugSaucer,
+  faMartiniGlassCitrus,
+  faMountainSun,
+  faTicket,
+  faChildReaching,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
 
 import "../styles/voted-event-card.css";
 
@@ -10,7 +20,8 @@ const VotedEventCard = ({
   id,
   title,
   description,
-  // AdminId,
+  category,
+  AdminId,
 }) => {
   const [adminFirstName, setAdminFirstName] = useState("");
   const [votedSuggestion, setVotedSuggestion] = useState("");
@@ -38,6 +49,27 @@ const VotedEventCard = ({
       })
   }, []);
 
+  const iconSelector = (category) => {
+    switch (category) {
+      case "restaurant":
+        return faUtensils;
+      case "coffee-tea":
+        return faMugSaucer;
+      case "drinks":
+        return faMartiniGlassCitrus;
+      case "outdoor":
+        return faMountainSun;
+      case "cinema-show":
+        return faTicket;
+      case "playdate":
+        return faChildReaching;
+      case "other":
+        return faUsers;
+      default:
+        return faUsers;
+    }
+  };
+
   return (
     <div className="voted-card">
       <div className="voted-card-container">
@@ -47,7 +79,15 @@ const VotedEventCard = ({
         >
           <IoIosCloseCircleOutline />
         </button>
-        <div className="voted-card__title">{title}</div>
+        <div className="voted-card__title">
+          <FontAwesomeIcon
+            size="xl"
+            icon={iconSelector(category)}
+            className="event-icon"
+            data-testid="event-icon"
+          />
+          &nbsp; {title}
+        </div>
         <div className="voted-card__description">{description}</div>
         <div className="voted-card__voted-suggestion">{votedSuggestion.suggestion}</div>
         <div className="voted-card__admin">Creator: {adminFirstName}</div>
@@ -60,6 +100,7 @@ VotedEventCard.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
   AdminId: PropTypes.number,
 };
 

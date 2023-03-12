@@ -86,11 +86,13 @@ const CreateEvent = () => {
         </label>
 
         <select onChange={handleFieldChange} name="category">
-          <option value="resturant"> Resturant </option>
-          <option value="coffee">Coffee </option>
-          <option value="park">Park </option>
-          <option value="cinema">Cinema </option>
-          <option value="softPlay">Soft Play</option>
+          <option value="restaurant"> Restaurant </option>
+          <option value="coffee-tea">Coffee / Tea </option>
+          <option value="drinks">Drinks </option>
+          <option value="outdoor">Outdoor </option>
+          <option value="cinema-show">Cinema / Show </option>
+          <option value="playdate">Playdate</option>
+          <option value="other">Other</option>
         </select>
 
         <div className="createEvent">

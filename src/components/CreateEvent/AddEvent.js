@@ -4,12 +4,11 @@ import axios from "axios";
 const AddEvent = (fields, setAlert) => {
   console.log("fields", fields);
 
-  // const [eventId, setEventId] = useState();
   axios
     .post("http://localhost:4000/events", fields)
     .then((res) => {
       const eventId = res.data.id;
-      console.log(res.data)
+      
       axios
         .post("http://localhost:4000/userevents", {
           voted__suggestionId: null,

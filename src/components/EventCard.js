@@ -4,6 +4,16 @@ import PropTypes from "prop-types";
 import { useAuthContext } from "../hooks/useAuthContext";
 import Alert from "./Alert";
 import { IoIosCloseCircleOutline } from "react-icons/io";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUtensils,
+  faMugSaucer,
+  faMartiniGlassCitrus,
+  faMountainSun,
+  faTicket,
+  faChildReaching,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
 
 import "../styles/event-card.css";
 
@@ -11,6 +21,7 @@ const EventCard = ({
   id,
   title,
   description,
+  category,
 }) => {
   const [adminFirstName, setAdminFirstName] = useState(""); // admin for the event
   const [suggestions, setSuggestions] = useState([]); //all the sugs of the event
@@ -218,6 +229,27 @@ const EventCard = ({
     setAlert({ message: "", isSuccess: false });
   };
 
+  const iconSelector = (category) => {
+    switch (category) {
+      case "restaurant":
+        return faUtensils;
+      case "coffee-tea":
+        return faMugSaucer;
+      case "drinks":
+        return faMartiniGlassCitrus;
+      case "outdoor":
+        return faMountainSun;
+      case "cinema-show":
+        return faTicket;
+      case "playdate":
+        return faChildReaching;
+      case "other":
+        return faUsers;
+      default:
+        return faUsers;
+    }
+  };
+
   return (
     <div className="event-card">
       <div className="event-card-container">
@@ -227,7 +259,15 @@ const EventCard = ({
         >
           <IoIosCloseCircleOutline />
         </button>
-        <div className="event-card__title">{title}</div>
+        <div className="event-card__title">
+          <FontAwesomeIcon
+            size="xl"
+            icon={iconSelector(category)}
+            className="event-icon"
+            data-testid="event-icon"
+          />
+          &nbsp; {title}
+        </div>
         <div className="event-card__description">{description}</div>
         <div className="event-card__admin">Creater: {adminFirstName}</div>
         <div className="event-card__suggestions__container">
@@ -274,6 +314,7 @@ EventCard.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
 };
 
 export default EventCard;
