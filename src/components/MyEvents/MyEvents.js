@@ -8,8 +8,8 @@ import { IoIosArrowUp } from "react-icons/io";
 
 import EventCard from "./EventCard";
 import VotedEventCard from "./VotedEventCard";
-import { useAuthContext } from "../hooks/useAuthContext";
-import "../styles/my-events.css";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import "../../styles/my-events.css";
 
 const MyEvents = () => {
   const initialState = {
@@ -41,6 +41,7 @@ const MyEvents = () => {
 
   useEffect(() => {
     let active = true;
+    
     if (user) {
       axios
         .get(`http://localhost:4000/users/${user.id}`)
@@ -68,7 +69,7 @@ const MyEvents = () => {
 
   return (
     <div className="events">
-      <h3> My Events</h3>
+      <h3 className="events-title"> My Events</h3>
       <div className="navigate-events">
         <AnchorLink href='#event-cards-voted'>
           <button>Voting finished</button>
@@ -97,7 +98,7 @@ const MyEvents = () => {
       </div>
       <div className="event-cards">
         <div className="event-cards-voted" id="event-cards-voted">
-          <h4>Voting Finished</h4>
+          <div className="voted-title">Voting Finished</div>
           {votedEvents && votedEvents.map((votedEvent) => (
             <div className="voted-cards__item" key={`votedEvent_${votedEvent.id}`}>
               <VotedEventCard {...votedEvent} />
@@ -105,7 +106,7 @@ const MyEvents = () => {
           ))}
         </div>
         <div className="event-cards-pending" id="event-cards-pending">
-          <h4>Voting In Progress</h4>
+          <div className="pending-title">Voting In Progress</div>
           {pendingEvents && pendingEvents.map((pendingEvent) => (
             <div className="event-cards__item" key={`pendingEvent_${pendingEvent.id}`}>
               <EventCard {...pendingEvent} />

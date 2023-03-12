@@ -8,7 +8,7 @@ import Home from "./Home";
 import Navbar from "./Navbar";
 import MyProfile from "./MyProfile";
 import JoinEvents from "./JoinEvents";
-import MyEvents from "./MyEvents";
+import MyEvents from "./MyEvents/MyEvents";
 import CreateEvent from "./CreateEvent/CreateEvent";
 import InviteFriends from "./InviteFriends";
 

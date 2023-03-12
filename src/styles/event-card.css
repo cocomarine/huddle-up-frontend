@@ -1,7 +1,8 @@
 .event-card {
   background-color: white;
-  margin: 1rem;
-  width: 15rem;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  width: 18rem;
   border-radius: 4px;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
 }
@@ -30,9 +31,13 @@
 
 .event-card__title {
   margin-top: -5px;
-  padding-bottom: 5px;
+  padding-bottom: 15px;
   font-size: 18px;
   font-weight: 600;
+}
+
+.event-card__description {
+  padding-bottom: 15px;
 }
 
 .suggestion__item {
@@ -47,9 +52,10 @@
 }
 
 .event-card__admin {
-  padding: 10px 0px;
   font-size: 0.7rem;
+  padding-bottom: 15px;
 }
+
 .suggestion__item:hover {
   box-shadow: 2px 2px 2px rgb(86, 86, 86);
 }

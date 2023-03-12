@@ -1,7 +1,8 @@
 .voted-card {
   background-color: white;
-  margin: 1rem;
-  width: 15rem;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  width: 18rem;
   border-radius: 4px;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
 }
@@ -32,9 +33,13 @@
 
 .voted-card__title {
   margin-top: -5px;
-  padding-bottom: 5px;
+  padding-bottom: 15px;
   font-size: 18px;
   font-weight: 600;
+}
+
+.voted-card__description {
+  padding-bottom: 15px;
 }
 
 .voted-card__voted-suggestion {

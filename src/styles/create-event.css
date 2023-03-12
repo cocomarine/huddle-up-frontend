@@ -8,26 +8,29 @@
   position: flex;
   margin-top: 70px;
 }
+
 .eventPgtitle {
   font-size: 25px;
   text-align: center;
+  margin-bottom: 15px;
 }
 
 .eventForm {
   font-weight: 500;
   font-size: 17px;
 }
+
 .eventForm input {
   background-color: white;
   height: 30px;
-  margin: 10px;
+  margin: 10px 10px 30px 10px;
   width: 180px;
 } 
 
 .description input {
   background-color: white;
   height: 80px;
-  margin: 10px;
+  margin: 10px 10px 20px 10px;
   width: 290px;
 }
 
@@ -36,22 +39,36 @@
   font-size: 17px;
 }
 
-.categories {
+.category {
+  font-weight: 500;
   font-size: 17px;
   list-style: none;
   margin-right: 15px;
   
   
 }
-.categories  :hover {
+/* .category  :hover {
   background-color: rgb(52, 68, 250);
   color: white;
   cursor: pointer;
-}
+} */
 
 .createEvent button {
   margin: 30px;
   margin-top: 40px;
+  margin-bottom: 10px;
+  background-color: white;
+  color: #090909;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  height: 30px;
+  width: 170px;
+}
+
+.backto-myEventsBtn {
+  margin: 30px;
+  margin-top: 20px;
   margin-bottom: 10px;
   background-color: white;
   color: #090909;

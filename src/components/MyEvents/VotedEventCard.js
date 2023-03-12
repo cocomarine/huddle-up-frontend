@@ -14,7 +14,7 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 
-import "../styles/voted-event-card.css";
+import "../../styles/voted-event-card.css";
 
 const VotedEventCard = ({
   id,

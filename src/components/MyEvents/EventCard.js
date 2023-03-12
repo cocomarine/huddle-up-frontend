@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-import { useAuthContext } from "../hooks/useAuthContext";
-import Alert from "./Alert";
-import { IoIosCloseCircleOutline } from "react-icons/io";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import Alert from "../Alert";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUtensils,
@@ -15,7 +14,7 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 
-import "../styles/event-card.css";
+import "../../styles/event-card.css";
 
 const EventCard = ({
   id,
@@ -253,12 +252,6 @@ const EventCard = ({
   return (
     <div className="event-card">
       <div className="event-card-container">
-      <button 
-          className="event-card__close-button"
-          onClick={() => {}}
-        >
-          <IoIosCloseCircleOutline />
-        </button>
         <div className="event-card__title">
           <FontAwesomeIcon
             size="xl"

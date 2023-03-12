@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faAngleLeft
+} from "@fortawesome/free-solid-svg-icons";
 
 import { useAuthContext } from "../../hooks/useAuthContext";
 import Alert from "../Alert";
@@ -53,7 +57,7 @@ const CreateEvent = () => {
 
   return (
     <div className="eventPgcontainer">
-      <h1>Create Event</h1>
+      <h1 className="eventPgtitle">Create Event</h1>
       <Alert message={alert.message} success={alert.success} />
       <form onSubmit={handleAddEvent}>
         <div className="eventForm">
@@ -99,6 +103,19 @@ const CreateEvent = () => {
           <button type="submit">Create Event</button>
         </div>
       </form>
+      <button
+        className="backto-myEventsBtn"
+        onClick={() => {
+          changeLocation("/myevents");
+        }}
+      >
+        <FontAwesomeIcon
+          icon={faAngleLeft}
+          className="back-icon"
+          data-testid="back-icon"
+        />
+        &nbsp; Back to My Events
+      </button>
     </div>
   );
 };
