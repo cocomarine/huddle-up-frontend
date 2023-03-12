@@ -19,11 +19,11 @@ function App() {
 
   return (
     <div className="App">
-      <div>
+      <div className="homePg">
         <BrowserRouter>
           <Navbar />
           <Routes>
-            <Route path="/" element={<Home />}></Route>
+            <Route  path="/" element={<Home />}></Route>
             <Route path="/signup" element={<SignUp />}></Route>
             <Route
               path="/login"
@@ -40,6 +40,7 @@ function App() {
             <Route path="/InviteFriends" element={<InviteFriends />}></Route>
           </Routes>
         </BrowserRouter>
+     
       </div>
     </div>
   );
