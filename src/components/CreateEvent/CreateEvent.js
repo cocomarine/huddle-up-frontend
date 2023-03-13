@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAngleLeft
-} from "@fortawesome/free-solid-svg-icons";
+import {  faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 
 import { useAuthContext } from "../../hooks/useAuthContext";
 import Alert from "../Alert";
@@ -79,6 +77,17 @@ const CreateEvent = () => {
               type="text"
               placeholder="Enter the details of the event"
               id="description"
+              onChange={handleFieldChange}
+              required
+            ></input>
+          </div>
+        </div>
+        <div className="date">
+          <label htmlFor="date"> Event Date:</label>
+          <div>
+            <input
+              type="date"
+              id="date"
               onChange={handleFieldChange}
               required
             ></input>

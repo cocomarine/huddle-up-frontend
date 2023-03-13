@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 // import { useAuthContext } from "../hooks/useAuthContext";
-import { IoIosCloseCircleOutline } from "react-icons/io";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUtensils,
@@ -19,6 +18,7 @@ import "../../styles/voted-event-card.css";
 const VotedEventCard = ({
   id,
   title,
+  date,
   description,
   category,
   AdminId,
@@ -73,12 +73,12 @@ const VotedEventCard = ({
   return (
     <div className="voted-card">
       <div className="voted-card-container">
-      <button 
+      {/* <button 
           className="voted-card__close-button"
           onClick={() => {}}
         >
           <IoIosCloseCircleOutline />
-        </button>
+        </button> */}
         <div className="voted-card__title">
           <FontAwesomeIcon
             size="xl"
@@ -88,6 +88,7 @@ const VotedEventCard = ({
           />
           &nbsp; {title}
         </div>
+        <div className="voted-card__date">{date}</div>
         <div className="voted-card__description">{description}</div>
         <div className="voted-card__voted-suggestion">{votedSuggestion.suggestion}</div>
         <div className="voted-card__admin">Creator: {adminFirstName}</div>

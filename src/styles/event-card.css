@@ -4,7 +4,7 @@
   margin-bottom: 2rem;
   width: 18rem;
   border-radius: 4px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
 }
 
 .event-card-container {
@@ -30,8 +30,8 @@
 }
 
 .event-card__title {
-  margin-top: -5px;
-  padding-bottom: 15px;
+  margin-top: 5px;
+  padding-bottom: 5px;
   font-size: 18px;
   font-weight: 600;
 }
@@ -51,9 +51,9 @@
   cursor: pointer;
 }
 
-.event-card__admin {
-  font-size: 0.7rem;
-  padding-bottom: 15px;
+.event-card__admin, .event-card__date {
+  font-size: 0.8rem;
+  padding-bottom: 10px;
 }
 
 .suggestion__item:hover {
