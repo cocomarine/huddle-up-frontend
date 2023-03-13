@@ -8,7 +8,7 @@ import Home from "./Home";
 import Navbar from "./Navbar";
 import MyProfile from "./MyProfile";
 import JoinEvents from "./JoinEvents";
-import MyEvents from "./MyEvents";
+import MyEvents from "./MyEvents/MyEvents";
 import CreateEvent from "./CreateEvent/CreateEvent";
 import InviteFriends from "./InviteFriends";
 
@@ -33,11 +33,11 @@ function App() {
               path="/logout"
               element={user ? <Logout /> : <Navigate to="/" />}
             ></Route>
-            <Route path="/myProfile" element={<MyProfile />}></Route>
+            <Route path="/myprofile" element={<MyProfile />}></Route>
             <Route path="/joinevents" element={<JoinEvents />}></Route>
             <Route path="/myevents" element={<MyEvents />}></Route>
             <Route path="/createevent" element={<CreateEvent />}></Route>
-            <Route path="/InviteFriends" element={<InviteFriends />}></Route>
+            <Route path="/invitefriends" element={<InviteFriends />}></Route>
           </Routes>
         </BrowserRouter>
      

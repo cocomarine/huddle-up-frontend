@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 import { useAuthContext } from "../hooks/useAuthContext";
 import "../styles/myprofile.css";
 
@@ -15,27 +17,38 @@ const MyProfile = () => {
   const { user } = useAuthContext();
   console.log(user)
 
+  const navigate = useNavigate();
+
+  const changeLocation = (redirect) => {
+    navigate(redirect, { replace: true });
+    window.location.reload();
+  };
+
   useEffect(() => {
-    axios
-      .get(`http://localhost:4000/users/${user.id}`)
-      .then((res) => {
-        setFirstName(res.data.first_name);
-        setLastName(res.data.last_name);
-        setEmail(res.data.email);
-      })
-      .catch(() => {
-        setAlert({
-          message: "Server error, please try again",
-          isSuccess: false,
+    let active = true;
+
+    if (user) {
+      axios
+        .get(`http://localhost:4000/users/${user.id}`)
+        .then((res) => {
+          setFirstName(res.data.first_name);
+          setLastName(res.data.last_name);
+          setEmail(res.data.email);
+        })
+        .catch(() => {
+          setAlert({
+            message: "Server error, please try again",
+            isSuccess: false,
+          });
         });
-      });
-  },[user.id]);
+    };
+    return () => {active = false};
+  },[user]);
 
   return (
     <div className="profile-container">
-      <div className="pageTitle">
-        <h1>My Profile</h1>
-        <div className="inputBox">
+      <h2 className="pageTitle">My Profile</h2>
+      <div className="inputBox">
         <label className="firstName" htmlFor="firstName">
           First Name :
         </label>
@@ -71,7 +84,14 @@ const MyProfile = () => {
             // readOnly={readableOnly}
           ></input>
         </div>
-      </div>
+        <button
+            className="goto-myEventsBtn"
+            onClick={() => {
+              changeLocation("/myevents");
+            }}
+          >
+          Go to My Events
+        </button>
       </div>
     </div>
   );

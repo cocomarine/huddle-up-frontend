@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {  faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 
 import { useAuthContext } from "../../hooks/useAuthContext";
 import Alert from "../Alert";
 import AddEvent from "./AddEvent";
-import { useNavigate } from "react-router-dom";
 import "../../styles/create-event.css";
 
 const CreateEvent = () => {
   const { user } = useAuthContext();
 
   const navigate = useNavigate();
+
   const initialState = {
     fields: {
       title: "",
       description: "",
+      total_votes: 0,
       category: "",
-      voting_finished: false,
       AdminId:"",
     },
     alert: {
@@ -25,30 +28,34 @@ const CreateEvent = () => {
   };
   const [alert, setAlert] = useState(initialState.alert);
 
+  const changeLocation = (redirect) => {
+    navigate(redirect, { replace: true });
+    // window.location.reload();
+  };
+
   const handleAddEvent = (event) => {
     event.preventDefault();
     AddEvent(initialState.fields, setAlert);
-    // setAlert({
-    //   message: "Event was created successfully",
-    //   success: true
-    // });
-    navigate("/InviteFriends");
+    changeLocation("/invitefriends");
     console.log(alert);
+    setAlert({ message: "", success: false });
+
   };
   const handleFieldChange = (e) => {
     e.preventDefault();
     if (initialState.fields.hasOwnProperty(e.target.id)) {
       initialState.fields[e.target.id] = e.target.value;
     }
-    if (e.target.name === "categories") {
+    if (e.target.name === "category") {
       initialState.fields[e.target.name] = e.target.value;
     }
+    initialState.fields.AdminId = user.id;
     console.log(initialState.fields);
   };
 
   return (
     <div className="eventPgcontainer">
-      <h1>Create Event</h1>
+      <h1 className="eventPgtitle">Create Event</h1>
       <Alert message={alert.message} success={alert.success} />
       <form onSubmit={handleAddEvent}>
         <div className="eventForm">
@@ -75,23 +82,49 @@ const CreateEvent = () => {
             ></input>
           </div>
         </div>
+        <div className="date">
+          <label htmlFor="date"> Event Date:</label>
+          <div>
+            <input
+              type="date"
+              id="date"
+              onChange={handleFieldChange}
+              required
+            ></input>
+          </div>
+        </div>
         <br></br>
         <label className="category" id="category" htmlFor="categories">
           Event Category
         </label>
 
         <select onChange={handleFieldChange} name="category">
-          <option value="resturant"> Resturant </option>
-          <option value="coffe">Coffe </option>
-          <option value="park">Park </option>
-          <option value="cinema">Cinema </option>
-          <option value="softPlay">Soft Play</option>
+          <option value="restaurant"> Restaurant </option>
+          <option value="coffee-tea">Coffee / Tea </option>
+          <option value="drinks">Drinks </option>
+          <option value="outdoor">Outdoor </option>
+          <option value="cinema-show">Cinema / Show </option>
+          <option value="playdate">Playdate</option>
+          <option value="other">Other</option>
         </select>
 
         <div className="createEvent">
           <button type="submit">Create Event</button>
         </div>
       </form>
+      <button
+        className="backto-myEventsBtn"
+        onClick={() => {
+          changeLocation("/myevents");
+        }}
+      >
+        <FontAwesomeIcon
+          icon={faAngleLeft}
+          className="back-icon"
+          data-testid="back-icon"
+        />
+        &nbsp; Back to My Events
+      </button>
     </div>
   );
 };

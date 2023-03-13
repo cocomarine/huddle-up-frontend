@@ -1,9 +1,10 @@
 .voted-card {
   background-color: white;
-  margin: 1rem;
-  width: 15rem;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  width: 18rem;
   border-radius: 4px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
 }
 
 .voted-card-container {
@@ -14,40 +15,34 @@
   padding: 0.5rem;
 }
 
-.voted-card__close-button {
-  cursor: pointer;
-  font-weight: 500;
-  padding: 4px;
-  border: none;
-  font-size: 18px;
-  background: white;
-  color: darkgray;
-  transition: all 0.25s ease;
-  right: 0;
-  top: 0;
-  align-self: flex-end;
-  margin-top: -7px;
-  margin-right: -5px;
-}
-
 .voted-card__title {
-  margin-top: -5px;
+  margin-top: 5px;
   padding-bottom: 5px;
   font-size: 18px;
-  font-weight: 800;
+  font-weight: 600;
+}
+
+.voted-card__description {
+  padding-bottom: 15px;
 }
 
 .voted-card__voted-suggestion {
   padding: 5px;
-  margin: 5px;
+  margin-bottom: 10px;
   height: 40px;
-  /* width: 200px; */
   border-radius:10px;
   border: solid 1px darkgray;
   background: rgb(131, 248, 131);
+  /* margin: 5px;
+  height: 40px;
+  width: 200px;
+  border-radius:10px;
+  border: solid 1px darkgray;
+  background: rgb(131, 248, 131);
+  cursor: pointer; */
 }
 
-.voted-card__admin {
-  padding: 10px 0px;
-  font-size: 0.7rem;
+.voted-card__admin, .voted-card__date {
+  font-size: 0.8rem;
+  padding-bottom: 10px;
 }
