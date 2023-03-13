@@ -40,7 +40,7 @@ const Navbar = () => {
             {showLinks && <ImCross />}
           </div>
           <div className="navIcon" onClick={() => setShowLinks(!showLinks)}>
-            {!showLinks && <MdReorder />}
+            {!showLinks && <MdReorder size="2.5rem" color=  "rgb(246, 73, 73)"/> }
           </div>
         </div>
       </div>

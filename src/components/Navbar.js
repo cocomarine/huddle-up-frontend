@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MdReorder } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { ImCross } from "react-icons/im";
 import "../styles/navbar.css";
 import logo from "../img/AdobeStock_375037420.jpeg";
 
@@ -28,9 +29,14 @@ const Navbar = () => {
           <Link to="/myevents"> My Events</Link>
         </div>
       </div>
-       <div className="nav-button" onClick={() => setShowLinks(!showLinks)}>
-          <MdReorder size="2.5rem" color="rgb(246, 73, 73)" />
-        </div> 
+      <div className="icons">
+      <div className="closingIcon" onClick={() => setShowLinks(!showLinks)}>
+        {showLinks && <ImCross  />}
+      </div>
+      <div className="navIcon" onClick={() => setShowLinks(!showLinks)}>
+        {!showLinks && <MdReorder size="2.5rem" color="rgb(246, 73, 73)" />}
+      </div>
+      </div>
     </div>
   );
 };
