@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import renderer from "react-test-renderer";
 import { AuthContextProvider } from "../contexts/AuthContext";
-import VotedEventCard from "../components/VotedEventCard";
+import VotedEventCard from "../components/MyEvents/VotedEventCard";
 
 describe("VotedEventCard", () => {
   const validProps = {

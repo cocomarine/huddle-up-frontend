@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import renderer from "react-test-renderer";
 import { AuthContextProvider } from "../contexts/AuthContext";
-import EventCard from "../components/EventCard";
+import EventCard from "../components/MyEvents/EventCard";
 
 describe("EventCard", () => {
   const validProps = {
