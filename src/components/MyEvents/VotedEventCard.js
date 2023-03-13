@@ -88,9 +88,9 @@ const VotedEventCard = ({
           />
           &nbsp; {title}
         </div>
-        <div className="voted-card__date">{date}</div>
         <div className="voted-card__description">{description}</div>
         <div className="voted-card__voted-suggestion">{votedSuggestion.suggestion}</div>
+        <div className="voted-card__date">Event Date: {date}</div>
         <div className="voted-card__admin">Creator: {adminFirstName}</div>
       </div>
     </div>

@@ -1,7 +1,18 @@
+:root {
+  --dark-pink: #ED2643;
+  --pink: #FF8AAE;
+  --light-pink:#ffacc6;
+  --dark-sky:#2284B5;
+  --sky: #44C3E6;
+  --light-sky: #d4eefc;
+  --yellow:#FFF89A;
+  --light-orange:#FFB2A6;
+}
+
 body {
   margin: 0;
   padding: 0;
-  background-color: rgb(204, 231, 252);
+  background-color: var(--light-sky);
 }
 
 .navbar {
@@ -19,14 +30,14 @@ body {
   max-height: 80px;
 }
 .icons .closingIcon {
-  color: rgb(246, 73, 73);
+  color: var(--dark-pink);
   size: 1.5rem;
   margin-top: 20px;
 }
 
 .navbar .rightSide .links a {
   text-decoration: none;
-  color: rgb(246, 73, 73);
+  color: var(--dark-pink);
   font-size: 20px;
   font-weight: 600;
   margin-left: 10px;
@@ -52,7 +63,7 @@ body {
 
 .navbar .rightSide .links a:hover {
   cursor: pointer;
-  color: rgb(52, 188, 247);
+  color: var(--dark-sky);
 }
 
 @media only screen and (max-width: 980px) {
@@ -86,7 +97,7 @@ body {
   }
   .navbar .rightSide .links a {
     text-decoration: none;
-    color: rgb(246, 73, 73);
+    color: var(--dark-pink);
     font-size: 18px;
     font-weight: 600;
     margin-top: 20px;

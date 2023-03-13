@@ -18,6 +18,7 @@ const CreateEvent = () => {
       title: "",
       description: "",
       total_votes: 0,
+      date: "",
       category: "",
       AdminId:"",
     },

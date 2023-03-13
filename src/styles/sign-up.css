@@ -9,10 +9,10 @@
   margin-top: 70px;
 }
 
-.title {
+.signup-title {
   padding: 15px;
-  font-size: 40px;
-  font-weight: 600;
+  font-family: "Coiny";
+  font-size: 50px;
 }
 
 .userDetails input {

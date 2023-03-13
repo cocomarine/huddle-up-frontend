@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { ImCross } from "react-icons/im";
 import { useAuthContext } from "../hooks/useAuthContext";
 import "../styles/navbar.css";
-import logo from "../img/AdobeStock_375037420.jpeg";
+import logo from "../img/huddleup_logo.jpeg";
 
 const Navbar = () => {
   const [showLinks, setShowLinks] = useState(false);
@@ -22,6 +22,7 @@ const Navbar = () => {
 
       <div className="rightSide">
         <div className="links" id={showLinks ? "hidden" : ""}>
+          <Link to="/">Home</Link>
           {!user && <Link to="/login">Login</Link>}
           {user && <Link to="/logout">Logout</Link>}
           {user && <Link to="/myprofile"> My Profile</Link>}

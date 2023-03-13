@@ -62,7 +62,7 @@ const SignUp = () => {
   return (
     <>
       <div className="container">
-        <h1 className="title">Sign Up</h1>
+        <h1 className="signup-title">Sign Up</h1>
         <form className="signup-form" onSubmit={handleSignUp}>
           <div className="userDetails">
             <div className="input-box-name">

@@ -1,9 +1,21 @@
+:root {
+  --dark-pink: #ED2643;
+  --pink: #FF8AAE;
+  --light-pink:#ffacc6;
+  --dark-sky:#2284B5;
+  --sky: #44C3E6;
+  --light-sky: #d4eefc;
+  --yellow:#FFF89A;
+  --light-orange:#FFB2A6;
+}
+
 .voted-card {
   background-color: white;
   margin-top: 1.5rem;
   margin-bottom: 2rem;
   width: 18rem;
   border-radius: 4px;
+  border: solid 1px var(--dark-sky);
   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
 }
 
@@ -32,7 +44,8 @@
   height: 40px;
   border-radius:10px;
   border: solid 1px darkgray;
-  background: rgb(131, 248, 131);
+  background: var(--yellow);
+  font-weight: 500;
   /* margin: 5px;
   height: 40px;
   width: 200px;

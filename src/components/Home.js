@@ -18,7 +18,11 @@ const Home = () => {
   return (
     <>
       <div className="homeBody">
-        <h1 className="title">Huddle Up</h1>
+        <h1 className="home-title">
+          <font color="#ED2643">h</font>
+            uddle
+          <font color="#2284B5">U</font>
+            p</h1>
         <div className="homeText">
           <h3 style={{ fontWeight: 200 }}>
             Join us and plan your events and activities!

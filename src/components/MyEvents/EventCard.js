@@ -262,8 +262,8 @@ const EventCard = ({
           />
           &nbsp; {title}
         </div>
-        <div className="event-card__date">{date}</div>
         <div className="event-card__description">{description}</div>
+        <div className="event-card__date">Event Date: {date}</div>
         <div className="event-card__admin">Creater: {adminFirstName}</div>
         <div className="event-card__suggestions__container">
           {suggestions[0] ? <div className="event-card__suggestions">
