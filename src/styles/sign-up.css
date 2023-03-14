@@ -1,64 +1,34 @@
-.container {
-  width: 100%;
-  height: 100%;
-  padding: 15px;
-  border-radius: 5px;
-  font-size: 15px;
-  font-weight: 300;
-  position: flex;
-  margin-top: 70px;
-}
-
-.signup-title {
-  padding: 15px;
-  font-family: "Coiny";
-  font-size: 50px;
-}
-
-.userDetails input {
-  background-color: white;
-  height: 30px;
-  margin: 10px;
-  width: 180px;
-}
-
-.userDetails label {
-  margin-right: 60px;
-}
-
-.input-box input {
-  margin: 10px;
-  height: 30px;
-  width: 180px;
-  background-color: white;
-}
-
-.input-box .emailInput {
-  margin-left: 43px;
-}
-
-.input-box .confirmPass {
-  margin-left: -50px;
+:root {
+  --dark-pink: #ED2643;
+  --slate-blue: #404E88;
+  --minty: #A5DCE4;
 }
 
 .star {
-  color: red;
+  color: var(--dark-pink);
 }
 
-.submitBtn button {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  background-color: white;
-  color: #090909;
-  cursor: pointer;
-  font-size: 15px;
-  font-weight: 500;
-  height: 30px;
-  width: 70px;
+.input-box input {
+  align-self: center;
+  margin-bottom: 15px;
+  padding: 8px;
+  width: 200px;
+  font-size: 14px;
+  color: inherit;
+  border: 1px solid currentcolor;
+  border-radius: 3px;
+  outline: 0px;
+  box-sizing: border-box;
+  appearance: none;
+  transition: all 0.25s ease-in 0s;
+} 
+
+.signup-btn:hover {
+  background-color: var(--minty);
 }
 
 .loginHere {
   cursor: pointer;
   text-decoration: underline;
-  color: blue;
+  color: var(--slate-blue);
 }

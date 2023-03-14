@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import Alert from "./Alert";
+
+import "../styles/common/titles.css";
+import "../styles/common/page.css";
+import "../styles/common/buttons.css";
 import "../styles/sign-up.css";
 
 const SignUp = () => {
@@ -61,11 +65,11 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="container">
-        <h1 className="signup-title">Sign Up</h1>
+      <div className="signup-container page">
+        <h3 className="signup-title page-title">Sign Up</h3>
         <form className="signup-form" onSubmit={handleSignUp}>
           <div className="userDetails">
-            <div className="input-box-name">
+            <div className="input-box subtitle">
               <label htmlFor="firstName">
                 First Name <span className="star"> * </span>
               </label>
@@ -91,7 +95,7 @@ const SignUp = () => {
                 ></input>
               </div>
             </div>
-            <div className="input-box">
+            <div className="input-box subtitle">
               <label htmlFor="email">
                 Email<span className="star"> * </span>{" "}
               </label>
@@ -105,7 +109,7 @@ const SignUp = () => {
                 value={email}
               ></input>
             </div>
-            <div className="input-box">
+            <div className="input-box subtitle">
               <label htmlFor="password">
                 Password <span className="star"> * </span>{" "}
               </label>
@@ -118,9 +122,8 @@ const SignUp = () => {
                 value={password}
               ></input>
             </div>
-            <div className="input-box">
+            <div className="input-box subtitle">
               <label htmlFor="password">
-                {" "}
                 Confirm Password <span className="star"> * </span>
               </label>
               <input
@@ -134,12 +137,12 @@ const SignUp = () => {
               ></input>
             </div>
             <div className="submitBtn">
-              <button type="submit">Sign up</button>
+              <button className="signup-btn link-button" type="submit">Sign up</button>
             </div>
             <Alert message={alert.message} success={alert.success} />
             <div>
-              <p>
-                Already have an account?
+              <p className="login-msg heading1">
+                Already have an account?{" "} 
                 <span
                   className="loginHere"
                   onClick={() => {
