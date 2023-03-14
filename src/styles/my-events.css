@@ -19,13 +19,3 @@
   flex-direction: column;
   align-items: center;
 }
-/* 
-.voted-title, .pending-title {
-  font-size: 25px;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-} */
-
-.event-cards__item, .voted-cards__item {
-  /* padding-top: 0.5rem; */
-}

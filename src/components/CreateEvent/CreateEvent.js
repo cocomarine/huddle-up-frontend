@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ScrollToTop from "react-scroll-to-top";
 import { IoIosArrowUp } from "react-icons/io";
@@ -6,8 +7,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {  faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useEventContext } from "../../hooks/useEventContext";
 import Alert from "../Alert";
-import AddEvent from "./AddEvent";
+// import AddEvent from "./AddEvent";
 
 import "../../styles/common/titles.css";
 import "../../styles/common/buttons.css";
@@ -15,6 +17,7 @@ import "../../styles/create-event.css";
 
 const CreateEvent = () => {
   const { user } = useAuthContext();
+  const { dispatch } = useEventContext();
 
   const navigate = useNavigate();
 
@@ -41,12 +44,38 @@ const CreateEvent = () => {
 
   const handleAddEvent = (event) => {
     event.preventDefault();
-    AddEvent(initialState.fields, setAlert);
-    changeLocation("/invitefriends");
-    console.log(alert);
-    setAlert({ message: "", success: false });
+    // const eventData = AddEvent(initialState.fields, setAlert);
+    axios
+    .post("http://localhost:4000/events", initialState.fields)
+    .then((res) => {
+      const eventId = res.data.id;
+      
+      axios
+      .post("http://localhost:4000/userevents", {
+        voted__suggestionId: null,
+        UserId: initialState.fields.AdminId,
+        EventId: eventId,
+      })
+      .then((res) => {
+        setAlert({
+          message: "Event successfully create.",
+          success: true,
+        });
+      });
+      
+      dispatch({type: "EVENT_CREATED", payload: res.data })
+      changeLocation("/invitefriends");
+    })
+    .catch((err) => {
+      setAlert({
+        message: "Server error. Please try again later.",
+        success: false,
+      });
+    });
 
+    setAlert({ message: "", success: false });
   };
+  
   const handleFieldChange = (e) => {
     e.preventDefault();
     if (initialState.fields.hasOwnProperty(e.target.id)) {

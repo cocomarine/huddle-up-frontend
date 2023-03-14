@@ -271,7 +271,7 @@ const EventCard = ({
           {suggestions[0] ? <div className="event-card__suggestions">
             {suggestions.map((item) => {
               return <button
-                      key={item.id}
+                      key={`${item.suggestion}-${item.id}`}
                       onClick={(e) => {
                         handleVote(e);
                       }} 
