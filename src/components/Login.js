@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import Alert from "./Alert";
+
+import "../styles/common/titles.css";
+import "../styles/common/page.css";
+import "../styles/common/buttons.css";
 import "../styles/login.css";
 
 const Login = () => {

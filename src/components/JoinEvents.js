@@ -11,10 +11,9 @@ const JoinEvents = () => {
 
   const changeLocation = (redirect) => {
     navigate(redirect, { replace: true });
-    window.location.reload();
+    // window.location.reload();
   };
 
-  // add backbutton to go back to my events page?
   return (
     <div className="join-event page">
       <h3 className="join-event__title page-title">
@@ -26,6 +25,16 @@ const JoinEvents = () => {
         <button className="link-button" onClick={() => changeLocation("/myevents")} type="submit">
           Join
         </button>
+        <div>
+          <button
+          className="backto-myEvents-Btn link-button"
+          onClick={() => {
+            changeLocation("/myevents");
+          }}
+        >
+        Go to My Events
+        </button>
+        </div>
       </div>
     </div>
   );

@@ -3,6 +3,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 import { useAuthContext } from "../hooks/useAuthContext";
+
+import "../styles/common/titles.css";
+import "../styles/common/page.css";
+import "../styles/common/buttons.css";
 import "../styles/myprofile.css";
 
 const MyProfile = () => {
@@ -46,53 +50,46 @@ const MyProfile = () => {
   },[user]);
 
   return (
-    <div className="profile-container">
-      <h2 className="pageTitle">My Profile</h2>
+    <div className="profile-container page">
+      <h3 className="pageTitle page-title">My Profile</h3>
       <div className="inputBox">
-        <label className="firstName" htmlFor="firstName">
+        <label className="firstName subtitle" htmlFor="firstName">
           First Name :
         </label>
         <input
           type="text"
           id="firstName"
           value={firstName}
-          readOnly
-          // onChange={handleEvent}
-          // readOnly={readableOnly}
+          disabled
         ></input>
       </div>
       <div className="inputBox">
-        <label htmlFor="lastName">Last Name:</label>
+        <label className="lastName subtitle" htmlFor="lastName">Last Name:</label>
         <input
           type="text"
           id="lastname"
           value={lastName}
-          readOnly
-          // onChange={handleEvent}
-          // readOnly={readableOnly}
+          disabled
         ></input>
       </div>
       <div className="inputBox">
-        <div className="email">
-          <label htmlFor="email">Email:</label>
+        {/* <div className="email"> */}
+          <label className="email-input subtitle" htmlFor="email">Email:</label>
           <input
             type="email"
             id="email"
             value={email}
-            readOnly
-            // onChange={handleEvent}
-            // readOnly={readableOnly}
+            disabled
           ></input>
         </div>
         <button
-            className="goto-myEventsBtn"
+            className="goto-myEventsBtn link-button"
             onClick={() => {
               changeLocation("/myevents");
             }}
           >
           Go to My Events
         </button>
-      </div>
     </div>
   );
 };

@@ -15,33 +15,6 @@
   text-align: center;
 }
 
-.homeText {
-  text-align: center;
-  position: relative;
-  /* margin: 5% 10%; */
-}
-
 .btns {
-  display: flex;
-  flex-direction: column;
+  margin-top: 20px;;
 }
-
-.btns > * {
-  margin: 5% 30%;
-  color: #060606;
-  cursor: pointer;
-  font-size: 23px;
-  font-weight: 500;
-  height: 4rem;
-  background-color: white;
-}
-
-/* .btns .signUpBtn {
-  margin: 5% 30%;
-  color: #060606;
-  cursor: pointer;
-  font-size: 23px;
-  font-weight: 500;
-  height: 4rem;
-  background-color: white;
-} */

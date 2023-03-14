@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ScrollToTop from "react-scroll-to-top";
+import { IoIosArrowUp } from "react-icons/io";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {  faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 
@@ -90,14 +92,6 @@ const CreateEvent = () => {
               onChange={handleFieldChange}
               required
             />
-            {/* <input
-              type="text"
-              placeholder="Enter the details of the event"
-              id="description"
-              onChange={handleFieldChange}
-              required
-
-            ></input> */}
           </div>
         </div>
         <div className="date">
@@ -147,6 +141,7 @@ const CreateEvent = () => {
         />
         &nbsp; Back to My Events
       </button>
+      <ScrollToTop smooth component={<IoIosArrowUp />} />
     </div>
   );
 };
