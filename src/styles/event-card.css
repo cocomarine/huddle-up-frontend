@@ -1,22 +1,23 @@
 :root {
   --dark-pink: #ED2643;
   --pink: #FF8AAE;
-  --light-pink:#ffacc6;
+  --light-pink: #F9DCE1;
   --dark-sky:#2284B5;
-  --sky: #44C3E6;
+  --slate-blue: #404E88;
   --light-sky: #d4eefc;
-  --yellow:#FFF89A;
-  --light-orange:#FFB2A6;
+  --minty: #A5DCE4;
+  --choc-brown: #341A04;
 }
 
 .event-card {
   background-color: white;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   margin-bottom: 2rem;
-  width: 18rem;
-  border-radius: 6px;
-  border: solid 1px var(--pink);
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  padding: 0.8rem;
+  width: 19rem;
+  /* border-radius: 6px; */
+  /* border: solid 1px var(--pink); */
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 8px;
 }
 
 .event-card-container {
@@ -25,13 +26,6 @@
   align-items: center;
   justify-content: flex-start;
   padding: 0.5rem;
-}
-
-.event-card__title {
-  margin-top: 5px;
-  padding-bottom: 5px;
-  font-size: 18px;
-  font-weight: 600;
 }
 
 .event-card__description {
@@ -43,10 +37,11 @@
   margin: 5px;
   height: 40px;
   width: 200px;
-  border-radius:10px;
+  border-radius:4px;
   border: solid 1px darkgray;
   background: white;
   cursor: pointer;
+  transition: all 0.25s ease-in 0s;
 }
 
 .event-card__admin, .event-card__date {
@@ -65,7 +60,7 @@
 }
 
 .voted {
-  background: var(--light-orange);
+  background: #A5DCE4;
 }
 
 .no-sug-msg {

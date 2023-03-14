@@ -1,32 +1,16 @@
-/* .events {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-} */
-
-.events {
-  width: 100%;
-  height: 100vh;
-  padding: 15px;
-  border-radius: 5px;
-  font-size: 15px;
-  font-weight: 300;
-  position: flex;
-  margin-top: 70px;
+:root {
+  --dark-pink: #ED2643;
+  --pink: #FF8AAE;
+  --light-pink: #F9DCE1;
+  --dark-sky:#2284B5;
+  --slate-blue: #404E88;
+  --light-sky: #d4eefc;
+  --minty: #A5DCE4;
+  --choc-brown: #341A04;
 }
 
-.events-title {
-  font-family: "Coiny";
-  font-size: 50px;
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-.navigate-events {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0.5rem;
+.join-event-button:hover, .create-event-button:hover {
+  background-color: var(--minty);
 }
 
 .event-cards {
@@ -35,12 +19,12 @@
   flex-direction: column;
   align-items: center;
 }
-
+/* 
 .voted-title, .pending-title {
   font-size: 25px;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
-}
+} */
 
 .event-cards__item, .voted-cards__item {
   /* padding-top: 0.5rem; */

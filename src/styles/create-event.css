@@ -1,12 +1,12 @@
 :root {
   --dark-pink: #ED2643;
   --pink: #FF8AAE;
-  --light-pink:#ffacc6;
+  --light-pink: #F9DCE1;
   --dark-sky:#2284B5;
-  --sky: #44C3E6;
+  --slate-blue: #404E88;
   --light-sky: #d4eefc;
-  --yellow:#FFF89A;
-  --light-orange:#FFB2A6;
+  --minty: #A5DCE4;
+  --choc-brown: #341A04;
 }
 
 .eventPgcontainer {
@@ -20,69 +20,46 @@
   margin-top: 70px;
 }
 
-.eventPgtitle {
-  font-size: 50px;
-  font-family: "Coiny";
+.eventForm input, .description textarea {
   margin-bottom: 15px;
-}
-
-.eventForm {
-  font-weight: 500;
-  font-size: 17px;
-}
-
-.eventForm input {
-  background-color: white;
-  height: 30px;
-  margin: 10px 10px 30px 10px;
-  width: 180px;
+  padding: 8px;
+  width: 300px;
+  font-size: 14px;
+  color: inherit;
+  border: 1px solid currentcolor;
+  border-radius: 3px;
+  outline: 0px;
+  box-sizing: border-box;
+  appearance: none;
+  transition: all 0.25s ease-in 0s;
 } 
 
-.description input {
-  background-color: white;
+.description textarea {
   height: 80px;
-  margin: 10px 10px 20px 10px;
-  width: 290px;
 }
 
-.description, .date {
-  font-weight: 500;
-  font-size: 17px;
-}
-
-.date input {
-  margin: 10px 10px 10px 10px;
-}
-
-.category {
-  font-weight: 500;
-  font-size: 17px;
-  list-style: none;
-  margin-right: 15px;
-}
-/* .category  :hover {
-  background-color: rgb(52, 68, 250);
-  color: white;
-  cursor: pointer;
-} */
-
-.createEvent button, .backto-myEventsBtn {
-  margin: 30px;
-  margin-top: 20px;
+.date input, .category-options {
   margin-bottom: 10px;
-  background-color: white;
-  color: #090909;
-  cursor: pointer;
-  font-size: 15px;
-  font-weight: 500;
-  height: 30px;
-  width: 170px;
+  font-size: 18px;
+  color: inherit;
+  border: 1px solid currentcolor;
+  border-radius: 3px;
+  outline: 0px;
+  box-sizing: border-box;
+  appearance: none;
+  transition: all 0.25s ease-in 0s;
 }
 
-.createEvent :hover {
-  background-color: var(--light-pink);
+.createEvent-Btn {
+  width: 220px;
+  font-size: 16px;
+  margin-top: 30px;
 }
 
-.backto-myEventsBtn :hover {
-  background-color: var(--dark-sky);
+.createEvent-Btn:hover {
+  background-color: var(--minty);
+}
+
+.backto-myEvents-Btn {
+  padding: 8px;
 }

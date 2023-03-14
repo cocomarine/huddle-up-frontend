@@ -9,6 +9,10 @@ import { IoIosArrowUp } from "react-icons/io";
 import EventCard from "./EventCard";
 import VotedEventCard from "./VotedEventCard";
 import { useAuthContext } from "../../hooks/useAuthContext";
+
+import "../../styles/common/titles.css";
+import "../../styles/common/page.css";
+import "../../styles/common/buttons.css";
 import "../../styles/my-events.css";
 
 const MyEvents = () => {
@@ -68,18 +72,18 @@ const MyEvents = () => {
   }, [usersEvents]);
 
   return (
-    <div className="events">
-      <h3 className="events-title"> My Events</h3>
+    <div className="events page">
+      <h3 className="events-title page-title"> My Events</h3>
       <div className="navigate-events">
         <AnchorLink href='#event-cards-voted'>
-          <button>Voting finished</button>
+          <button className="link-button">Voting Finished</button>
         </AnchorLink>
         <AnchorLink href='#event-cards-pending'>
-          <button>Voting in progress</button>
+          <button className="link-button">Voting In Progress</button>
         </AnchorLink>
         <div className="join-create-buttons">
           <button
-            className="join-event-button"
+            className="join-event-button link-button"
             onClick={() => {
               changeLocation("/joinevents");
             }}
@@ -87,7 +91,7 @@ const MyEvents = () => {
             Join Event
           </button>
           <button
-            className="create-event-button"
+            className="create-event-button link-button"
             onClick={() => {
               changeLocation("/createevent");
             }}
@@ -98,7 +102,7 @@ const MyEvents = () => {
       </div>
       <div className="event-cards">
         <div className="event-cards-voted" id="event-cards-voted">
-          <div className="voted-title">Voting Finished</div>
+          <div className="voted-title subtitle">Voting Finished</div>
           {votedEvents && votedEvents.map((votedEvent) => (
             <div className="voted-cards__item" key={`votedEvent_${votedEvent.id}`}>
               <VotedEventCard {...votedEvent} />
@@ -106,7 +110,7 @@ const MyEvents = () => {
           ))}
         </div>
         <div className="event-cards-pending" id="event-cards-pending">
-          <div className="pending-title">Voting In Progress</div>
+          <div className="pending-title subtitle">Voting In Progress</div>
           {pendingEvents && pendingEvents.map((pendingEvent) => (
             <div className="event-cards__item" key={`pendingEvent_${pendingEvent.id}`}>
               <EventCard {...pendingEvent} />

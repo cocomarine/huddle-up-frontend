@@ -1,22 +1,23 @@
 :root {
   --dark-pink: #ED2643;
   --pink: #FF8AAE;
-  --light-pink:#ffacc6;
+  --light-pink: #F9DCE1;
   --dark-sky:#2284B5;
-  --sky: #44C3E6;
+  --slate-blue: #404E88;
   --light-sky: #d4eefc;
-  --yellow:#FFF89A;
-  --light-orange:#FFB2A6;
+  --minty: #A5DCE4;
+  --choc-brown: #341A04;
 }
 
 .voted-card {
   background-color: white;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   margin-bottom: 2rem;
-  width: 18rem;
-  border-radius: 6px;
-  border: solid 1px var(--dark-sky);
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  padding: 0.8rem;
+  width: 19rem;
+  /* border-radius: 6px; */
+  /* border: solid 1px var(--dark-sky); */
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 8px;
 }
 
 .voted-card-container {
@@ -27,13 +28,6 @@
   padding: 0.5rem;
 }
 
-.voted-card__title {
-  margin-top: 5px;
-  padding-bottom: 5px;
-  font-size: 18px;
-  font-weight: 600;
-}
-
 .voted-card__description {
   padding-bottom: 15px;
 }
@@ -42,9 +36,9 @@
   padding: 5px;
   margin-bottom: 10px;
   height: 40px;
-  border-radius:10px;
+  border-radius:4px;
   border: solid 1px darkgray;
-  background: var(--yellow);
+  background: #A5DCE4;
   font-weight: 500;
   /* margin: 5px;
   height: 40px;

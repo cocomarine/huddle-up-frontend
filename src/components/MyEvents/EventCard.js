@@ -14,6 +14,7 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 
+import "../../styles/common/titles.css";
 import "../../styles/event-card.css";
 
 const EventCard = ({
@@ -253,14 +254,15 @@ const EventCard = ({
   return (
     <div className="event-card">
       <div className="event-card-container">
-        <div className="event-card__title">
+        <div className="event-card__title heading1">
           <FontAwesomeIcon
-            size="xl"
+            size="lg"
+            pull="left"
             icon={iconSelector(category)}
             className="event-icon"
             data-testid="event-icon"
           />
-          &nbsp; {title}
+          {title}
         </div>
         <div className="event-card__description">{description}</div>
         <div className="event-card__date">Event Date: {date}</div>

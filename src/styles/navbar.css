@@ -5,14 +5,6 @@
   --dark-sky:#2284B5;
   --sky: #44C3E6;
   --light-sky: #d4eefc;
-  --yellow:#FFF89A;
-  --light-orange:#FFB2A6;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  background-color: var(--light-sky);
 }
 
 .navbar {
@@ -63,7 +55,7 @@ body {
 
 .navbar .rightSide .links a:hover {
   cursor: pointer;
-  color: var(--dark-sky);
+  color:  var(--dark-sky);
 }
 
 @media only screen and (max-width: 980px) {
