@@ -1,0 +1,17 @@
+.page-title {
+  font-size: 50px;
+  font-family: "Coiny";
+  margin-bottom: 15px;
+}
+
+.subtitle {
+  font-size: 25px;
+  margin-top: 1rem;
+}
+
+.heading1 {
+  margin-top: 5px;
+  padding-bottom: 5px;
+  font-size: 18px;
+  font-weight: 600;
+}

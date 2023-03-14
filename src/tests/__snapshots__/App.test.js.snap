@@ -5,10 +5,22 @@ exports[`App renders App correctly 1`] = `
   <div
     class="App"
   >
-    <div>
+    <div
+      class="homePg"
+    >
       <div
         class="navbar"
       >
+        <div
+          class="leftSide"
+        >
+          <img
+            alt="logo"
+            class="l"
+            src="huddleup_logo.jpeg"
+            style="width: 100px; display: flex;"
+          />
+        </div>
         <div
           class="rightSide"
         >
@@ -32,16 +44,23 @@ exports[`App renders App correctly 1`] = `
               Sign up
             </a>
           </div>
+        </div>
+        <div
+          class="icons"
+        >
           <div
-            class="nav-button"
+            class="closingIcon"
+          />
+          <div
+            class="navIcon"
           >
             <svg
-              color="white"
+              color="rgb(246, 73, 73)"
               fill="currentColor"
               height="2.5rem"
               stroke="currentColor"
               stroke-width="0"
-              style="color: white;"
+              style="color: rgb(246, 73, 73);"
               viewBox="0 0 24 24"
               width="2.5rem"
               xmlns="http://www.w3.org/2000/svg"
@@ -56,17 +75,25 @@ exports[`App renders App correctly 1`] = `
             </svg>
           </div>
         </div>
-        <div
-          class="leftSide"
-        />
       </div>
       <div
         class="homeBody"
       >
         <h1
-          class="title"
+          class="home-title"
         >
-          Huddle Up
+          <font
+            color="#ED2643"
+          >
+            h
+          </font>
+          uddle
+          <font
+            color="#2284B5"
+          >
+            U
+          </font>
+          p
         </h1>
         <div
           class="homeText"

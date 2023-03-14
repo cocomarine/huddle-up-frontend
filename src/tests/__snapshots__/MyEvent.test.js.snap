@@ -4,7 +4,9 @@ exports[`MyEvents renders correctly 1`] = `
 <div
   className="events"
 >
-  <h3>
+  <h3
+    className="events-title"
+  >
      My Events
   </h3>
   <div
@@ -29,11 +31,17 @@ exports[`MyEvents renders correctly 1`] = `
     <div
       className="join-create-buttons"
     >
-      <button>
-        Join an event
+      <button
+        className="join-event-button"
+        onClick={[Function]}
+      >
+        Join Event
       </button>
-      <button>
-        Create an event
+      <button
+        className="create-event-button"
+        onClick={[Function]}
+      >
+        Create Event
       </button>
     </div>
   </div>
@@ -44,17 +52,21 @@ exports[`MyEvents renders correctly 1`] = `
       className="event-cards-voted"
       id="event-cards-voted"
     >
-      <h4>
+      <div
+        className="voted-title"
+      >
         Voting Finished
-      </h4>
+      </div>
     </div>
     <div
       className="event-cards-pending"
       id="event-cards-pending"
     >
-      <h4>
+      <div
+        className="pending-title"
+      >
         Voting In Progress
-      </h4>
+      </div>
     </div>
   </div>
 </div>

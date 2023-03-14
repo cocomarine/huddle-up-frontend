@@ -1,0 +1,26 @@
+:root {
+  --light-pink: #F9DCE1;
+  --minty: #A5DCE4;
+  --choc-brown: #341A04;
+}
+
+.link-button {
+  padding: 8px 32px;
+  margin: 10px;
+  width: 180px;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: white;
+  border: 1px solid var(--choc-brown);
+  border-radius: 3px;
+  transition: all 0.25s ease-in 0s;
+  white-space: nowrap;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.link-button:hover {
+  background-color: var(--light-pink);
+}
+

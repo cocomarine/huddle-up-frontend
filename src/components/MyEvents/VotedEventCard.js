@@ -13,6 +13,7 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 
+import "../../styles/common/titles.css";
 import "../../styles/voted-event-card.css";
 
 const VotedEventCard = ({
@@ -79,18 +80,18 @@ const VotedEventCard = ({
         >
           <IoIosCloseCircleOutline />
         </button> */}
-        <div className="voted-card__title">
+        <div className="voted-card__title heading1">
           <FontAwesomeIcon
-            size="xl"
+            size="lg"
             icon={iconSelector(category)}
             className="event-icon"
             data-testid="event-icon"
           />
           &nbsp; {title}
         </div>
-        <div className="voted-card__date">{date}</div>
         <div className="voted-card__description">{description}</div>
         <div className="voted-card__voted-suggestion">{votedSuggestion.suggestion}</div>
+        <div className="voted-card__date">Event Date: {date}</div>
         <div className="voted-card__admin">Creator: {adminFirstName}</div>
       </div>
     </div>

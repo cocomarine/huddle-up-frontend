@@ -2,6 +2,9 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 
+import "../styles/common/titles.css";
+import "../styles/common/page.css";
+import "../styles/common/buttons.css";
 import "../styles/home.css";
 
 const Home = () => {
@@ -12,21 +15,23 @@ const Home = () => {
 
   const changeLocation = (redirect) => {
     navigate(redirect, { replace: true });
-    window.location.reload();
+    // window.location.reload();
   };
 
   return (
     <>
       <div className="homeBody">
-        <h1 className="title">Huddle Up</h1>
-        <div className="homeText">
-          <h3 style={{ fontWeight: 200 }}>
-            Join us and plan your events and activities!
-          </h3>
+        <h1 className="home-title">
+          <font color="#ED2643">h</font>
+            uddle
+          <font color="#2284B5">U</font>
+            p</h1>
+        <div className="homeText subtitle">
+          Join us and plan your events and activities!
         </div>
         {user ? <div className="btns logged-in">
           <button
-            className="myEventsBtn"
+            className="myEventsBtn link-button"
             onClick={() => {
               changeLocation("/myevents");
             }}
@@ -34,7 +39,7 @@ const Home = () => {
             My Events
           </button>
           <button
-            className="creatEeventBtn"
+            className="creatEeventBtn link-button"
             onClick={() => {
               changeLocation("/createevent");
             }}
@@ -42,7 +47,7 @@ const Home = () => {
             Create Event
           </button>
           <button
-            className="joinEeventBtn"
+            className="joinEeventBtn link-button"
             onClick={() => {
               changeLocation("/joinevents");
             }}
@@ -52,7 +57,7 @@ const Home = () => {
         </div> :
         <div className="btns logged-out">
         <button
-          className="loginBtn"
+          className="loginBtn link-button"
           onClick={() => {
             changeLocation("/login");
           }}
@@ -61,7 +66,7 @@ const Home = () => {
         </button>
 
         <button
-          className="signUpBtn"
+          className="signUpBtn link-button"
           onClick={() => {
             changeLocation("/signup");
           }}

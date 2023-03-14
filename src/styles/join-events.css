@@ -1,0 +1,23 @@
+:root {
+  --minty: #A5DCE4;
+}
+
+.join-event__submit input {
+  margin-bottom: 8px;
+  padding: 8px;
+  width: 300px;
+  font-size: 14px;
+  color: inherit;
+  border: 1px solid currentcolor;
+  border-radius: 3px;
+  outline: 0px;
+  box-sizing: border-box;
+  appearance: none;
+  transition: all 0.25s ease-in 0s;
+} 
+
+.join-event__submit button:hover {
+  background-color: var(--minty);
+}
+
+

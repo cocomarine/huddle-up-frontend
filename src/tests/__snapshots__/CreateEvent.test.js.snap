@@ -1,0 +1,154 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateEvent renders correctly 1`] = `
+<div
+  className="eventPgcontainer"
+>
+  <h1
+    className="eventPgtitle"
+  >
+    Create Event
+  </h1>
+  <div
+    className="error"
+  />
+  <form
+    onSubmit={[Function]}
+  >
+    <div
+      className="eventForm"
+    >
+      <label
+        htmlFor="title"
+      >
+         Event Title:
+      </label>
+      <div>
+        <input
+          id="title"
+          onChange={[Function]}
+          placeholder="Enter your event title"
+          required={true}
+          type="text"
+        />
+      </div>
+    </div>
+    <div
+      className="description"
+    >
+      <label
+        htmlFor="description"
+      >
+         Event Description:
+      </label>
+      <div>
+        <input
+          id="description"
+          onChange={[Function]}
+          placeholder="Enter the details of the event"
+          required={true}
+          type="text"
+        />
+      </div>
+    </div>
+    <div
+      className="date"
+    >
+      <label
+        htmlFor="date"
+      >
+         Event Date:
+      </label>
+      <div>
+        <input
+          id="date"
+          onChange={[Function]}
+          required={true}
+          type="date"
+        />
+      </div>
+    </div>
+    <br />
+    <label
+      className="category"
+      htmlFor="categories"
+      id="category"
+    >
+      Event Category
+    </label>
+    <select
+      name="category"
+      onChange={[Function]}
+    >
+      <option
+        value="restaurant"
+      >
+         Restaurant 
+      </option>
+      <option
+        value="coffee-tea"
+      >
+        Coffee / Tea 
+      </option>
+      <option
+        value="drinks"
+      >
+        Drinks 
+      </option>
+      <option
+        value="outdoor"
+      >
+        Outdoor 
+      </option>
+      <option
+        value="cinema-show"
+      >
+        Cinema / Show 
+      </option>
+      <option
+        value="playdate"
+      >
+        Playdate
+      </option>
+      <option
+        value="other"
+      >
+        Other
+      </option>
+    </select>
+    <div
+      className="createEvent"
+    >
+      <button
+        type="submit"
+      >
+        Create Event
+      </button>
+    </div>
+  </form>
+  <button
+    className="backto-myEventsBtn"
+    onClick={[Function]}
+  >
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-angle-left back-icon"
+      data-icon="angle-left"
+      data-prefix="fas"
+      data-testid="back-icon"
+      focusable="false"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 256 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+      Back to My Events
+  </button>
+</div>
+`;

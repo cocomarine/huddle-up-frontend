@@ -1,11 +1,19 @@
+:root {
+  --dark-pink: #ED2643;
+  --dark-sky:#2284B5;
+}
+
 .error {
-  color: rgb(251, 64, 64);
+  color: var(--dark-pink);
+  font-size: 18px;
 }
 
 .success {
-  color: rgb(210, 210, 213);
+  color: var(--dark-sky);
+  font-size: 18px;
 }
 
 .alert {
-  color: rgb(255, 255, 146);
+  color: black;
+  font-size: 18px;
 }

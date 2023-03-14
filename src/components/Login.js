@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import Alert from "./Alert";
+
+import "../styles/common/titles.css";
+import "../styles/common/page.css";
+import "../styles/common/buttons.css";
 import "../styles/login.css";
 
 const Login = () => {
@@ -47,13 +51,14 @@ const Login = () => {
   };
 
   return (
-    <div className="loginPage">
-      <h1 className="titleSignin"> Login</h1>
+    <div className="loginPage page">
+      <h3 className="titleSignin page-title"> Login</h3>
       <div className="loginForm">
         <form onSubmit={handleSignin}>
+          <Alert message={alert.message} success={alert.isSuccess} />
           <div className="labels">
-            <label className="email" htmlFor="email">
-              Email{" "}
+            <label className="login-email subtitle" htmlFor="email">
+              Email
             </label>
             <input
               type="email"
@@ -63,7 +68,7 @@ const Login = () => {
               value={email}
               required
             ></input>
-            <label htmlFor="password">Password </label>
+            <label className="login-password subtitle" htmlFor="password">Password </label>
             <input
               type="password"
               id="password"
@@ -74,11 +79,11 @@ const Login = () => {
             ></input>
           </div>
           <div className="login">
-            <button type="submit">Log in</button>
+            <button className="login-btn link-button" type="submit">Log in</button>
           </div>
         </form>
       </div>
-      <div className="createNewAccount">
+      <div className="createNewAccount heading1">
         <p>
           Don't have an account?{" "}
           <span
