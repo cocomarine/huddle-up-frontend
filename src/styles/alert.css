@@ -5,12 +5,15 @@
 
 .error {
   color: var(--dark-pink);
+  font-size: 18px;
 }
 
 .success {
   color: var(--dark-sky);
+  font-size: 18px;
 }
 
 .alert {
   color: black;
+  font-size: 18px;
 }
