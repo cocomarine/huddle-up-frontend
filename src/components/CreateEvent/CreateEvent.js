@@ -51,17 +51,17 @@ const CreateEvent = () => {
       const eventId = res.data.id;
       
       axios
-      .post("http://localhost:4000/userevents", {
-        voted__suggestionId: null,
-        UserId: initialState.fields.AdminId,
-        EventId: eventId,
-      })
-      .then((res) => {
-        setAlert({
-          message: "Event successfully create.",
-          success: true,
+        .post("http://localhost:4000/userevents", {
+          voted__suggestionId: null,
+          UserId: initialState.fields.AdminId,
+          EventId: eventId,
+        })
+        .then((res) => {
+          setAlert({
+            message: "Event successfully created.",
+            success: true,
+          });
         });
-      });
       
       dispatch({type: "EVENT_CREATED", payload: res.data })
       changeLocation("/invitefriends");

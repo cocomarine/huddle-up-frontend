@@ -16,7 +16,7 @@
   transition: all 0.25s ease-in 0s;
 } 
 
-.join-event__submit button:hover {
+.join-event__submit > button:hover {
   background-color: var(--minty);
 }
 

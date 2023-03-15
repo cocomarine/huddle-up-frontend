@@ -12,7 +12,7 @@
   background-color: white;
   border: 1px solid var(--choc-brown);
   border-radius: 3px;
-  transition: all 0.25s ease-in 0s;
+  transition: all 0.1s ease-in 0s;
   box-sizing: border-box;
   text-decoration: none;
 }

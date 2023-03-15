@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useEventContext } from "../hooks/useEventContext";
-import { encryptEventCode, decryptEventCode } from "../utils/utils";
+import { encryptEventCode } from "../utils/utils";
 
 import "../styles/common/titles.css";
 import "../styles/common/page.css";
@@ -15,7 +14,6 @@ const InviteFriends = () => {
 
   const { user } = useAuthContext();
   const { event } = useEventContext();
-  console.log(event)
 
   const navigate = useNavigate();
 
