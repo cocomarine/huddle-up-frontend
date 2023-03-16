@@ -88,16 +88,6 @@ const MyEvents = () => {
           </AnchorLink>
           </>
         }
-        {/* {!usersEvents && 
-          <>
-          <AnchorLink href='#event-cards-voted'>
-            <button className="link-button">Voting Finished</button>
-          </AnchorLink>
-          <AnchorLink href='#event-cards-pending'>
-            <button className="link-button">Voting In Progress</button>
-          </AnchorLink>
-          </>
-        } */}
         <div className="join-create-buttons">
           <button
             className="join-event-button link-button"
@@ -131,18 +121,6 @@ const MyEvents = () => {
             :
             <></>
           }
-          {/* {votedEvents.length && <div className="voted-title subtitle">Voting Finished</div>}
-          {votedEvents && votedEvents.map((votedEvent) => (
-            <div className="voted-cards__item" key={`votedEvent_${votedEvent.id}`}>
-              <VotedEventCard {...votedEvent} />
-            </div>
-          ))} */}
-          {/* <div className="voted-title subtitle">Voting Finished</div>
-          {votedEvents && votedEvents.map((votedEvent) => (
-            <div className="voted-cards__item" key={`votedEvent_${votedEvent.id}`}>
-              <VotedEventCard {...votedEvent} />
-            </div>
-          ))} */}
         </div>
         <div className="event-cards-pending" id="event-cards-pending">
           {pendingEvents.length ?
@@ -158,14 +136,6 @@ const MyEvents = () => {
               <></>
             }
           </div>
-        {/* <div className="event-cards-pending" id="event-cards-pending">
-          {pendingEvents.length && <div className="pending-title subtitle">Voting In Progress</div>}
-          {pendingEvents && pendingEvents.map((pendingEvent) => (
-            <div className="event-cards__item" key={`pendingEvent_${pendingEvent.id}`}>
-              <EventCard {...pendingEvent} />
-            </div>
-          ))}
-        </div> */}
       </div>
       <ScrollToTop smooth component={<IoIosArrowUp />} />
     </div>

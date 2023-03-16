@@ -96,24 +96,20 @@ exports[`App renders App correctly 1`] = `
           p
         </h1>
         <div
-          class="homeText"
+          class="homeText subtitle"
         >
-          <h3
-            style="font-weight: 200;"
-          >
-            Join us and plan your events and activities!
-          </h3>
+          Join us and plan your events and activities!
         </div>
         <div
           class="btns logged-out"
         >
           <button
-            class="loginBtn"
+            class="loginBtn link-button"
           >
             Login
           </button>
           <button
-            class="signUpBtn"
+            class="signUpBtn link-button"
           >
             Sign up
           </button>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-// import { useAuthContext } from "../hooks/useAuthContext";
+import { useAuthContext } from "../../hooks/useAuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUtensils,
@@ -21,25 +21,32 @@ const VotedEventCard = ({
   title,
   date,
   description,
+  participants,
+  total_votes,
   category,
   AdminId,
 }) => {
   const [adminFirstName, setAdminFirstName] = useState("");
   const [votedSuggestion, setVotedSuggestion] = useState("");
 
-  // const { user } = useAuthContext();
+  const { user } = useAuthContext();
+
+  const getAdminName = (event) => {
+    const adminID = event.AdminId;
+    const eventUsers = event.Users;
+    const adminData = eventUsers.find(
+      (eventUser) => eventUser.id === adminID
+    );
+
+    return adminData.first_name;
+  };
 
   useEffect(() => {
     axios
       .get(`http://localhost:4000/events/${id}`)
       .then((res) => {
-        const adminID = res.data.AdminId;
-        const eventUsers = res.data.Users;
-        const adminData = eventUsers.filter(
-          (eventUser) => eventUser.id === adminID
-        );
 
-        setAdminFirstName(adminData[0].first_name);
+        setAdminFirstName(getAdminName(res.data));
 
         const sugs = res.data.Suggestions;
         const mostVoted = sugs.reduce((prev, current) => {

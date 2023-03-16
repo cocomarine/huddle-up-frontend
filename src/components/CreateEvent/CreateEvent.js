@@ -25,6 +25,7 @@ const CreateEvent = () => {
     fields: {
       title: "",
       description: "",
+      participants: "",
       total_votes: 0,
       date: "",
       category: "",
@@ -35,6 +36,8 @@ const CreateEvent = () => {
       success: false,
     },
   };
+
+  const [fields, setFields] = useState(initialState.fields);
   const [alert, setAlert] = useState(initialState.alert);
 
   const changeLocation = (redirect) => {
@@ -46,14 +49,15 @@ const CreateEvent = () => {
     event.preventDefault();
     // const eventData = AddEvent(initialState.fields, setAlert);
     axios
-    .post("http://localhost:4000/events", initialState.fields)
+    .post("http://localhost:4000/events", fields)
     .then((res) => {
       const eventId = res.data.id;
       
       axios
         .post("http://localhost:4000/userevents", {
           voted__suggestionId: null,
-          UserId: initialState.fields.AdminId,
+          // UserId: initialState.fields.AdminId,
+          UserId: fields.AdminId,
           EventId: eventId,
         })
         .then((res) => {
@@ -76,16 +80,21 @@ const CreateEvent = () => {
     setAlert({ message: "", success: false });
   };
   
+  // const handleFieldChange = (e) => {
+  //   e.preventDefault();
+  //   if (initialState.fields.hasOwnProperty(e.target.id)) {
+  //     initialState.fields[e.target.id] = e.target.value;
+  //   }
+  //   if (e.target.name === "category") {
+  //     initialState.fields[e.target.name] = e.target.value;
+  //   }
+  //   initialState.fields.AdminId = user.id;
+  //   console.log(initialState.fields);
+  // };
   const handleFieldChange = (e) => {
-    e.preventDefault();
-    if (initialState.fields.hasOwnProperty(e.target.id)) {
-      initialState.fields[e.target.id] = e.target.value;
-    }
-    if (e.target.name === "category") {
-      initialState.fields[e.target.name] = e.target.value;
-    }
-    initialState.fields.AdminId = user.id;
-    console.log(initialState.fields);
+    fields.AdminId = user.id;
+    setFields({ ...fields, [e.target.name]: e.target.value });
+    console.log(fields);
   };
 
   return (
@@ -100,8 +109,10 @@ const CreateEvent = () => {
           <div>
             <input
               type="text"
+              name="title"
               placeholder="Enter your event title"
               id="title"
+              value={fields.title}
               onChange={handleFieldChange}
               required
             ></input>
@@ -118,24 +129,28 @@ const CreateEvent = () => {
               cols="43" 
               rows="10"
               placeholder="Enter the details of the event"
+              value={fields.description}
               onChange={handleFieldChange}
               required
             />
           </div>
         </div>
-        <div className="date">
-          <label htmlFor="date" className="date-label subtitle"> 
-            Event Date
+
+        <div className="participants">
+          <label htmlFor="participants" className="participants-label subtitle"> 
+            Participants
           </label>
-          <div>
+          <div className="participants-container">
             <input
-              type="date"
-              id="date"
+              type="text"
+              name="participants"
+              placeholder="Enter names"
+              value={fields.participants}
               onChange={handleFieldChange}
-              required
-            ></input>
+            />
           </div>
         </div>
+
         <div className="catetory">
           <label className="category-label subtitle" id="category" htmlFor="categories">
             Event Category
@@ -150,6 +165,20 @@ const CreateEvent = () => {
               <option value="playdate">Playdate</option>
               <option value="other">Other</option>
             </select>
+          </div>
+        </div>
+        <div className="date">
+          <label htmlFor="date" className="date-label subtitle"> 
+            Event Date
+          </label>
+          <div>
+            <input
+              value={fields.date}
+              name="date"
+              type="date"
+              onChange={handleFieldChange}
+              required
+            ></input>
           </div>
         </div>
 

@@ -22,7 +22,10 @@ const EventCard = ({
   title,
   date,
   description,
+  participants,
+  total_votes,
   category,
+  AdminId,
 }) => {
   const [adminFirstName, setAdminFirstName] = useState(""); // admin for the event
   const [suggestions, setSuggestions] = useState([]); //all the sugs of the event
@@ -30,8 +33,8 @@ const EventCard = ({
   const [votedSugId, setVotedSugId] = useState(); //VotedSugId in userevent table
   // const [filteredEvent, setFilteredEvent] = useState({})
   const [userSuggestion, setUserSuggestion] = useState({}); //sug that the user put forward for this event
-  const [voteCount, setVoteCount] = useState(0); //number of votes for a suggestion
-  const [sugSelected, setSugSelected] = useState(false); // boolean for selected or not
+  const [voteCount, setVoteCount] = useState(); //number of votes for a suggestion
+  const [sugSelected, setSugSelected] = useState(false); // boolean for selected or not for this user and for this suggestion
   const [newSuggestion, setNewSuggestion] = useState("");
   const [alert, setAlert] = useState({
     message: "",
@@ -40,24 +43,27 @@ const EventCard = ({
 
   const { user } = useAuthContext();
 
+
   const getAdminName = (event) => {
     const adminID = event.AdminId;
     const eventUsers = event.Users;
-    const adminData = eventUsers.filter(
+    const adminData = eventUsers.find(
       (eventUser) => eventUser.id === adminID
     );
 
-    return adminData[0].first_name;
+    return adminData.first_name;
   };
 
   // 1. get admin name and do setAdminFirstName
   // 2. get suggestions list and do setSuggestions
+  // 2_1. add up votes for each suggestion and update.
+  // (unless it was done upon handlevote)
   // 3. add up votes of suggestions and do setTotalEventVotes
   // 4. update total_votes of event table
   // 5. get userevent and filter them down to a userevent that matches eventid and userid
   // 6. do setVotedSugId
-  // 7. get votes from a suggestion and do setVoteCount
-  // 8. do setSugSelected 
+  // 7. get votes from a suggestion and do setVoteCount <-- how??
+  // 8. if user selected a sug, setSugSelected
   // 9. find if user already has put forward suggestion for this event and do setUserSuggestion
   useEffect(() => {
     axios
@@ -70,7 +76,7 @@ const EventCard = ({
 
         // 2. get suggestions list and do setSuggestions
         setSuggestions(sugs);
-
+        
         // 3. add up votes of suggestions and do setTotalEventVotes
         const totalVotes = sugs.reduce((prev, current) => 
           prev + current.votes, 0,
@@ -85,34 +91,32 @@ const EventCard = ({
         axios
         .get(`http://localhost:4000/userevents`)
         .then((res) => {
-          const filteredUserEvent = res.data.filter((userevent) => (userevent.EventId === id && userevent.UserId === user.id));
+          const filteredUserEvent = res.data.find((userevent) => (userevent.EventId === id && userevent.UserId === user.id));
 
           // 6. do setVotedSugId
-          setVotedSugId(filteredUserEvent[0].voted_suggestionId);
+          setVotedSugId(filteredUserEvent.voted_suggestionId);
           
-          // 7. get votes from suggestion and do setVoteCount
-          if (filteredUserEvent[0].voted_suggestionId) {
+          // 8. if user selected a sug, setSugSelected
+          if (filteredUserEvent.voted_suggestionId) {
             axios
-              .get(`http://localhost:4000/suggestions/${filteredUserEvent[0].voted_suggestionId}`)
+              .get(`http://localhost:4000/suggestions/${filteredUserEvent.voted_suggestionId}`)
               .then((res) => {
                 setVoteCount(res.data.votes);
                 console.log("voteCount:", res.data.votes)
-            });
-          }
-          
-          // 8. do setSugSelected
-          setSugSelected(
-            filteredUserEvent[0].voted_suggestionId ? true : false
-            );
-          })
+                setSugSelected(true);
+              });
+            } else {
+              setSugSelected(false);
+            }
+        });
 
-          // 9. find if user already has put forward suggestion for this event and do setUserSuggestion
-          axios
-            .get(`http://localhost:4000/suggestions`)
-            .then((res) => {
-              const filteredUserSuggestion = res.data.filter((sug) => (sug.EventId === id && sug.UserId === user.id));
-              setUserSuggestion(filteredUserSuggestion[0]);
-          });
+        // 9. find if user already has put forward suggestion for this event and do setUserSuggestion
+        axios
+          .get(`http://localhost:4000/suggestions`)
+          .then((res) => {
+            const filteredUserSuggestion = res.data.find((sug) => (sug.EventId === id && sug.UserId === user.id));
+            setUserSuggestion(filteredUserSuggestion);
+        });
       })
       .catch(() => {
         setAlert({
@@ -120,11 +124,11 @@ const EventCard = ({
           isSuccess: false,
         });
       });
-  }, [voteCount, newSuggestion]);
+  }, [user, totalEventVotes, votedSugId, voteCount, sugSelected, newSuggestion]);
 
   const updateSugVotes = (suggestionId, selected, voteCount) => {
     let sugVotes = voteCount;
-    console.log("updateSugVotes, selected and voteCount:", selected, voteCount)
+    console.log("updateSugVotes: selected and voteCount:", selected, voteCount)
     // need to refractor this
     if (selected) {
       sugVotes ++;
