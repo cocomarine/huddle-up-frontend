@@ -34,6 +34,7 @@ const EventCard = ({
   // const [filteredEvent, setFilteredEvent] = useState({})
   const [userSuggestion, setUserSuggestion] = useState({}); //sug that the user put forward for this event
   const [voteCount, setVoteCount] = useState(); //number of votes for a suggestion
+  // const [sugVotes, setSugVotes] = useState({}); // storing votes for each suggestion of the event
   const [sugSelected, setSugSelected] = useState(false); // boolean for selected or not for this user and for this suggestion
   const [newSuggestion, setNewSuggestion] = useState("");
   const [alert, setAlert] = useState({
@@ -42,7 +43,6 @@ const EventCard = ({
   }); 
 
   const { user } = useAuthContext();
-
 
   const getAdminName = (event) => {
     const adminID = event.AdminId;
@@ -73,10 +73,19 @@ const EventCard = ({
         setAdminFirstName(getAdminName(res.data));
         
         const sugs = res.data.Suggestions;
+        sugs.sort((a, b) => {
+          if (a.suggestion < b.suggestion) {
+            return -1;
+          }
+          if (a.suggestion > b.suggestion) {
+            return 1;
+          }
+          return 0;
+        });
 
         // 2. get suggestions list and do setSuggestions
         setSuggestions(sugs);
-        
+
         // 3. add up votes of suggestions and do setTotalEventVotes
         const totalVotes = sugs.reduce((prev, current) => 
           prev + current.votes, 0,
@@ -85,30 +94,30 @@ const EventCard = ({
 
         // 4. update total_votes of event
         axios
-        .patch(`http://localhost:4000/events/${id}`, { total_votes: totalVotes })
+          .patch(`http://localhost:4000/events/${id}`, { total_votes: totalVotes })
 
         // 5. get userevent and filter them down to a userevent that matches eventid and userid
         axios
-        .get(`http://localhost:4000/userevents`)
-        .then((res) => {
-          const filteredUserEvent = res.data.find((userevent) => (userevent.EventId === id && userevent.UserId === user.id));
+          .get(`http://localhost:4000/userevents`)
+          .then((res) => {
+            const filteredUserEvent = res.data.find((userevent) => (userevent.EventId === id && userevent.UserId === user.id));
 
-          // 6. do setVotedSugId
-          setVotedSugId(filteredUserEvent.voted_suggestionId);
-          
-          // 8. if user selected a sug, setSugSelected
-          if (filteredUserEvent.voted_suggestionId) {
-            axios
-              .get(`http://localhost:4000/suggestions/${filteredUserEvent.voted_suggestionId}`)
-              .then((res) => {
-                setVoteCount(res.data.votes);
-                console.log("voteCount:", res.data.votes)
-                setSugSelected(true);
-              });
-            } else {
-              setSugSelected(false);
-            }
-        });
+            // 6. do setVotedSugId
+            setVotedSugId(filteredUserEvent.voted_suggestionId);
+            
+            // 8. if user selected a sug, setSugSelected
+            if (filteredUserEvent.voted_suggestionId) {
+              axios
+                .get(`http://localhost:4000/suggestions/${filteredUserEvent.voted_suggestionId}`)
+                .then((res) => {
+                  // setVoteCount(res.data.votes);
+                  // console.log("voteCount:", res.data.votes)
+                  setSugSelected(true);
+                });
+              } else {
+                setSugSelected(false);
+              }
+          });
 
         // 9. find if user already has put forward suggestion for this event and do setUserSuggestion
         axios
@@ -124,9 +133,9 @@ const EventCard = ({
           isSuccess: false,
         });
       });
-  }, [user, totalEventVotes, votedSugId, voteCount, sugSelected, newSuggestion]);
+  }, [user, totalEventVotes, voteCount, votedSugId, sugSelected, newSuggestion]);
 
-  const updateSugVotes = (suggestionId, selected, voteCount) => {
+  const updateSugVotes = (sugId, selected, voteCount) => {
     let sugVotes = voteCount;
     console.log("updateSugVotes: selected and voteCount:", selected, voteCount)
     // need to refractor this
@@ -143,9 +152,9 @@ const EventCard = ({
     console.log("updateSugVotes sugVotes after update:", sugVotes)
     
     axios
-    .patch(`http://localhost:4000/suggestions/${suggestionId}`, { votes: sugVotes});
+      .patch(`http://localhost:4000/suggestions/${sugId}`, { votes: sugVotes});
 
-    setVoteCount(sugVotes);
+    // setVoteCount(sugVotes);
   };
 
   const updateVotedSug = (eventId, userId, suggestionId) => {
@@ -160,7 +169,7 @@ const EventCard = ({
     })
   };
 
-    const updateEventVotes = (eventId) => {
+  const updateEventVotes = (eventId) => {
     axios
       .get(`http://localhost:4000/events/${eventId}`)
       .then((res) => {
@@ -170,11 +179,20 @@ const EventCard = ({
         );
         
         axios
-        .patch(`http://localhost:4000/events/${eventId}`, { total_votes: totalVotes })
+          .patch(`http://localhost:4000/events/${eventId}`, { total_votes: totalVotes })
         
         setTotalEventVotes(totalVotes);
       });
   };
+
+  // const getVoteCount = (sugId) => {
+  //   axios
+  //     .get(`http://localhost:4000/suggestions/${sugId}`)
+  //     .then((res) => {
+  //       console.log(res.data.votes)
+  //       return res.data.votes;
+  //     })
+  // }
 
   // 1. save value to a variable (suggestion id)
   // 2. do setSugSelected to change sugSelected boolean
@@ -191,16 +209,25 @@ const EventCard = ({
     setSugSelected(voteToggle)
     const clickedSugId = e.target.value;
 
-    if (voteToggle) {
-      setVotedSugId(clickedSugId);
-      updateSugVotes(clickedSugId, voteToggle, voteCount);
-      updateVotedSug(id, user.id, clickedSugId);
-      updateEventVotes(id);
-    } else {
-      updateSugVotes(clickedSugId, voteToggle, voteCount);
-      updateVotedSug(id, user.id, null);
-      updateEventVotes(id);
-    }
+    axios
+      .get(`http://localhost:4000/suggestions/${clickedSugId}`)
+      .then((res) => {
+        console.log(res.data.votes)
+        const sugVotes = res.data.votes;
+        console.log("sugVotes:", sugVotes)
+        setVoteCount(sugVotes);
+
+        if (voteToggle) {
+          setVotedSugId(clickedSugId);
+          updateSugVotes(clickedSugId, voteToggle, sugVotes);
+          updateVotedSug(id, user.id, clickedSugId);
+          updateEventVotes(id);
+        } else {
+          updateSugVotes(clickedSugId, voteToggle, sugVotes);
+          updateVotedSug(id, user.id, null);
+          updateEventVotes(id);
+        }
+      })
   };
 
   const handleSubmitSuggestion = (e) => {
