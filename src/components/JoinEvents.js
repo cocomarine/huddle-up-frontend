@@ -38,8 +38,8 @@ const JoinEvents = () => {
     axios
     .get(`http://localhost:4000/events/${eventId}`)
     .then((res) => {
-      
-      if (res.data.id === eventId && user.id) {
+      console.log(res.data.id === eventId)
+      if (res.data.id === eventId) {
           setJoinedEvent(eventId);
 
           axios
@@ -67,7 +67,7 @@ const JoinEvents = () => {
           });
         }
       });
-    
+
   };
 
   return (

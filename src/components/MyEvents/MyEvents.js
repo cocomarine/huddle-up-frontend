@@ -52,6 +52,8 @@ const MyEvents = () => {
         .then((res) => {
           if (active) {
             setUsersEvents(res.data.Events);
+            console.log(user)
+            console.log(usersEvents)
           }
         });
     };
@@ -75,12 +77,27 @@ const MyEvents = () => {
     <div className="events page">
       <h3 className="events-title page-title"> My Events</h3>
       <div className="navigate-events">
-        <AnchorLink href='#event-cards-voted'>
-          <button className="link-button">Voting Finished</button>
-        </AnchorLink>
-        <AnchorLink href='#event-cards-pending'>
-          <button className="link-button">Voting In Progress</button>
-        </AnchorLink>
+        {!usersEvents.length ? 
+          <div className="no-events-msg subtitle">No events yet.</div>
+          :  <>
+          <AnchorLink href='#event-cards-voted'>
+            <button className="link-button">Voting Finished</button>
+          </AnchorLink>
+          <AnchorLink href='#event-cards-pending'>
+            <button className="link-button">Voting In Progress</button>
+          </AnchorLink>
+          </>
+        }
+        {/* {!usersEvents && 
+          <>
+          <AnchorLink href='#event-cards-voted'>
+            <button className="link-button">Voting Finished</button>
+          </AnchorLink>
+          <AnchorLink href='#event-cards-pending'>
+            <button className="link-button">Voting In Progress</button>
+          </AnchorLink>
+          </>
+        } */}
         <div className="join-create-buttons">
           <button
             className="join-event-button link-button"
@@ -102,21 +119,53 @@ const MyEvents = () => {
       </div>
       <div className="event-cards">
         <div className="event-cards-voted" id="event-cards-voted">
-          <div className="voted-title subtitle">Voting Finished</div>
+          {votedEvents.length ?
+            <>            
+            <div className="voted-title subtitle">Voting Finished</div>
+            {votedEvents.map((votedEvent) => (
+              <div className="voted-cards__item" key={`votedEvent_${votedEvent.id}`}>
+                <VotedEventCard {...votedEvent} />
+              </div>
+            ))}
+            </> 
+            :
+            <></>
+          }
+          {/* {votedEvents.length && <div className="voted-title subtitle">Voting Finished</div>}
           {votedEvents && votedEvents.map((votedEvent) => (
             <div className="voted-cards__item" key={`votedEvent_${votedEvent.id}`}>
               <VotedEventCard {...votedEvent} />
             </div>
-          ))}
+          ))} */}
+          {/* <div className="voted-title subtitle">Voting Finished</div>
+          {votedEvents && votedEvents.map((votedEvent) => (
+            <div className="voted-cards__item" key={`votedEvent_${votedEvent.id}`}>
+              <VotedEventCard {...votedEvent} />
+            </div>
+          ))} */}
         </div>
         <div className="event-cards-pending" id="event-cards-pending">
-          <div className="pending-title subtitle">Voting In Progress</div>
+          {pendingEvents.length ?
+              <>            
+              <div className="pending-title subtitle">Voting In Progress</div>
+              {pendingEvents.map((pendingEvent) => (
+                <div className="pending-cards__item" key={`pendingEvent_${pendingEvent.id}`}>
+                  <EventCard {...pendingEvent} />
+                </div>
+              ))}
+              </> 
+              :
+              <></>
+            }
+          </div>
+        {/* <div className="event-cards-pending" id="event-cards-pending">
+          {pendingEvents.length && <div className="pending-title subtitle">Voting In Progress</div>}
           {pendingEvents && pendingEvents.map((pendingEvent) => (
             <div className="event-cards__item" key={`pendingEvent_${pendingEvent.id}`}>
               <EventCard {...pendingEvent} />
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
       <ScrollToTop smooth component={<IoIosArrowUp />} />
     </div>
