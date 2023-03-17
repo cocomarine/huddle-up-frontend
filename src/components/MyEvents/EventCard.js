@@ -185,15 +185,6 @@ const EventCard = ({
       });
   };
 
-  // const getVoteCount = (sugId) => {
-  //   axios
-  //     .get(`http://localhost:4000/suggestions/${sugId}`)
-  //     .then((res) => {
-  //       console.log(res.data.votes)
-  //       return res.data.votes;
-  //     })
-  // }
-
   // 1. save value to a variable (suggestion id)
   // 2. do setSugSelected to change sugSelected boolean
   // 3. do setVotedSugId: if previously null, put sug id. if not null, put null 

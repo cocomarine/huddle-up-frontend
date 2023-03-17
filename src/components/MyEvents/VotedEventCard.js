@@ -81,12 +81,6 @@ const VotedEventCard = ({
   return (
     <div className="voted-card">
       <div className="voted-card-container">
-      {/* <button 
-          className="voted-card__close-button"
-          onClick={() => {}}
-        >
-          <IoIosCloseCircleOutline />
-        </button> */}
         <div className="voted-card__title heading1">
           <FontAwesomeIcon
             size="lg"
