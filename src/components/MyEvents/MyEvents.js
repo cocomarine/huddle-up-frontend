@@ -35,12 +35,12 @@ const MyEvents = () => {
   };
 
   const isVotedEvent = (event) => {
-    const totalUsers = event.Users.length;
+    const maxUsers = event.participants.split(", ").length;
     const suggestionsList = event.Suggestions;
     const totalVotes = suggestionsList.reduce(
       (prev, current) => prev + current.votes, 0
     );
-    return totalUsers === totalVotes;
+    return maxUsers === totalVotes;
   };
 
   useEffect(() => {
