@@ -8,11 +8,11 @@ exports[`EventCard renders correctly 1`] = `
     className="event-card-container"
   >
     <div
-      className="event-card__title"
+      className="event-card__title heading1"
     >
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-users fa-xl event-icon"
+        className="svg-inline--fa fa-users fa-lg fa-pull-left event-icon"
         data-icon="users"
         data-prefix="fas"
         data-testid="event-icon"
@@ -28,7 +28,6 @@ exports[`EventCard renders correctly 1`] = `
           style={Object {}}
         />
       </svg>
-        
       test title
     </div>
     <div
@@ -40,6 +39,7 @@ exports[`EventCard renders correctly 1`] = `
       className="event-card__date"
     >
       Event Date: 
+      2023-05-01
     </div>
     <div
       className="event-card__admin"

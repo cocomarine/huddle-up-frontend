@@ -1,0 +1,26 @@
+:root {
+  --light-pink: #F9DCE1;
+  --minty: #A5DCE4;
+  --choc-brown: #341A04;
+}
+.copy-button {
+  max-width: 300px;
+  padding: 20px;
+  margin: 10px;
+  font-size: 16px;
+  font-weight: 400;
+  background-color: white;
+  border: 1px solid var(--choc-brown);
+  border-radius: 3px;
+  transition: all 0.1s ease-in 0s;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.copy-button:active {
+  background-color: var(--minty);
+}
+
+.greeting {
+  margin-top: 20px;
+}

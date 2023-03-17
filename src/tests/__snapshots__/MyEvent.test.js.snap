@@ -2,43 +2,32 @@
 
 exports[`MyEvents renders correctly 1`] = `
 <div
-  className="events"
+  className="events page"
 >
   <h3
-    className="events-title"
+    className="events-title page-title"
   >
      My Events
   </h3>
   <div
     className="navigate-events"
   >
-    <a
-      href="#event-cards-voted"
-      onClick={[Function]}
+    <div
+      className="no-events-msg subtitle"
     >
-      <button>
-        Voting finished
-      </button>
-    </a>
-    <a
-      href="#event-cards-pending"
-      onClick={[Function]}
-    >
-      <button>
-        Voting in progress
-      </button>
-    </a>
+      No events yet.
+    </div>
     <div
       className="join-create-buttons"
     >
       <button
-        className="join-event-button"
+        className="join-event-button link-button"
         onClick={[Function]}
       >
         Join Event
       </button>
       <button
-        className="create-event-button"
+        className="create-event-button link-button"
         onClick={[Function]}
       >
         Create Event
@@ -51,23 +40,11 @@ exports[`MyEvents renders correctly 1`] = `
     <div
       className="event-cards-voted"
       id="event-cards-voted"
-    >
-      <div
-        className="voted-title"
-      >
-        Voting Finished
-      </div>
-    </div>
+    />
     <div
       className="event-cards-pending"
       id="event-cards-pending"
-    >
-      <div
-        className="pending-title"
-      >
-        Voting In Progress
-      </div>
-    </div>
+    />
   </div>
 </div>
 `;

@@ -40,14 +40,16 @@ const SignUp = () => {
           password,
         })
         .then((res) => {
+          console.log(res.data)
+          localStorage.setItem("user", JSON.stringify(res.data));
+          dispatch({ type: "LOGIN", payload: res.data });
+
           setAlert({
             message: `Welcome to HuddleUp, ${firstName}!`,
             success: true,
           });
-          localStorage.setItem("user", JSON.stringify(res.data));
-          dispatch({ type: "LOGIN", payload: res.data });
 
-          changeLocation("/");
+          // changeLocation("/"); 
         })
         .catch((err) => {
           setAlert({

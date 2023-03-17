@@ -21,6 +21,7 @@ const AddEvent = (fields, setAlert) => {
             success: true,
           });
       });
+      return res.data;
     })
     .catch((err) => {
       setAlert({

@@ -47,6 +47,7 @@ const Navbar = () => {
           {user && <Link to="/joinevents"> Join Events</Link>}
           {user && <Link to="/myevents"> My Events</Link>}
           {user && <button onClick={handleLogout}>Log out</button>}
+          {user && <div>{user.first_name}</div>}
         </div>
       </div>
       <div className="icons">
