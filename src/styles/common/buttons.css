@@ -24,3 +24,7 @@
   background-color: var(--light-pink);
 }
 
+.link-button:disabled {
+  color: rgb(130, 130, 130);
+}
+

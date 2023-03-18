@@ -9,6 +9,11 @@
   --choc-brown: #341A04;
 }
 
+.votedEvents-button:hover:disabled,
+.pendingEvents-button:hover:disabled {
+  background-color: white;  
+}
+
 .join-event-button:hover, .create-event-button:hover {
   background-color: var(--minty);
 }

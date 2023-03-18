@@ -81,10 +81,20 @@ const MyEvents = () => {
           <div className="no-events-msg subtitle">No events yet.</div>
           :  <>
           <AnchorLink href='#event-cards-voted'>
-            <button className="link-button">Voting Finished</button>
+            <button 
+              className="votedEvents-button link-button"
+              disabled={!votedEvents.length}
+            >
+              Voting Finished
+            </button>
           </AnchorLink>
           <AnchorLink href='#event-cards-pending'>
-            <button className="link-button">Voting In Progress</button>
+            <button 
+              className="pendingEvents-button link-button"
+              disabled={!pendingEvents.length}
+            >
+              Voting In Progress
+            </button>
           </AnchorLink>
           </>
         }
@@ -126,6 +136,7 @@ const MyEvents = () => {
           {pendingEvents.length ?
               <>            
               <div className="pending-title subtitle">Voting In Progress</div>
+              <div className="pending-cards__inst">Toggle to vote / unvote suggestions.</div>
               {pendingEvents.map((pendingEvent) => (
                 <div className="pending-cards__item" key={`pendingEvent_${pendingEvent.id}`}>
                   <EventCard {...pendingEvent} />
