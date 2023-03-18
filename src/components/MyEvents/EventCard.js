@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-import { useAuthContext } from "../../hooks/useAuthContext";
-import Alert from "../Alert";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUtensils,
@@ -13,6 +11,10 @@ import {
   faChildReaching,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
+
+import { useAuthContext } from "../../hooks/useAuthContext";
+import Alert from "../Alert";
+// import PlaceInput from "./PlaceInput";
 
 import "../../styles/common/titles.css";
 import "../../styles/event-card.css";
@@ -62,7 +64,6 @@ const EventCard = ({
   // 4. update total_votes of event table
   // 5. get userevent and filter them down to a userevent that matches eventid and userid
   // 6. do setVotedSugId
-  // 7. get votes from a suggestion and do setVoteCount <-- how??
   // 8. if user selected a sug, setSugSelected
   // 9. find if user already has put forward suggestion for this event and do setUserSuggestion
   useEffect(() => {
@@ -213,10 +214,12 @@ const EventCard = ({
           updateSugVotes(clickedSugId, voteToggle, sugVotes);
           updateVotedSug(id, user.id, clickedSugId);
           updateEventVotes(id);
+          // also disable buttons for other suggestions
         } else {
           updateSugVotes(clickedSugId, voteToggle, sugVotes);
           updateVotedSug(id, user.id, null);
           updateEventVotes(id);
+          // also enable buttons for other suggesetions
         }
       })
   };
@@ -299,13 +302,12 @@ const EventCard = ({
                       }} 
                       className={`suggestion__item ${votedSugId === item.id ? "voted" : ""}`} 
                       value={item.id}
+                      disabled={votedSugId && votedSugId !== item.id}
                       >
                         {item.suggestion} &nbsp;&nbsp; {item.votes} &#47; {totalEventVotes}
                   </button>
             })}
           </div> : <div className="no-sug-msg">No suggestions yet</div> }
-          {/* {only if user hasn't made any suggestion, 
-        show suggestion input form}  */}
           {!userSuggestion && <div className="suggestion-input-container">
             <form className="even-card__suggestions__form" onSubmit={handleSubmitSuggestion} >
               <Alert message={alert.message} success={alert.isSuccess} />
@@ -322,6 +324,7 @@ const EventCard = ({
                 Submit
               </button>
             </form>
+            {/* <PlaceInput /> */}
           </div>}
         </div>
       </div>
@@ -333,6 +336,7 @@ EventCard.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  date: PropTypes.instanceOf(Date).isRequired,
   category: PropTypes.string.isRequired,
 };
 

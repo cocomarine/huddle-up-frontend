@@ -103,8 +103,8 @@ VotedEventCard.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  date: PropTypes.instanceOf(Date).isRequired,
   category: PropTypes.string.isRequired,
-  AdminId: PropTypes.number,
 };
 
 export default VotedEventCard;
