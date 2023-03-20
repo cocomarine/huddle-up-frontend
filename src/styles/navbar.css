@@ -1,9 +1,136 @@
 :root {
-  --dark-pink: #ED2643;
-  --pink: #FF8AAE;
-  --light-pink:#ffacc6;
-  --dark-sky:#2284B5;
-  --sky: #44C3E6;
+  --dark-pink: #ed2643;
+  --pink: #ff8aae;
+  --light-pink: #ffacc6;
+  --dark-sky: #2284b5;
+  --sky: #44c3e6;
+  --light-sky: #d4eefc;
+}
+
+.navbar {
+  background-color: white;
+  width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+}
+
+.navbar .leftSide {
+  flex: 10%;
+  display: flex;
+}
+.navbar {
+  max-height: 80px;
+}
+.icons .closingIcon {
+  color: var(--dark-pink);
+  size: 1.8rem;
+  margin-top: 15px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: var(--dark-pink);
+  font-size: 18px;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+.icons {
+  display: none;
+}
+
+.navbar {
+  flex: 90%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  padding-right: 20px;
+}
+
+.navbar .nav-button {
+  display: none;
+  margin-left: 14px;
+  margin-top: 20px;
+}
+
+.navbar a:hover {
+  cursor: pointer;
+  color: var(--dark-sky);
+}
+
+.logout-btn {
+  background-color: white;
+  border: none;
+  margin-left: 10px;
+  color: var(--dark-pink);
+  font-size: 18px;
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.logout-btn:hover {
+  cursor: pointer;
+  color: var(--dark-sky);
+}
+@media only screen and (max-width: 1350px) {
+  .navbar a {
+    font-size: 16px;
+  }
+  .logout-btn {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (max-width: 980px) {
+  .navbar a {
+    font-size: 14px;
+  }
+  .logout-btn {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 830px) {
+  .navbar a {
+    font-size: 11px;
+  }
+  .logout-btn {
+    font-size: 11px;
+  }
+}
+
+@media only screen and (max-width: 730px) {
+  .rightside {
+    display: none;
+  }
+  .navbar a {
+    margin: 10px;
+  }
+  .logout-btn {
+    margin-top: 100px;
+  }
+  .icons {
+    margin-top: 20px;
+    display: flex;
+  }
+  #hidden {
+    position: fixed;
+    top: 80px;
+    right: 0px;
+    width: 170px;
+    height: 40vh;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+}
+:root {
+  --dark-pink: #ed2643;
+  --pink: #ff8aae;
+  --light-pink: #ffacc6;
+  --dark-sky: #2284b5;
+  --sky: #44c3e6;
   --light-sky: #d4eefc;
 }
 
@@ -18,16 +145,16 @@
   flex: 50%;
   display: flex;
 }
-.navbar .rightSide .links {
+.navbar {
   max-height: 80px;
 }
 .icons .closingIcon {
   color: var(--dark-pink);
-  size: 1.5rem;
-  margin-top: 20px;
+  size: 1.8rem;
+  margin-top: 15px;
 }
 
-.navbar .rightSide .links a {
+.navbar a {
   text-decoration: none;
   color: var(--dark-pink);
   font-size: 20px;
@@ -35,11 +162,11 @@
   margin-left: 10px;
 }
 
-.navbar .rightSide #hidden {
-  display: flex;
+.icons {
+  display: none;
 }
 
-.navbar .rightSide {
+.navbar #hidden {
   flex: 90%;
   display: flex;
   justify-content: right;
@@ -47,52 +174,71 @@
   padding-right: 20px;
 }
 
-.navbar .right-side .nav-button {
+.navbar .nav-button {
   display: none;
   margin-left: 14px;
   margin-top: 20px;
 }
 
-.navbar .rightSide .links a:hover {
+.navbar a:hover {
   cursor: pointer;
-  color:  var(--dark-sky);
+  color: var(--dark-sky);
+}
+
+.logout-btn {
+  background-color: white;
+  border: none;
+  margin-left: 10px;
+  color: var(--dark-pink);
+  font-size: 20px;
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.logout-btn:hover {
+  cursor: pointer;
+  color: var(--dark-sky);
 }
 
 @media only screen and (max-width: 980px) {
-  .navbar .rightSide .links a {
+  .navbar a {
+    font-size: 16px;
+  }
+  .logout-btn {
     font-size: 16px;
   }
 }
 
 @media only screen and (max-width: 830px) {
-  .navbar .rightSide .links a {
+  .navbar a {
     font-size: 14px;
+  }
+  .logout-btn {
+    font-size: 15px;
   }
 }
 
 @media only screen and (max-width: 730px) {
-  .navbar .rightSide .links {
+  .rightside {
     display: none;
   }
-  .rightSide #hidden {
-    margin-top: 180px;
+  .navbar a {
+    margin: 10px;
+  }
+
+  .icons {
+    margin-top: 20px;
+    display: flex;
+  }
+  #hidden {
+    position: fixed;
+    top: 80px;
+    right: 0px;
+    width: 170px;
+    height: 40vh;
+    background-color: white;
     display: flex;
     flex-direction: column;
-    /* align-items: flex-end; */
-    justify-content: flex-end;
-    position: fixed;
-    top: 90px;
-    right: 0px;
-    width: 200px;
-    background-color: white;
-    font-size: 15px;
-  }
-  .navbar .rightSide .links a {
-    text-decoration: none;
-    color: var(--dark-pink);
-    font-size: 18px;
-    font-weight: 600;
-    margin-top: 20px;
-    background-color: white;
+    justify-content: flex-start;
   }
 }
