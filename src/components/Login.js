@@ -21,7 +21,7 @@ const Login = () => {
 
   const changeLocation = (redirect) => {
     navigate(redirect, { replace: true });
-    window.location.reload();
+    // window.location.reload();
   };
 
   const handleSignin = async (e) => {
@@ -39,7 +39,7 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(res.data));
         dispatch({ type: "LOGIN", payload: res.data });
 
-        changeLocation("/myevents");
+        changeLocation("/");
         return res.data;
       })
       .catch((err) => {

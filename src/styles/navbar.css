@@ -1,16 +1,17 @@
 :root {
-  --dark-pink: #ed2643;
-  --pink: #ff8aae;
-  --light-pink: #ffacc6;
-  --dark-sky: #2284b5;
-  --sky: #44c3e6;
+  --dark-pink: #ED2643;
+  --pink: #FF8AAE;
+  --light-pink: #F9DCE1;
+  --dark-sky:#2284B5;
+  --slate-blue: #404E88;
   --light-sky: #d4eefc;
+  --minty: #A5DCE4;
+  --choc-brown: #341A04;
 }
 
 .navbar {
   background-color: white;
   width: 100%;
-  font-family: Arial, Helvetica, sans-serif;
   display: flex;
 }
 
@@ -30,9 +31,16 @@
 .navbar a {
   text-decoration: none;
   color: var(--dark-pink);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   margin-left: 10px;
+}
+
+.hi-user-msg {
+  position: relative;
+  top: 30px;
+  font-family: 'Coiny';
+  color: var(--choc-brown);
 }
 
 .icons {
@@ -53,25 +61,21 @@
   margin-top: 20px;
 }
 
-.navbar a:hover {
-  cursor: pointer;
-  color: var(--dark-sky);
-}
 
 .logout-btn {
   background-color: white;
   border: none;
   margin-left: 10px;
   color: var(--dark-pink);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
-.logout-btn:hover {
+.navbar a:hover, .logout-btn:hover {
   cursor: pointer;
   color: var(--dark-sky);
 }
+
 @media only screen and (max-width: 1350px) {
   .navbar a {
     font-size: 16px;
@@ -92,10 +96,10 @@
 
 @media only screen and (max-width: 830px) {
   .navbar a {
-    font-size: 11px;
+    font-size: 13px;
   }
   .logout-btn {
-    font-size: 11px;
+    font-size: 13px;
   }
 }
 
@@ -104,138 +108,26 @@
     display: none;
   }
   .navbar a {
-    margin: 10px;
+    margin: 5px;
   }
   .logout-btn {
-    margin-top: 100px;
+    margin: 5px 0px;
+    /* margin-left: 0px; */
   }
   .icons {
     margin-top: 20px;
     display: flex;
   }
-  #hidden {
-    position: fixed;
-    top: 80px;
-    right: 0px;
-    width: 170px;
-    height: 40vh;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-}
-:root {
-  --dark-pink: #ed2643;
-  --pink: #ff8aae;
-  --light-pink: #ffacc6;
-  --dark-sky: #2284b5;
-  --sky: #44c3e6;
-  --light-sky: #d4eefc;
-}
-
-.navbar {
-  background-color: white;
-  width: 100%;
-  font-family: Arial, Helvetica, sans-serif;
-  display: flex;
-}
-
-.navbar .leftSide {
-  flex: 50%;
-  display: flex;
-}
-.navbar {
-  max-height: 80px;
-}
-.icons .closingIcon {
-  color: var(--dark-pink);
-  size: 1.8rem;
-  margin-top: 15px;
-}
-
-.navbar a {
-  text-decoration: none;
-  color: var(--dark-pink);
-  font-size: 20px;
-  font-weight: 600;
-  margin-left: 10px;
-}
-
-.icons {
-  display: none;
-}
-
-.navbar #hidden {
-  flex: 90%;
-  display: flex;
-  justify-content: right;
-  align-items: center;
-  padding-right: 20px;
-}
-
-.navbar .nav-button {
-  display: none;
-  margin-left: 14px;
-  margin-top: 20px;
-}
-
-.navbar a:hover {
-  cursor: pointer;
-  color: var(--dark-sky);
-}
-
-.logout-btn {
-  background-color: white;
-  border: none;
-  margin-left: 10px;
-  color: var(--dark-pink);
-  font-size: 20px;
-  font-weight: 600;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.logout-btn:hover {
-  cursor: pointer;
-  color: var(--dark-sky);
-}
-
-@media only screen and (max-width: 980px) {
-  .navbar a {
-    font-size: 16px;
-  }
-  .logout-btn {
-    font-size: 16px;
-  }
-}
-
-@media only screen and (max-width: 830px) {
-  .navbar a {
-    font-size: 14px;
-  }
-  .logout-btn {
-    font-size: 15px;
-  }
-}
-
-@media only screen and (max-width: 730px) {
-  .rightside {
-    display: none;
-  }
-  .navbar a {
-    margin: 10px;
-  }
-
-  .icons {
-    margin-top: 20px;
-    display: flex;
+  .navbar a:hover, .logout-btn:hover {
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 8px;
   }
   #hidden {
     position: fixed;
     top: 80px;
     right: 0px;
-    width: 170px;
-    height: 40vh;
+    width: 120px;
+    height: auto;
+    opacity: 0.8;
     background-color: white;
     display: flex;
     flex-direction: column;

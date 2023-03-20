@@ -25,7 +25,7 @@ const MyProfile = () => {
 
   const changeLocation = (redirect) => {
     navigate(redirect, { replace: true });
-    window.location.reload();
+    // window.location.reload();
   };
 
   useEffect(() => {
