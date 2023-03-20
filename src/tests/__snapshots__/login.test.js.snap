@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="loginPage page"
+  >
+    <h3
+      class="titleSignin page-title"
+    >
+       Login
+    </h3>
+    <div
+      class="loginForm"
+    >
+      <form>
+        <div
+          class="labels"
+        >
+          <label
+            class="login-email subtitle"
+            for="email"
+          >
+            Email
+          </label>
+          <input
+            id="email"
+            placeholder="youremail@email.com"
+            required=""
+            type="email"
+            value=""
+          />
+          <label
+            class="login-password subtitle"
+            for="password"
+          >
+            Password 
+          </label>
+          <input
+            id="password"
+            placeholder="*******"
+            required=""
+            type="password"
+            value=""
+          />
+        </div>
+        <div
+          class="login"
+        >
+          <button
+            class="login-btn link-button"
+            type="submit"
+          >
+            Log in
+          </button>
+        </div>
+      </form>
+    </div>
+    <div
+      class="createNewAccount heading1"
+    >
+      <p>
+        Don't have an account? 
+        <span
+          class="signUpHere"
+        >
+          Sign Up Here
+        </span>
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;
