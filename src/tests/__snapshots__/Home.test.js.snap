@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="homeBody"
+  >
+    <h1
+      class="home-title"
+    >
+      <font
+        color="#ED2643"
+      >
+        h
+      </font>
+      uddle
+      <font
+        color="#2284B5"
+      >
+        U
+      </font>
+      p
+    </h1>
+    <div
+      class="homeText subtitle"
+    >
+      Join us and plan your events and activities!
+    </div>
+    <div
+      class="btns logged-out"
+    >
+      <button
+        class="loginBtn link-button"
+      >
+        Login
+      </button>
+      <button
+        class="signUpBtn link-button"
+      >
+        Sign up
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

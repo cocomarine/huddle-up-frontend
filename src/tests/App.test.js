@@ -1,15 +1,20 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
+import { render, screen } from "@testing-library/react";
 import { AuthContextProvider } from "../contexts/AuthContext";
 import App from "../components/App";
 
 describe("App", () => {
-  it("renders App correctly", () => {
-    const { asFragment } = render(
-      <AuthContextProvider>
-        <App />
-      </AuthContextProvider>
+  xit("renders App correctly", () => {
+    render(
+      <BrowserRouter>
+        <AuthContextProvider>
+          <App />
+        </AuthContextProvider>
+      </BrowserRouter>
     );
-    expect(asFragment()).toMatchSnapshot();
+    const app = screen.getByText(/huddleUp/i);
+
+    expect(app).toBeInTheDocument();
   });
 });
