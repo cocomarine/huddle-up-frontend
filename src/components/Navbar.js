@@ -36,6 +36,7 @@ const Navbar = () => {
           src={logo}
           style={{ width: "100px", display: "flex" }}
         />
+        {user && <div className="hi-user-msg">Hi, {user.first_name}!</div>}
       </div>
 
       {/* <div className="rightSide"> */}
@@ -49,7 +50,7 @@ const Navbar = () => {
         {user && <Link to="/myevents"> My Events</Link>}
         {user && (
           <button className="logout-btn" onClick={handleLogout}>
-            Log out <GrLogout />{" "}
+            <GrLogout />&nbsp;Logout
           </button>
         )}
         {/* </div> */}

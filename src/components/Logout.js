@@ -10,7 +10,7 @@ const Logout = () => {
 
   const changeLocation = (redirect) => {
     navigate(redirect, { replace: true });
-    window.location.reload();
+    // window.location.reload();
   };
 
   const handleLogout = () => {
