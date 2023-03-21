@@ -41,9 +41,10 @@
   transition: all 0.25s ease-in 0s;
 }
 
-.event-card__admin, .event-card__date {
+.event-card__participants, .event-card__date {
   font-size: 0.8rem;
   padding-bottom: 10px;
+  font-weight: 400;
 }
 
 .suggestion__item:hover:not([disabled]) {

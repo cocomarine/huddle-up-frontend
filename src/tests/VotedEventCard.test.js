@@ -8,7 +8,11 @@ describe("VotedEventCard", () => {
   const validProps = {
     id: 1,
     title: "test title",
+    date: '2023-05-01',
+    participants: "user1, user2, user3",
     description: "test description",
+    category: "other",
+    AdminId: 2,
   };
 
   const setup = () => {
@@ -33,5 +37,7 @@ describe("VotedEventCard", () => {
 
     expect(screen.getByText("test title")).toHaveClass("voted-card__title");
     expect(screen.getByText("test description")).toHaveClass("voted-card__description");
+    expect(screen.getByText("With: user1, user2, user3")).toHaveClass("voted-card__participants");
+    expect(screen.getByText("Event Date: 2023-05-01")).toHaveClass("voted-card__date");
   });
 });

@@ -9,7 +9,7 @@ import Navbar from "./Navbar";
 import MyProfile from "./MyProfile";
 import JoinEvents from "./JoinEvents";
 import MyEvents from "./MyEvents/MyEvents";
-import CreateEvent from "./CreateEvent/CreateEvent";
+import CreateEvent from "./CreateEvent";
 import InviteFriends from "./InviteFriends";
 
 import "../styles/app.css";

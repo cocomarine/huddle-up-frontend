@@ -6,14 +6,13 @@ import { IoIosArrowUp } from "react-icons/io";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {  faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 
-import { useAuthContext } from "../../hooks/useAuthContext";
-import { useEventContext } from "../../hooks/useEventContext";
-import Alert from "../Alert";
-// import AddEvent from "./AddEvent";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { useEventContext } from "../hooks/useEventContext";
+import Alert from "./Alert";
 
-import "../../styles/common/titles.css";
-import "../../styles/common/buttons.css";
-import "../../styles/create-event.css";
+import "../styles/common/titles.css";
+import "../styles/common/buttons.css";
+import "../styles/create-event.css";
 
 const CreateEvent = () => {
   const { user } = useAuthContext();
@@ -47,7 +46,7 @@ const CreateEvent = () => {
 
   const handleAddEvent = (event) => {
     event.preventDefault();
-    // const eventData = AddEvent(initialState.fields, setAlert);
+
     axios
     .post("http://localhost:4000/events", fields)
     .then((res) => {
@@ -56,7 +55,6 @@ const CreateEvent = () => {
       axios
         .post("http://localhost:4000/userevents", {
           voted__suggestionId: null,
-          // UserId: initialState.fields.AdminId,
           UserId: fields.AdminId,
           EventId: eventId,
         })
@@ -80,21 +78,9 @@ const CreateEvent = () => {
     setAlert({ message: "", success: false });
   };
   
-  // const handleFieldChange = (e) => {
-  //   e.preventDefault();
-  //   if (initialState.fields.hasOwnProperty(e.target.id)) {
-  //     initialState.fields[e.target.id] = e.target.value;
-  //   }
-  //   if (e.target.name === "category") {
-  //     initialState.fields[e.target.name] = e.target.value;
-  //   }
-  //   initialState.fields.AdminId = user.id;
-  //   console.log(initialState.fields);
-  // };
   const handleFieldChange = (e) => {
     fields.AdminId = user.id;
     setFields({ ...fields, [e.target.name]: e.target.value });
-    console.log(fields);
   };
 
   return (

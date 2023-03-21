@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -6,14 +6,17 @@ import AnchorLink from "react-anchor-link-smooth-scroll-v2";
 import ScrollToTop from "react-scroll-to-top";
 import { IoIosArrowUp } from "react-icons/io";
 
-import EventCard from "./EventCard";
-import VotedEventCard from "./VotedEventCard";
+// import EventCard from "./EventCard";
+// import VotedEventCard from "./VotedEventCard";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
 import "../../styles/common/titles.css";
 import "../../styles/common/page.css";
 import "../../styles/common/buttons.css";
 import "../../styles/my-events.css";
+
+const EventCard = React.lazy(() => import("./EventCard"));
+const VotedEventCard = React.lazy(() => import("./VotedEventCard"));
 
 const MyEvents = () => {
   const initialState = {
@@ -122,11 +125,13 @@ const MyEvents = () => {
           {votedEvents.length ?
             <>            
             <div className="voted-title subtitle">Voting Finished</div>
-            {votedEvents.map((votedEvent) => (
-              <div className="voted-cards__item" key={`votedEvent_${votedEvent.id}`}>
-                <VotedEventCard {...votedEvent} />
-              </div>
-            ))}
+            <Suspense fallback={<div>Loading...</div>}>
+              {votedEvents.map((votedEvent) => (
+                <div className="voted-cards__item" key={`votedEvent_${votedEvent.id}`}>
+                  <VotedEventCard {...votedEvent} />
+                </div>
+              ))}
+            </Suspense>
             </> 
             :
             <></>
@@ -137,11 +142,13 @@ const MyEvents = () => {
               <>            
               <div className="pending-title subtitle">Voting In Progress</div>
               <div className="pending-cards__inst">Toggle to vote / unvote suggestions.</div>
-              {pendingEvents.map((pendingEvent) => (
-                <div className="pending-cards__item" key={`pendingEvent_${pendingEvent.id}`}>
-                  <EventCard {...pendingEvent} />
-                </div>
-              ))}
+              <Suspense fallback={<div>Loading...</div>}>
+                {pendingEvents.map((pendingEvent) => (
+                  <div className="pending-cards__item" key={`pendingEvent_${pendingEvent.id}`}>
+                    <EventCard {...pendingEvent} />
+                  </div>
+                ))}
+              </Suspense>
               </> 
               :
               <></>

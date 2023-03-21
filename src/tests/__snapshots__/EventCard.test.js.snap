@@ -42,9 +42,10 @@ exports[`EventCard renders correctly 1`] = `
       2023-05-01
     </div>
     <div
-      className="event-card__admin"
+      className="event-card__participants"
     >
-      Creater: 
+      With: 
+      user1, user2, user3
     </div>
     <div
       className="event-card__suggestions__container"

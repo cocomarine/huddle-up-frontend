@@ -8,11 +8,11 @@ exports[`VotedEventCard renders correctly 1`] = `
     className="voted-card-container"
   >
     <div
-      className="voted-card__title"
+      className="voted-card__title heading1"
     >
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-users fa-xl event-icon"
+        className="svg-inline--fa fa-users fa-lg event-icon"
         data-icon="users"
         data-prefix="fas"
         data-testid="event-icon"
@@ -43,11 +43,13 @@ exports[`VotedEventCard renders correctly 1`] = `
       className="voted-card__date"
     >
       Event Date: 
+      2023-05-01
     </div>
     <div
-      className="voted-card__admin"
+      className="voted-card__participants"
     >
-      Creator: 
+      With: 
+      user1, user2, user3
     </div>
   </div>
 </div>
