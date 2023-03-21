@@ -38,13 +38,10 @@ const Navbar = () => {
         />
         {user && <div className="hi-user-msg">Hi, {user.first_name}!</div>}
       </div>
-
-      {/* <div className="rightSide"> */}
       <div className="rightside" id={showLinks ? "hidden" : ""}>
         <Link to="/">Home</Link>
         {!user && <Link to="/login">Login</Link>}
         {!user && <Link to="/signup">Sign up</Link>}
-        {/* {user && <Link to="/logout">Logout</Link>} */}
         {user && <Link to="/myprofile"> My Profile</Link>}
         {user && <Link to="/joinevents"> Join Events</Link>}
         {user && <Link to="/myevents"> My Events</Link>}
@@ -53,7 +50,6 @@ const Navbar = () => {
             <GrLogout />&nbsp;Logout
           </button>
         )}
-        {/* </div> */}
       </div>
       <div className="icons">
         <div className="closingIcon" onClick={() => setShowLinks(!showLinks)}>

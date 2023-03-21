@@ -26,27 +26,14 @@ const VotedEventCard = ({
   category,
   AdminId,
 }) => {
-  const [adminFirstName, setAdminFirstName] = useState("");
   const [votedSuggestion, setVotedSuggestion] = useState("");
 
   const { user } = useAuthContext();
-
-  const getAdminName = (event) => {
-    const adminID = event.AdminId;
-    const eventUsers = event.Users;
-    const adminData = eventUsers.find(
-      (eventUser) => eventUser.id === adminID
-    );
-
-    return adminData.first_name;
-  };
 
   useEffect(() => {
     axios
       .get(`http://localhost:4000/events/${id}`)
       .then((res) => {
-
-        setAdminFirstName(getAdminName(res.data));
 
         const sugs = res.data.Suggestions;
         const mostVoted = sugs.reduce((prev, current) => {
@@ -93,7 +80,7 @@ const VotedEventCard = ({
         <div className="voted-card__description">{description}</div>
         <div className="voted-card__voted-suggestion">{votedSuggestion.suggestion}</div>
         <div className="voted-card__date">Event Date: {date}</div>
-        <div className="voted-card__admin">Creator: {adminFirstName}</div>
+        <div className="voted-card__participants">With: {participants}</div>
       </div>
     </div>
   );

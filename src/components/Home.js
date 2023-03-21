@@ -25,55 +25,62 @@ const Home = () => {
           <font color="#ED2643">h</font>
             uddle
           <font color="#2284B5">U</font>
-            p</h1>
-        <div className="homeText subtitle">
+            p
+          </h1>
+        {user ? <>
+          <div className="homeText subtitle">
+          Let's plan and get together!
+          </div>
+          <div className="btns logged-in">
+            <button
+              className="myEventsBtn link-button"
+              onClick={() => {
+                changeLocation("/myevents");
+              }}
+            >
+              My Events
+            </button>
+            <button
+              className="createEventBtn link-button"
+              onClick={() => {
+                changeLocation("/createevent");
+              }}
+            >
+              Create Event
+            </button>
+            <button
+              className="joinEventBtn link-button"
+              onClick={() => {
+                changeLocation("/joinevents");
+              }}
+            >
+              Join Event
+            </button>
+          </div> 
+        </> :<>
+          <div className="homeText subtitle">
           Join us and plan your events and activities!
-        </div>
-        {user ? <div className="btns logged-in">
-          <button
-            className="myEventsBtn link-button"
-            onClick={() => {
-              changeLocation("/myevents");
-            }}
-          >
-            My Events
-          </button>
-          <button
-            className="creatEeventBtn link-button"
-            onClick={() => {
-              changeLocation("/createevent");
-            }}
-          >
-            Create Event
-          </button>
-          <button
-            className="joinEeventBtn link-button"
-            onClick={() => {
-              changeLocation("/joinevents");
-            }}
-          >
-            Join Event
-          </button>
-        </div> :
-        <div className="btns logged-out">
-        <button
-          className="loginBtn link-button"
-          onClick={() => {
-            changeLocation("/login");
-          }}
-        >
-          Login
-        </button>
+          </div>
+          <div className="btns logged-out">
+            <button
+              className="loginBtn link-button"
+              onClick={() => {
+                changeLocation("/login");
+              }}
+            >
+              Login
+            </button>
 
-        <button
-          className="signUpBtn link-button"
-          onClick={() => {
-            changeLocation("/signup");
-          }}
-        >
-          Sign up
-        </button>
-      </div>}
+            <button
+              className="signUpBtn link-button"
+              onClick={() => {
+                changeLocation("/signup");
+              }}
+            >
+              Sign up
+            </button>
+          </div>
+        </>}
       </div>
     </>
   );
