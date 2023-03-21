@@ -68,3 +68,20 @@
 .no-sug-msg {
   margin: 10px;
 }
+
+.suggestion__input {
+  width: 250px;
+  height: 30px;
+  margin: 5px;
+}
+
+.suggestion__button {
+  width: 100px;
+  padding: 8px 14px;
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+
+.suggestion__button:hover {
+  background-color: var(--minty);
+}

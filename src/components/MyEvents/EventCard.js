@@ -271,7 +271,7 @@ const EventCard = ({
               />
               <button 
                 type="submit" 
-                className="suggestion__button" 
+                className="suggestion__button link-button" 
               >
                 Submit
               </button>
