@@ -19,7 +19,6 @@ const InviteFriends = () => {
 
   const changeLocation = (redirect) => {
     navigate(redirect, { replace: true });
-    // window.location.reload();
   };
 
   const eventCode = encryptEventCode(

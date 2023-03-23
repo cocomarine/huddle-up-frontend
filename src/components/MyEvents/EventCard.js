@@ -24,9 +24,7 @@ const EventCard = ({
   date,
   description,
   participants,
-  total_votes,
   category,
-  AdminId,
 }) => {
   const [suggestions, setSuggestions] = useState([]); 
   const [totalEventVotes, setTotalEventVotes] = useState(); 
