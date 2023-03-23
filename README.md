@@ -1,4 +1,4 @@
-# <img src="img/huddleUp_title.jpg" width="400" height="120" alt="huddleUp title logo" title="huddleUp title logo"/>
+# <img src="src/img/huddleUp_title.jpg" width="400" height="120" alt="huddleUp title logo" title="huddleUp title logo"/>
 
 <!-- ## Table of contents
 
