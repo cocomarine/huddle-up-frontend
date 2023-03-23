@@ -41,7 +41,6 @@ const CreateEvent = () => {
 
   const changeLocation = (redirect) => {
     navigate(redirect, { replace: true });
-    // window.location.reload();
   };
 
   const handleAddEvent = (event) => {

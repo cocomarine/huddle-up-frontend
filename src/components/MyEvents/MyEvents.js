@@ -6,8 +6,6 @@ import AnchorLink from "react-anchor-link-smooth-scroll-v2";
 import ScrollToTop from "react-scroll-to-top";
 import { IoIosArrowUp } from "react-icons/io";
 
-// import EventCard from "./EventCard";
-// import VotedEventCard from "./VotedEventCard";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
 import "../../styles/common/titles.css";
@@ -34,7 +32,6 @@ const MyEvents = () => {
 
   const changeLocation = (redirect) => {
     navigate(redirect, { replace: true });
-    // window.location.reload();
   };
 
   const isVotedEvent = (event) => {
