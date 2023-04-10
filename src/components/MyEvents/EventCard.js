@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,9 +11,12 @@ import {
   faTicket,
   faChildReaching,
   faUsers,
+  faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { useAuthContext } from "../../hooks/useAuthContext";
+import PlaceInput from "./PlaceInput";
+import MapPlaces from "./MapPlaces";
 import Alert from "../Alert";
 
 import "../../styles/common/titles.css";
@@ -40,6 +44,12 @@ const EventCard = ({
   }); 
 
   const { user } = useAuthContext();
+
+  const navigate = useNavigate();
+
+  const changeLocation = (redirect) => {
+    navigate(redirect, { replace: true });
+  };
 
   useEffect(() => {
     axios
@@ -229,6 +239,13 @@ const EventCard = ({
   return (
     <div className="event-card">
       <div className="event-card-container">
+        {suggestions[0] &&  
+          <button 
+            className="event-card__map-button"
+            onClick={() => changeLocation("/mapplaces")}
+          >
+            <FontAwesomeIcon icon={faLocationDot} />
+        </button>}
         <div className="event-card__title heading1">
           <FontAwesomeIcon
             size="lg"
@@ -261,11 +278,14 @@ const EventCard = ({
           {!userSuggestion && <div className="suggestion-input-container">
             <form className="even-card__suggestions__form" onSubmit={handleSubmitSuggestion} >
               <Alert message={alert.message} success={alert.isSuccess} />
-              <input 
+              {/* <input 
                 type="text" 
                 className="suggestion__input"
                 value={newSuggestion}
                 onChange={(e) => setNewSuggestion(e.target.value)}
+              /> */}
+              <PlaceInput 
+                setNewSuggestion={setNewSuggestion}
               />
               <button 
                 type="submit" 
