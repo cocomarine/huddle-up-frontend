@@ -15,8 +15,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useEventContext } from "../../hooks/useEventContext";
 import PlaceInput from "./PlaceInput";
-import MapPlaces from "./MapPlaces";
+import MapPlaces from "../MapPage/MapPlaces";
 import Alert from "../Alert";
 
 import "../../styles/common/titles.css";
@@ -44,6 +45,7 @@ const EventCard = ({
   }); 
 
   const { user } = useAuthContext();
+  const { event, dispatch } = useEventContext();
 
   const navigate = useNavigate();
 
@@ -242,7 +244,10 @@ const EventCard = ({
         {suggestions[0] &&  
           <button 
             className="event-card__map-button"
-            onClick={() => changeLocation("/mapplaces")}
+            onClick={() => {
+              dispatch({type: "EVENT_SUGS_ON_MAP", payload: event });
+              changeLocation("/mapplaces");
+            }}
           >
             <FontAwesomeIcon icon={faLocationDot} />
         </button>}

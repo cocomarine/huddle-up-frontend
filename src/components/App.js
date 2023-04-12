@@ -11,6 +11,7 @@ import JoinEvents from "./JoinEvents";
 import MyEvents from "./MyEvents/MyEvents";
 import CreateEvent from "./CreateEvent";
 import InviteFriends from "./InviteFriends";
+import MapPlaces from "./MapPage/MapPlaces";
 
 import "../styles/app.css";
 
@@ -38,6 +39,7 @@ function App() {
             <Route path="/myevents" element={<MyEvents />}></Route>
             <Route path="/createevent" element={<CreateEvent />}></Route>
             <Route path="/invitefriends" element={<InviteFriends />}></Route>
+            <Route path="/mapplaces" element={<MapPlaces />}></Route>
           </Routes>
         </BrowserRouter>
      
