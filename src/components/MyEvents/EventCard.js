@@ -17,7 +17,6 @@ import {
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useEventContext } from "../../hooks/useEventContext";
 import PlaceInput from "./PlaceInput";
-import MapPlaces from "../MapPage/MapPlaces";
 import Alert from "../Alert";
 
 import "../../styles/common/titles.css";
@@ -31,6 +30,7 @@ const EventCard = ({
   participants,
   category,
 }) => {
+  const [event, setEvent] = useState({});
   const [suggestions, setSuggestions] = useState([]); 
   const [totalEventVotes, setTotalEventVotes] = useState(); 
   const [votedSugId, setVotedSugId] = useState(); 
@@ -45,7 +45,7 @@ const EventCard = ({
   }); 
 
   const { user } = useAuthContext();
-  const { event, dispatch } = useEventContext();
+  const { dispatch } = useEventContext();
 
   const navigate = useNavigate();
 
@@ -57,6 +57,8 @@ const EventCard = ({
     axios
       .get(`http://localhost:4000/events/${id}`)
       .then((res) => {
+        setEvent(res.data);
+
         const sugs = res.data.Suggestions;
         sugs.sort((a, b) => {
           if (a.suggestion < b.suggestion) {

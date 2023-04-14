@@ -25,9 +25,6 @@ const PlaceInput = ({ setNewSuggestion }) => {
         place_id: place.place_id,
         place_name: place.name,
       });
-
-      console.log('place_id: ', place.place_id)
-      console.log('name: ', place.name)
     });
   }, []);
 
