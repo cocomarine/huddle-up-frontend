@@ -6,6 +6,7 @@ const Locations = (places) => {
   let googleMap = null;
 
   // ordering suggested places so that they keep their indices consistently throughout
+  // containing places details such as suggestion and place_id
   const orderedSugList = Object.values(places)[0].sort((a, b) => {
     if (a.suggestion < b.suggestion) {
       return -1;
@@ -16,42 +17,51 @@ const Locations = (places) => {
     return 0;
   });
 
+  // From orderedSugList, make a list of place_id
   const placeIdList = orderedSugList.map((suggestion) => suggestion.place_id);
 
+  // defining function for reverse geocodeing
   const geocoder = new window.google.maps.Geocoder();
   const geocoderResult = (placeId) => {
-    geocoder
-      .geocode({ placeId: placeId }, (results, status) => {
-        // if (status === window.google.maps.GeocoderStatus.OK) {
-          if (results[0]) {
-          return results[0];
-        } else {
-          window.alert("No results found");
-        }
-      })
-      // .then(({ results }) => {
-      //   if (results[0]) {
-      //     return results[0];
-      //   } else {
-      //     window.alert("No results found");
-      //   }
-      // })
-      // .catch((e) => window.alert("Geocoder failed due to: " + e));
-  }
- 
-  console.log(placeIdList[0], placeIdList[1])
-  // const markerList = placeIdList.map((place_id) => geocoderResult(place_id));
+    return new Promise((resolve, reject) => {
+      geocoder
+        .geocode({ placeId: placeId }, (results, status) => {
+          if (status === window.google.maps.GeocoderStatus.OK) {
+            resolve(results[0]);
+            // let lat = results[0].geometry.location.lat();
+            // let lng = results[0].geometry.location.lng();
+            // let address = results[0].formatted_address;
+          } else {
+            reject(new Error("No results found"));
+          }
+        });
+    });
+  };
 
-  // list of labels
-  const labelList = {
-    label1: "1",
-    label2: "2",
-  }
-  // list of marker object
+  // using above geocoderResult function, make a list of reverse geocoding results 
+  // containing locations and address (but not the name of place, need to be connected later using place_id)
+  // but first, making a function to unwrap returned promisses
+  const allGeocoderResults = (idList) => Promise.all(idList.map((id) => geocoderResult(id))).then((results) => results);
+
+  const geocoderList = allGeocoderResults(placeIdList);
+  // const geocoderList = placeIdList.map((place_id) => geocoderResult(place_id));
+  console.log(geocoderList)
+  console.log(geocoderList[0])
+  console.log(JSON.stringify(geocoderList[0]))
+
   const markerList = [
-    { lat: 53.52083, lng: -2.30332, label: labelList.label1 },
-    { lat: 53.48083, lng: -2.14332, label: labelList.label2 }
+    { lat: geocoderList[0].geometry.location.lat(), lng: geocoderList[0].geometry.location.lng(), label: "1"},
+    { lat: geocoderList[1].geometry.location.lat(), lng: geocoderList[1].geometry.location.lng(), label: "2"}
   ]
+  // const labelList = {
+  //   label1: "1",
+  //   label2: "2",
+  // }
+
+  // const markerList = [
+  //   { lat: 53.52083, lng: -2.30332, label: labelList.label1 },
+  //   { lat: 53.48083, lng: -2.14332, label: labelList.label2 }
+  // ]
 
   // initialising map
   const initGoogleMap = () => {
@@ -83,9 +93,6 @@ const Locations = (places) => {
     });
     // map to contain all the markers
     googleMap.fitBounds(bounds);
-
-    console.log(geocoderResult(placeIdList[0]))
-    console.log(geocoderResult(placeIdList[1]))
   }, []);
 
 
