@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useRef, useEffect, useState } from "react";
 import "../../styles/locations.css";
 
@@ -20,17 +21,20 @@ const Locations = (places) => {
   // From orderedSugList, make a list of place_id
   const placeIdList = orderedSugList.map((suggestion) => suggestion.place_id);
 
-  // defining function for reverse geocodeing
   const geocoder = new window.google.maps.Geocoder();
+  
+  // defining function for reverse geocodeing
   const geocoderResult = (placeId) => {
     return new Promise((resolve, reject) => {
       geocoder
         .geocode({ placeId: placeId }, (results, status) => {
           if (status === window.google.maps.GeocoderStatus.OK) {
-            resolve(results[0]);
-            // let lat = results[0].geometry.location.lat();
-            // let lng = results[0].geometry.location.lng();
-            // let address = results[0].formatted_address;
+            return resolve({
+              place_id: results[0].place_id,
+              lat: results[0].geometry.location.lat(),
+              lng: results[0].geometry.location.lng(),
+              address: results[0].formatted_address,
+            })
           } else {
             reject(new Error("No results found"));
           }
@@ -40,19 +44,10 @@ const Locations = (places) => {
 
   // using above geocoderResult function, make a list of reverse geocoding results 
   // containing locations and address (but not the name of place, need to be connected later using place_id)
-  // but first, making a function to unwrap returned promisses
-  const allGeocoderResults = (idList) => Promise.all(idList.map((id) => geocoderResult(id))).then((results) => results);
+  const geocoderList= Promise.all(placeIdList.map((id) => geocoderResult(id).then(res => res)));
 
-  const geocoderList = allGeocoderResults(placeIdList);
-  // const geocoderList = placeIdList.map((place_id) => geocoderResult(place_id));
-  console.log(geocoderList)
-  console.log(geocoderList[0])
-  console.log(JSON.stringify(geocoderList[0]))
+  let markerList = [];
 
-  const markerList = [
-    { lat: geocoderList[0].geometry.location.lat(), lng: geocoderList[0].geometry.location.lng(), label: "1"},
-    { lat: geocoderList[1].geometry.location.lat(), lng: geocoderList[1].geometry.location.lng(), label: "2"}
-  ]
   // const labelList = {
   //   label1: "1",
   //   label2: "2",
@@ -86,15 +81,21 @@ const Locations = (places) => {
 
   useEffect(() => {
     googleMap = initGoogleMap();
+    
     let bounds = new window.google.maps.LatLngBounds();
-    markerList.map(item => {
-      const marker = addMarker(item);
-      return bounds.extend(marker.position);
-    });
-    // map to contain all the markers
-    googleMap.fitBounds(bounds);
-  }, []);
 
+    geocoderList.then((res) => {
+      // map method with callback function for selcting lat and lng and adding label property to each object
+      markerList = res.map(({lat, lng}, index) => ({lat, lng, label: (index + 1).toString()}));
+      console.log(markerList);
+      markerList.map(item => {
+        const marker = addMarker(item);
+        return bounds.extend(marker.position);
+      });
+      // map to contain all the markers
+      googleMap.fitBounds(bounds);
+    });
+  }, []);
 
   return <div 
     ref={googleMapRef}
