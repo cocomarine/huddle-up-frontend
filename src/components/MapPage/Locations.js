@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import "../../styles/locations.css";
 
 const Locations = ({locations}) => {
@@ -7,12 +7,11 @@ const Locations = ({locations}) => {
 
   return (
     <ul className="card__list">
-      <li className="card__item">
-        <span>{locations[0].label} : {locations[0].suggestion}, {locations[0].address}</span>
-      </li>
-      <li className="card__item">
-        <span>item 2</span>
-      </li>
+      {locations.map((item) => {
+        return <li className="card__item" key={`${item.place_id}`}>
+                {item.label} &nbsp;&#58;&nbsp; {item.suggestion} &#44;&nbsp; {item.address}
+              </li>
+      })}
     </ul>
   )
 };

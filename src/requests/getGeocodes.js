@@ -39,30 +39,11 @@ const getGeocodes = (
       // First compare placeList place_id with tempList place_id.
       // If they match, add the suggestion of matching object to the matching placeList object.
       // <-- also can just merge placeList and tempList to make locationList
-      // Using hash table 
-      // const mergeLists = (...arrays) => {
-      //   const merged = {};
-
-      //   arrays.forEach(item => 
-      //     item.forEach(obj => 
-      //       // nullish coalescing assignemnt 
-      //         Object.assign(merged[obj.place_id] ??= {}, obj) 
-      //       )
-      //   );
-
-      //   return Object.values(merged);
-      // }
-
-      // const locationList = mergeLists(tempList, placeList);
-
-      // Or, using map and Object.assign()
+      // Using map and Object.assign()
       const locationList = tempList.map((item, i) => 
         Object.assign({}, item, placeList[i])
       );
-      console.log(placeList)
-      console.log(tempList)
-      console.log(locationList)
-
+      
       setMarkerList(markerList);
       setLocationList(locationList);
     }))
