@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import "../../styles/locations.css";
 
 const Locations = (places) => {
@@ -97,10 +97,36 @@ const Locations = (places) => {
     });
   }, []);
 
-  return <div 
-    ref={googleMapRef}
-    className="google-map-locations"
-  />
-}
+  return (
+    <div class='locations-wrapper'>
+      <div class='row'>
+        <div class='column locations-map'>
+          <li className="column__item">
+            <ul className="card__list">
+              <li className="card__item">
+              <div 
+                ref={googleMapRef}
+                className="google-map-locations"
+                />
+              </li>
+            </ul>
+          </li>
+        </div>
+        <div class='column locations-list'>
+          <li className="column__item">
+            <ul className="card__list">
+              <li className="card__item">
+                <span>item 1</span>
+              </li>
+              <li className="card__item">
+                <span>item 2</span>
+              </li>
+            </ul>
+          </li>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default Locations;
