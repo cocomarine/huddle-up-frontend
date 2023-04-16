@@ -23,12 +23,4 @@ li, ul {
 
 .google-map-locations {
   height: 60vh;
-  width: 100%;
-}
-
-@media only screen and (max-width: 800px) {
-
-  .google-map-locations {
-    height: 200px;
-  }
 }
