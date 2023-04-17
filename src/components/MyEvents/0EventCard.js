@@ -37,6 +37,7 @@ const EventCard = ({
   const [userSuggestion, setUserSuggestion] = useState({}); 
   const [voteCount, setVoteCount] = useState(); 
   const [sugSelected, setSugSelected] = useState(false); 
+
   const [newSuggestion, setNewSuggestion] = useState("");
   const [alert, setAlert] = useState({
     message: "",
@@ -53,58 +54,69 @@ const EventCard = ({
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const eventResponse = await axios.get(`http://localhost:4000/events/${id}`);
-        const event = eventResponse.data;
-        setEvent(event);
+    axios
+      .get(`http://localhost:4000/events/${id}`)
+      .then((res) => {
+        setEvent(res.data);
 
-        const sugs = event.Suggestions;
-        // sorting suggestions so that they keep their orders
-        sugs.sort((a, b) => a.suggestion.localeCompare(b.suggestion));
+        const sugs = res.data.Suggestions;
+        sugs.sort((a, b) => {
+          if (a.suggestion < b.suggestion) {
+            return -1;
+          }
+          if (a.suggestion > b.suggestion) {
+            return 1;
+          }
+          return 0;
+        });
+
         setSuggestions(sugs);
 
-        const totalVotes = sugs.reduce((prev, curr) => prev + curr.votes, 0);
+        const totalVotes = sugs.reduce((prev, current) => 
+          prev + current.votes, 0,
+        );
         setTotalEventVotes(totalVotes);
 
         // update total_votes of event
-        axios.patch(`http://localhost:4000/events/${id}`, { total_votes: totalVotes });
-        
+        axios
+          .patch(`http://localhost:4000/events/${id}`, { total_votes: totalVotes })
+
         // get userevent and find a userevent that matches eventid and userid
-        const userEventResponse = await axios.get(`http://localhost:4000/userevents`);
-        const filteredUserEvent = userEventResponse.data.find(
-          (userevent) => userevent.EventId === id && userevent.UserId === user.id
-        );
-        setVotedSugId(filteredUserEvent?.voted_suggestionId);
+        axios
+          .get(`http://localhost:4000/userevents`)
+          .then((res) => {
+            const filteredUserEvent = res.data.find((userevent) => (userevent.EventId === id && userevent.UserId === user.id));
 
-        // if user selects a sug, setSugSelected
-        if (filteredUserEvent?.voted_suggestionId) {
-          axios
-            .get(`http://localhost:4000/suggestions/${filteredUserEvent.voted_suggestionId}`)
-            .then((res) => {
-              setSugSelected(true);
-            });
-          } else {
-            setSugSelected(false);
-          }      
+            // do setVotedSugId
+            setVotedSugId(filteredUserEvent.voted_suggestionId);
+            
+            // if user selected a sug, setSugSelected
+            if (filteredUserEvent.voted_suggestionId) {
+              axios
+                .get(`http://localhost:4000/suggestions/${filteredUserEvent.voted_suggestionId}`)
+                .then((res) => {
+                  setSugSelected(true);
+                });
+              } else {
+                setSugSelected(false);
+              }
+          });
 
-        // find if user already has made a suggestion for this event and do setUserSuggestion
-        const suggestionResponse = await axios.get(`http://localhost:4000/suggestions`);
-        const filteredUserSuggestion = suggestionResponse.data.find(
-          (sug) => sug.EventId === id && sug.UserId === user.id
-        );
-        setUserSuggestion(filteredUserSuggestion);   
-
-      } catch (error) {
+        // find if user already has put forward suggestion for this event and do setUserSuggestion
+        axios
+          .get(`http://localhost:4000/suggestions`)
+          .then((res) => {
+            const filteredUserSuggestion = res.data.find((sug) => (sug.EventId === id && sug.UserId === user.id));
+            setUserSuggestion(filteredUserSuggestion);
+        });
+      })
+      .catch(() => {
         setAlert({
           message: "Server error, please try again",
           isSuccess: false,
         });
-      }
-    };
-
-    fetchData();
-  }, [user, id, totalEventVotes, voteCount, votedSugId, sugSelected, newSuggestion]);
+      });
+  }, [user, totalEventVotes, voteCount, votedSugId, sugSelected, newSuggestion]);
 
   const updateSugVotes = (sugId, selected, voteCount) => {
     let sugVotes = voteCount;
@@ -113,7 +125,11 @@ const EventCard = ({
     if (selected) {
       sugVotes ++;
     } else {
-      sugVotes = Math.max(0, sugVotes - 1);
+      if (voteCount > 0) {
+        sugVotes --;
+      } else {
+        sugVotes = 0;
+      }
     }
     
     axios
@@ -269,6 +285,12 @@ const EventCard = ({
           {!userSuggestion && <div className="suggestion-input-container">
             <form className="even-card__suggestions__form" onSubmit={handleSubmitSuggestion} >
               <Alert message={alert.message} success={alert.isSuccess} />
+              {/* <input 
+                type="text" 
+                className="suggestion__input"
+                value={newSuggestion}
+                onChange={(e) => setNewSuggestion(e.target.value)}
+              /> */}
               <PlaceInput 
                 setNewSuggestion={setNewSuggestion}
               />
