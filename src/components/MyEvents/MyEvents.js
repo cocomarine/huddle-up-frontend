@@ -53,7 +53,7 @@ const MyEvents = () => {
           if (active) {
             setUsersEvents(res.data.Events);
             console.log(user)
-            console.log(usersEvents)
+            console.log(res.data.Events)
           }
         });
     };

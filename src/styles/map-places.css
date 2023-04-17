@@ -1,0 +1,33 @@
+.map-places-wrapper {
+  padding: 1rem 2rem;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+}
+
+li, ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.column__item {
+  border-radius: .2rem;
+  padding: .5rem;
+}
+
+@media only screen and (min-width: 800px) {
+  .column {
+    flex: 1
+  }
+}
