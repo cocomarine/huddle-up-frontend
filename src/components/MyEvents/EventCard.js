@@ -186,13 +186,13 @@ const EventCard = ({
 
     axios
       .post(`http://localhost:4000/suggestions`, {
-         suggestion: newSuggestion,
-         votes: 0,
-         UserId: user.id,
-         EventId: id,
+        suggestion: newSuggestion.place_name,
+        place_id: newSuggestion.place_id,
+        votes: 0,
+        UserId: user.id,
+        EventId: id,
       })
       .then((res) => {
-        console.log(res.config.data)
         setSuggestions([...suggestions, res.config.data]);
         setNewSuggestion("");
         setAlert({
