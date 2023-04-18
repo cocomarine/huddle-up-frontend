@@ -16,6 +16,12 @@ Originally created by [HJ](https://github.com/cocomarine) and [Rayhan](https://g
 ## Overivew
 huddleUp is a web application that allows users to join and create events so that others can join, make suggestions and/or cast votes for suggestions. The frontend is built with React, and communicates with the backend via REST APIs.
 
+<img src="src/img/huddleUp_demo_voting.gif" width="50%" alt="huddleUp - Animated gif demo voting" title="Animated gif demo voting"/>
+
+<img src="src/img/huddleUp_demo_multievents_map.gif" width="50%" alt="huddleUp - Animated gif demo multievents and map" title="Animated gif demo multievents and map"/>
+
+<img src="src/img/huddleUp_demo_autocomplete_map.gif" width="50%" alt="huddleUp - Animated gif demo autocomplete and map" title="Animated gif demo autocomplete and map"/>
+
 ## Using the app
 To sign up, simply provide your email, name, and password. When creating an event, you can add details such as the title, date, description, participants, and category. The app will generate a unique invite code that you can share with others to join your event.
 
