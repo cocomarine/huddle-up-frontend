@@ -52,8 +52,6 @@ const MyEvents = () => {
         .then((res) => {
           if (active) {
             setUsersEvents(res.data.Events);
-            console.log(user)
-            console.log(res.data.Events)
           }
         });
     };
