@@ -8,11 +8,16 @@ export const eventReducer = (state, action) => {
     case "EVENT_CREATED":
       return { event: action.payload };
     case "EVENT_SUGS_ON_MAP":
-      return { event: action.payload };
+      return { type: "EVENT_SUGS_ON_MAP", event: action.payload };
+    case "EVENT_MOST_VOTED_SUG":
+      return { type: "EVENT_MOST_VOTED_SUG", event: action.payload };
     case "DELETE_EVENT":
       return { 
-        event: state.event.filter((event) => event.id !== action.payload.id)
-      }
+        event: {
+          ...state.event,
+          events: state.event.events.filter((event) => event.id !== action.payload.id)
+        }
+      };
     default: 
       return state;
   }

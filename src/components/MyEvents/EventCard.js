@@ -3,17 +3,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUtensils,
-  faMugSaucer,
-  faMartiniGlassCitrus,
-  faMountainSun,
-  faTicket,
-  faChildReaching,
-  faUsers,
-  faLocationDot,
-} from "@fortawesome/free-solid-svg-icons";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
+import { getCategoryIcon } from "../../utils/icons";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useEventContext } from "../../hooks/useEventContext";
 import PlaceInput from "./PlaceInput";
@@ -203,27 +195,6 @@ const EventCard = ({
     setAlert({ message: "", isSuccess: false });
   };
 
-  const iconSelector = (category) => {
-    switch (category) {
-      case "restaurant":
-        return faUtensils;
-      case "coffee-tea":
-        return faMugSaucer;
-      case "drinks":
-        return faMartiniGlassCitrus;
-      case "outdoor":
-        return faMountainSun;
-      case "cinema-show":
-        return faTicket;
-      case "playdate":
-        return faChildReaching;
-      case "other":
-        return faUsers;
-      default:
-        return faUsers;
-    }
-  };
-
   return (
     <div className="event-card">
       <div className="event-card-container">
@@ -241,7 +212,7 @@ const EventCard = ({
           <FontAwesomeIcon
             size="lg"
             pull="left"
-            icon={iconSelector(category)}
+            icon={getCategoryIcon(category)}
             className="event-icon"
             data-testid="event-icon"
           />
@@ -290,7 +261,7 @@ EventCard.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  date: PropTypes.instanceOf(Date).isRequired,
+  date: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
 };
 

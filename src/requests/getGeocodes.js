@@ -1,5 +1,5 @@
 const getGeocodes = (
-  orderedList,
+  locationInputs,
   setMarkerList,
   setLocationList
 ) => {
@@ -23,8 +23,8 @@ const getGeocodes = (
         });
     });
   };
-
-  const placeList = orderedList.map(({place_id, suggestion}) => ({place_id, suggestion}));
+  
+  const placeList = locationInputs?.map(({place_id, suggestion}) => ({place_id, suggestion}));
 
   const geocoderList= Promise.all(placeList.map(({place_id}) => geocoderResult(place_id).then(res => res)));
 

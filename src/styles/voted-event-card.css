@@ -26,6 +26,29 @@
   padding: 0.5rem;
 }
 
+.voted-card__map-button {
+  cursor: pointer;
+  font-weight: 500;
+  padding: px;
+  border-radius: 100%;
+  /* border: 0.5px solid var(--choc-brown); */
+  border: none;
+  width: 30px;
+  height: 30px;
+  color: var(--choc-brown);
+  background: white;
+  transition: all 0.25s ease;
+  right: 0;
+  top: 0;
+  align-self: flex-end;
+  margin-top: -12px;
+  margin-right: -12px;
+}
+
+.voted-card__map-button:hover {
+  background-color: var(--light-pink);
+}
+
 .voted-card__description {
   padding-bottom: 15px;
 }
