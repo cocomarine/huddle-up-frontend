@@ -2,14 +2,19 @@
 import React, { useRef, useEffect } from "react";
 import "../../styles/map.css";
 
+const DEFAULT_MAP_CENTER = { lat: 53.48083, lng: -2.24332 };
+const DEFAULT_MAP_ZOOM = 11;
+const DEFAULT_SINGLE_MARKER_ZOOM = 13;
+
 const Map = ({markers}) => {
   const googleMapRef = useRef(null);
   let googleMap = null;
-  console.log(markers)
+
+  const MAP_CENTER = markers.length === 1 
+    ? { lat: markers[0].lat, lng: markers[0].lng } : DEFAULT_MAP_CENTER;
 
   useEffect(() => {
     googleMap = initGoogleMap();
-    
     let bounds = new window.google.maps.LatLngBounds();
 
     markers.map((item) => {
@@ -17,18 +22,18 @@ const Map = ({markers}) => {
       return bounds.extend(marker.position);
     });
 
-    googleMap.fitBounds(bounds);
+    if (markers.length < 2) {
+      googleMap.setZoom(DEFAULT_SINGLE_MARKER_ZOOM);
+    } else {
+      googleMap.fitBounds(bounds);
+    }
   }, [markers]);
 
-  // initialising map
+  // map
   const initGoogleMap = () => {
     return new window.google.maps.Map(googleMapRef.current, {
-      zoom: 11, 
-      center: {
-        // Manchester city centre
-        lat: 53.48083,
-        lng: -2.24332
-      },
+      zoom: DEFAULT_MAP_ZOOM, 
+      center: MAP_CENTER,
       disableDefaultUI: true,
     });
   }

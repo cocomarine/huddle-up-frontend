@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-import { useAuthContext } from "../../hooks/useAuthContext";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUtensils,
-  faMugSaucer,
-  faMartiniGlassCitrus,
-  faMountainSun,
-  faTicket,
-  faChildReaching,
-  faUsers,
-} from "@fortawesome/free-solid-svg-icons";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+
+import { getCategoryIcon } from "../../utils/icons";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import { useEventContext } from "../../hooks/useEventContext";
 
 import "../../styles/common/titles.css";
 import "../../styles/voted-event-card.css";
@@ -26,14 +22,24 @@ const VotedEventCard = ({
   category,
   AdminId,
 }) => {
+  const [event, setEvent] = useState({});
   const [votedSuggestion, setVotedSuggestion] = useState("");
 
   const { user } = useAuthContext();
+  const { dispatch } = useEventContext();
+
+  const navigate = useNavigate();
+
+  const changeLocation = (redirect) => {
+    navigate(redirect, { replace: true });
+  };
 
   useEffect(() => {
     axios
       .get(`http://localhost:4000/events/${id}`)
       .then((res) => {
+        const event = res.data;
+        setEvent(event);
 
         const sugs = res.data.Suggestions;
         const mostVoted = sugs.reduce((prev, current) => {
@@ -44,34 +50,22 @@ const VotedEventCard = ({
       })
   }, []);
 
-  const iconSelector = (category) => {
-    switch (category) {
-      case "restaurant":
-        return faUtensils;
-      case "coffee-tea":
-        return faMugSaucer;
-      case "drinks":
-        return faMartiniGlassCitrus;
-      case "outdoor":
-        return faMountainSun;
-      case "cinema-show":
-        return faTicket;
-      case "playdate":
-        return faChildReaching;
-      case "other":
-        return faUsers;
-      default:
-        return faUsers;
-    }
-  };
-
   return (
     <div className="voted-card">
       <div className="voted-card-container">
+      <button 
+            className="voted-card__map-button"
+            onClick={() => {
+              dispatch({type: "EVENT_MOST_VOTED_SUG", payload: event });
+              changeLocation("/mapplaces");
+            }}
+          >
+            <FontAwesomeIcon icon={faLocationDot} />
+        </button>
         <div className="voted-card__title heading1">
           <FontAwesomeIcon
             size="lg"
-            icon={iconSelector(category)}
+            icon={getCategoryIcon(category)}
             className="event-icon"
             data-testid="event-icon"
           />
@@ -90,7 +84,7 @@ VotedEventCard.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  date: PropTypes.instanceOf(Date).isRequired,
+  date: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
 };
 

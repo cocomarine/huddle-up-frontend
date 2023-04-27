@@ -14,8 +14,8 @@ const MapPlaces = () => {
   const [markerList, setMarkerList] = useState([]);
   const [locationList, setLocationList] = useState([]);
 
-  const { event } = useEventContext();
-  console.log(event)
+  const { type, event } = useEventContext();
+  console.log(type, event)
 
   const navigate = useNavigate();
 
@@ -23,52 +23,20 @@ const MapPlaces = () => {
     navigate(redirect, { replace: true });
   };
 
-  // ordering suggested places so that they keep their indices consistently throughout
-  // containing places details such as suggestion and place_id
-  const orderedSugList = Object.values(event.Suggestions).sort((a, b) => {
-    if (a.suggestion < b.suggestion) {
-      return -1;
-    }
-    if (a.suggestion > b.suggestion) {
-      return 1;
-    }
-    return 0;
-  });
-  console.log(orderedSugList)
-
-  // From orderedSugList, make a list of place_id
-  // const placeIdList = orderedSugList.map((suggestion) => suggestion.place_id);
-  // list containing place name and id
-  // const placeList = orderedSugList.map(({place_id, suggestion}) => ({place_id, suggestion}));
-
-  // const geocoder = new window.google.maps.Geocoder();
-  
-  // defining function for reverse geocodeing
-  // const geocoderResult = (placeId) => {
-  //   return new Promise((resolve, reject) => {
-  //     geocoder
-  //     .geocode({ placeId: placeId }, (results, status) => {
-  //         if (status === window.google.maps.GeocoderStatus.OK) {
-  //           return resolve({
-  //             place_id: results[0].place_id,
-  //             lat: results[0].geometry.location.lat(),
-  //             lng: results[0].geometry.location.lng(),
-  //             address: results[0].formatted_address,
-  //           })
-  //         } else {
-  //           reject(new Error("No results found"));
-  //         }
-  //       });
-  //   });
-  // };
-
-  // using above geocoderResult function, make a list of reverse geocoding results 
-  // containing locations and address
-  // const geocoderList= Promise.all(placeList.map(({place_id}) => geocoderResult(place_id).then(res => res)));
-
   useEffect(() => {
+    let locationInput;
+    if (type === "EVENT_SUGS_ON_MAP") {
+      locationInput = Object.values(event.Suggestions).sort((a, b) => a.suggestion.localeCompare(b.suggestion));
+    } else if (type === "EVENT_MOST_VOTED_SUG") {
+      locationInput = Array(Object.values(event.Suggestions).reduce((prev, current) => {
+        return prev.votes > current.votes ? prev : current;
+      }));
+    }
+
+    console.log(locationInput)
+
     getGeocodes(
-      orderedSugList,
+      locationInput,
       setMarkerList,
       setLocationList
     )

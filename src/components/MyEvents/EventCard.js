@@ -3,17 +3,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUtensils,
-  faMugSaucer,
-  faMartiniGlassCitrus,
-  faMountainSun,
-  faTicket,
-  faChildReaching,
-  faUsers,
-  faLocationDot,
-} from "@fortawesome/free-solid-svg-icons";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
+import { getCategoryIcon } from "../../utils/icons";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useEventContext } from "../../hooks/useEventContext";
 import PlaceInput from "./PlaceInput";
@@ -37,7 +29,6 @@ const EventCard = ({
   const [userSuggestion, setUserSuggestion] = useState({}); 
   const [voteCount, setVoteCount] = useState(); 
   const [sugSelected, setSugSelected] = useState(false); 
-
   const [newSuggestion, setNewSuggestion] = useState("");
   const [alert, setAlert] = useState({
     message: "",
@@ -54,69 +45,58 @@ const EventCard = ({
   };
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:4000/events/${id}`)
-      .then((res) => {
-        setEvent(res.data);
+    const fetchData = async () => {
+      try {
+        const eventResponse = await axios.get(`http://localhost:4000/events/${id}`);
+        const event = eventResponse.data;
+        setEvent(event);
 
-        const sugs = res.data.Suggestions;
-        sugs.sort((a, b) => {
-          if (a.suggestion < b.suggestion) {
-            return -1;
-          }
-          if (a.suggestion > b.suggestion) {
-            return 1;
-          }
-          return 0;
-        });
-
+        const sugs = event.Suggestions;
+        // sorting suggestions so that they keep their orders
+        sugs.sort((a, b) => a.suggestion.localeCompare(b.suggestion));
         setSuggestions(sugs);
 
-        const totalVotes = sugs.reduce((prev, current) => 
-          prev + current.votes, 0,
-        );
+        const totalVotes = sugs.reduce((prev, curr) => prev + curr.votes, 0);
         setTotalEventVotes(totalVotes);
 
         // update total_votes of event
-        axios
-          .patch(`http://localhost:4000/events/${id}`, { total_votes: totalVotes })
-
+        axios.patch(`http://localhost:4000/events/${id}`, { total_votes: totalVotes });
+        
         // get userevent and find a userevent that matches eventid and userid
-        axios
-          .get(`http://localhost:4000/userevents`)
-          .then((res) => {
-            const filteredUserEvent = res.data.find((userevent) => (userevent.EventId === id && userevent.UserId === user.id));
+        const userEventResponse = await axios.get(`http://localhost:4000/userevents`);
+        const filteredUserEvent = userEventResponse.data.find(
+          (userevent) => userevent.EventId === id && userevent.UserId === user.id
+        );
+        setVotedSugId(filteredUserEvent?.voted_suggestionId);
 
-            // do setVotedSugId
-            setVotedSugId(filteredUserEvent.voted_suggestionId);
-            
-            // if user selected a sug, setSugSelected
-            if (filteredUserEvent.voted_suggestionId) {
-              axios
-                .get(`http://localhost:4000/suggestions/${filteredUserEvent.voted_suggestionId}`)
-                .then((res) => {
-                  setSugSelected(true);
-                });
-              } else {
-                setSugSelected(false);
-              }
-          });
+        // if user selects a sug, setSugSelected
+        if (filteredUserEvent?.voted_suggestionId) {
+          axios
+            .get(`http://localhost:4000/suggestions/${filteredUserEvent.voted_suggestionId}`)
+            .then((res) => {
+              setSugSelected(true);
+            });
+          } else {
+            setSugSelected(false);
+          }      
 
-        // find if user already has put forward suggestion for this event and do setUserSuggestion
-        axios
-          .get(`http://localhost:4000/suggestions`)
-          .then((res) => {
-            const filteredUserSuggestion = res.data.find((sug) => (sug.EventId === id && sug.UserId === user.id));
-            setUserSuggestion(filteredUserSuggestion);
-        });
-      })
-      .catch(() => {
+        // find if user already has made a suggestion for this event and do setUserSuggestion
+        const suggestionResponse = await axios.get(`http://localhost:4000/suggestions`);
+        const filteredUserSuggestion = suggestionResponse.data.find(
+          (sug) => sug.EventId === id && sug.UserId === user.id
+        );
+        setUserSuggestion(filteredUserSuggestion);   
+
+      } catch (error) {
         setAlert({
           message: "Server error, please try again",
           isSuccess: false,
         });
-      });
-  }, [user, totalEventVotes, voteCount, votedSugId, sugSelected, newSuggestion]);
+      }
+    };
+
+    fetchData();
+  }, [user, id, totalEventVotes, voteCount, votedSugId, sugSelected, newSuggestion]);
 
   const updateSugVotes = (sugId, selected, voteCount) => {
     let sugVotes = voteCount;
@@ -125,11 +105,7 @@ const EventCard = ({
     if (selected) {
       sugVotes ++;
     } else {
-      if (voteCount > 0) {
-        sugVotes --;
-      } else {
-        sugVotes = 0;
-      }
+      sugVotes = Math.max(0, sugVotes - 1);
     }
     
     axios
@@ -202,13 +178,13 @@ const EventCard = ({
 
     axios
       .post(`http://localhost:4000/suggestions`, {
-         suggestion: newSuggestion,
-         votes: 0,
-         UserId: user.id,
-         EventId: id,
+        suggestion: newSuggestion.place_name,
+        place_id: newSuggestion.place_id,
+        votes: 0,
+        UserId: user.id,
+        EventId: id,
       })
       .then((res) => {
-        console.log(res.config.data)
         setSuggestions([...suggestions, res.config.data]);
         setNewSuggestion("");
         setAlert({
@@ -217,27 +193,6 @@ const EventCard = ({
         });
       })
     setAlert({ message: "", isSuccess: false });
-  };
-
-  const iconSelector = (category) => {
-    switch (category) {
-      case "restaurant":
-        return faUtensils;
-      case "coffee-tea":
-        return faMugSaucer;
-      case "drinks":
-        return faMartiniGlassCitrus;
-      case "outdoor":
-        return faMountainSun;
-      case "cinema-show":
-        return faTicket;
-      case "playdate":
-        return faChildReaching;
-      case "other":
-        return faUsers;
-      default:
-        return faUsers;
-    }
   };
 
   return (
@@ -257,7 +212,7 @@ const EventCard = ({
           <FontAwesomeIcon
             size="lg"
             pull="left"
-            icon={iconSelector(category)}
+            icon={getCategoryIcon(category)}
             className="event-icon"
             data-testid="event-icon"
           />
@@ -285,12 +240,6 @@ const EventCard = ({
           {!userSuggestion && <div className="suggestion-input-container">
             <form className="even-card__suggestions__form" onSubmit={handleSubmitSuggestion} >
               <Alert message={alert.message} success={alert.isSuccess} />
-              {/* <input 
-                type="text" 
-                className="suggestion__input"
-                value={newSuggestion}
-                onChange={(e) => setNewSuggestion(e.target.value)}
-              /> */}
               <PlaceInput 
                 setNewSuggestion={setNewSuggestion}
               />
@@ -312,7 +261,7 @@ EventCard.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  date: PropTypes.instanceOf(Date).isRequired,
+  date: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
 };
 
