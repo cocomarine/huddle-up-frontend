@@ -14,22 +14,34 @@ Welcome to huddleUp! This is an app for organising meet-ups created by using Rea
 Originally created by [HJ](https://github.com/cocomarine) and [Rayhan](https://github.com/RayBeera) as part of the Command Shift bootcamp course [(backend repo)](https://github.com/cocomarine/huddle-up-backend), this repo contains the latest updates. 
 
 ## Overivew
-huddleUp is a web application that allows users to join and create events so that others can join, make suggestions and/or cast votes for suggestions. The frontend is built with React, and communicates with the backend via REST APIs.
+huddleUp is a web application that allows users to join and create events so that others can join, make suggestions and/or cast votes for suggestions. The frontend is built with React, and communicates with the backend via REST APIs. 
 
-<img src="src/img/huddleUp_demo_voting.gif" width="50%" alt="huddleUp - Animated gif demo voting" title="Animated gif demo voting"/>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=BYwcvPcPJn8" target="_blank">
+ <img src="https://img.youtube.com/vi/BYwcvPcPJn8/default.jpg" alt="huddleUp presentation video" />
+</a>
+
+<!-- [![Presentation video](https://img.youtube.com/vi/BYwcvPcPJn8/default.jpg)](https://youtu.be/BYwcvPcPJn8) -->
+
+<!-- <img src="src/img/huddleUp_demo_voting.gif" width="50%" alt="huddleUp - Animated gif demo voting" title="Animated gif demo voting"/>
 
 <img src="src/img/huddleUp_demo_multievents_map.gif" width="50%" alt="huddleUp - Animated gif demo multievents and map" title="Animated gif demo multievents and map"/>
 
-<img src="src/img/huddleUp_demo_autocomplete_map.gif" width="50%" alt="huddleUp - Animated gif demo autocomplete and map" title="Animated gif demo autocomplete and map"/>
+<img src="src/img/huddleUp_demo_autocomplete_map.gif" width="50%" alt="huddleUp - Animated gif demo autocomplete and map" title="Animated gif demo autocomplete and map"/> -->
 
 ## Using the app
 To sign up, simply provide your email, name, and password. When creating an event, you can add details such as the title, date, description, participants, and category. The app will generate a unique invite code that you can share with others to join your event.
 
 Once participants have joined, they can start suggesting places and casting votes for their favorite suggestions. As you type in a place name, our app will suggest predicted names and addresses to choose from. Participants can submit their suggestions and see them appear on the event card in the My Events page. To vote, users can click on each suggestion to toggle between voted and unvoted states. Each suggestion will show how many votes it has received so far.
 
+<img src="src/img/huddleUp_demo_voting.gif" width="50%" alt="huddleUp - Animated gif demo voting" title="Animated gif demo voting"/>
+
 Suggested places can be viewed on a map with a list of suggestions and addresses. 
 
+<img src="src/img/huddleUp_demo_autocomplete_map.gif" width="50%" alt="huddleUp - Animated gif demo autocomplete and map" title="Animated gif demo autocomplete and map"/>
+
 Once all the participants have finished voting, the event card will be marked as 'Voting Finished' and the most voted suggestion will be displayed.  
+
+<img src="src/img/huddleUp_demo_multievents_map.gif" width="50%" alt="huddleUp - Animated gif demo multievents and map" title="Animated gif demo multievents and map"/>
 
 ## Concepts covered
 - Interpreting user stories and translating into app features
